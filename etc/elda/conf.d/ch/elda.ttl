@@ -55,9 +55,10 @@ spec:api
 spec:api
         api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
 ##deploy-begin ################################################################################################################
-#		api:variable    [ api:name "visibleSparqlForm"      ; api:value "http://<%= @service_description.service_dns_name %>/app/explorer/sparql.html" ] ;
-#       api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "http://<%= @service_description.service_dns_name %>/ch/query" ] ;
-##deploy-end        
+#		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
+#       api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/ch/query" ] ;
+##deploy-end    
+        api:variable    [api:name  "_velocityPath"          ; api:value "/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
@@ -76,6 +77,14 @@ spec:noneViewer
 ## FORMATTERS
 #
 ###############################################################################
+
+spec:VHtmlFormatter
+    a elda:VelocityFormatter
+    ; api:name "vhtml"
+    ; elda:className "com.epimorphics.lda.renderers.VelocityRendererFactory"
+    ; api:mimeType "text/html"
+    .
+    
 spec:HtmlFormatter
             a                       api:XsltFormatter ;
             api:name                "html" ;
@@ -97,10 +106,6 @@ spec:CsvFormatter
 ##deploy-begin ################################################################################################################            
 #           api:stylesheet          "http://<%= @service_description.service_dns_name %>/lda-assets/xslt/csv.xsl"
 ##deploy-end 
-
-##not-deploy-begin ################################################################################################################   
-            api:stylesheet           "lda-assets/xslt/csv.xsl"
-##not-deploy-end
             .
 
 ##############################################################################################
@@ -116,6 +121,7 @@ spec:scheme
   api:selector spec:scheme-selector;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:definitionViewer;
+  api:defaultFormatter spec:VHtmlFormatter ;
   .
 spec:scheme-selector
     api:where 
