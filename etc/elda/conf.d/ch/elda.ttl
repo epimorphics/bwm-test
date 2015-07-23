@@ -1,0 +1,471 @@
+@prefix spec:    <http://localhost/api/> .
+
+@prefix api:     <http://purl.org/linked-data/api/vocab#> .
+@prefix lda:     <http://purl.org/linked-data/api/vocab#> .
+
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+@prefix dc11:    <http://purl.org/dc/elements/1.1/> .
+@prefix elda: <http://www.epimorphics.com/vocabularies/lda#> .
+
+########################################################################
+#
+# COMPONENTS
+#
+########################################################################
+########################################################################
+#
+# API DESCRIPTION
+#
+########################################################################
+
+spec:api
+	a api:API ;
+   api:lang "en,none" ;
+	rdfs:label "Linked Data API"@en ;
+    rdfs:comment "Linked Data API"@en ;
+    api:base   "/";
+	api:variable   [ api:name "base" ; api:value "http://business.data.gov.uk" ];
+    elda:enableCounting  "optional" ;
+    elda:enableETags true;
+    api:maxPageSize "200" ;
+    api:defaultPageSize "10" ;
+    api:formatter   spec:HtmlFormatter, spec:CsvFormatter ;
+    api:defaultFormatter spec:HtmlFormatter
+    .  
+##deploy-begin ################################################################
+#spec:api
+#    api:sparqlEndpoint <<%= @service_description.data_server_query_endpoint %>>
+#    .
+#    <<%= @service_description.data_server_query_endpoint %>> elda:supportsNestedSelect true .
+##deploy-end
+
+###############################################################################
+#
+# Elda required variable settings for html formatter operation.
+#
+###############################################################################
+spec:api
+        api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
+##deploy-begin ################################################################################################################
+#		api:variable    [ api:name "visibleSparqlForm"      ; api:value "http://<%= @service_description.service_dns_name %>/app/explorer/sparql.html" ] ;
+#       api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "http://<%= @service_description.service_dns_name %>/ch/query" ] ;
+##deploy-end        
+        api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
+        api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
+        .
+        
+###############################################################################
+#
+## VIEWERS
+##
+###############################################################################
+spec:noneViewer
+        a           api:Viewer  ;
+        api:name    "none";
+        .   
+###############################################################################
+#         
+## FORMATTERS
+#
+###############################################################################
+spec:HtmlFormatter
+            a                       api:XsltFormatter ;
+            api:name                "html" ;
+            api:mimeType            "text/html;charset=UTF-8";
+            elda:metadataOptions    "bindings,versions,execution,formats";
+##deploy-begin ################################################################################################################            
+#           api:stylesheet          "http://<%= @service_description.service_dns_name %>/lda-assets/xslt/staging.xsl";
+##deploy-end 
+            .
+
+spec:CsvFormatter
+            a                       api:XsltFormatter ;
+            api:name                "csv" ;
+            api:mimeType            "text/csv;charset=UTF-8" ;
+##
+## elda special
+## 
+            elda:metadataOptions  "bindings,versions,execution,formats";
+##deploy-begin ################################################################################################################            
+#           api:stylesheet          "http://<%= @service_description.service_dns_name %>/lda-assets/xslt/csv.xsl"
+##deploy-end 
+
+##not-deploy-begin ################################################################################################################   
+            api:stylesheet           "lda-assets/xslt/csv.xsl"
+##not-deploy-end
+            .
+
+##############################################################################################
+## Definition API Endpoints
+##############################################################################################
+spec:api    api:endpoint spec:scheme .    
+spec:scheme
+  a api:ListEndpoint ;
+  rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
+  api:uriTemplate "/def/{scheme}" ;
+  api:exampleRequestPath  "/def/ppi";
+  api:variable [ api:name "schemeRegx"; api:value "^{base}/def/{scheme}/" ];
+  api:selector spec:scheme-selector;
+  api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
+  api:defaultViewer spec:definitionViewer;
+  .
+spec:scheme-selector
+    api:where 
+ """   {?item a owl:Ontology} 
+    UNION {?item a qb:ComponentSpecification} 
+    UNION {?item a qb:SliceKey} 
+    UNION {?item a qb:DataStructureDefinition} 
+    UNION {?item a qb:CodedProperty} 
+    UNION {?item a qb:DimensionProperty} 
+    UNION {?item a qb:MeasureProperty} 
+    UNION {?item a qb:AttributeProperty} 
+    UNION {?item a rdf:Property} 
+    UNION {?item a owl:ObjectProperty} 
+    UNION {?item a owl:DatatypeProperty} 
+    UNION {?item a rdfs:Class} 
+    UNION {?item a rdfs:Datatype } 
+    UNION {?item a owl:Class} 
+    UNION {?item a owl:Restriction} 
+    UNION {?item a owl:DatatypeProperty} 
+    UNION {?item a owl:ObjectProperty} 
+    UNION {?item a skos:Concept} 
+    UNION {?item a skos:ConceptScheme}
+    UNION {?item a ppi:RecordStatusConcept }
+    FILTER (regex(STR(?item),?schemeRegx))
+ """;
+    api:orderBy "str(?item)";
+    .
+
+spec:api    api:endpoint spec:scheme-ns .    
+spec:scheme-ns
+  a api:ItemEndpoint ;
+  rdfs:comment "Returns information about a particular vocabulary."@en;
+  api:uriTemplate "/def/{scheme}/" ;
+  api:exampleRequestPath  "/def/ppi/";
+  api:itemTemplate "{base}/def/{scheme}/" ;
+  api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
+  api:defaultViewer spec:schemeViewer;
+  .
+
+spec:api    api:endpoint spec:scheme-def .    
+spec:scheme-def
+  a api:ListEndpoint;
+  rdfs:comment "Returns a list of vocabularies organised under http://landregistry.data.gov.uk/def/"@en;
+  api:exampleRequestPath  "/def";
+  api:viewer    api:describeViewer, spec:schemeViewer, api:basicViewer;
+  api:variable  [api:name "regex" ; api:value "^{base}/def/" ] ;
+  api:uriTemplate   "/def";
+  api:selector [
+    api:where   "{ ?item a owl:Ontology } FILTER (regex(STR(?item),?regex))";
+  ];
+  api:viewer      spec:noneViewer ;
+  api:defaultViewer spec:schemeViewer ;
+  .
+  
+spec:schemeViewer
+  a api:Viewer ;
+  api:name "scheme" ;
+  api:properties "*,*.*";
+  .
+
+spec:api    api:endpoint spec:definition .    
+spec:definition
+  a api:ItemEndpoint ;
+  rdfs:comment "Returns individual term definitions from a vocabulary"@en;
+  api:exampleRequestPath  "/def/ppi/Transaction";
+  api:uriTemplate "/def/{scheme}/{term}" ;
+  api:itemTemplate "{base}/def/{scheme}/{term}" ;
+  api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
+  api:defaultViewer api:describeViewer ;
+  .
+
+spec:definitionViewer
+  a api:Viewer ;
+  api:name "definition" ;
+  api:properties "*,*.*";
+  .
+
+spec:subclass-selector
+    api:where " ?item rdfs:subClassOf ?superclass . " ;
+    api:orderBy "STR(?item)";
+    .
+
+spec:api    api:endpoint spec:subclasses .    
+spec:subclasses
+  a api:ListEndpoint ;
+  rdfs:comment "Lists defined subclasses of a given vocabulary (class) term."@en;
+  api:uriTemplate "/def/{scheme}/{term}/subclass" ;
+  api:variable [
+    api:name "superclass" ;
+    api:value "{base}/def/{scheme}/{term}" ;
+    api:type rdfs:Resource ;
+  ] ;
+  api:selector spec:subclass-selector ;
+  api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
+  api:viewer      spec:noneViewer ;
+  api:defaultViewer spec:definitionViewer ;
+  .
+
+spec:instances-selector
+    api:where " ?item a ?class . " ;
+#    api:orderBy "STR(?item)";
+    .
+
+spec:api    api:endpoint spec:instances .    
+spec:instances
+  a api:ListEndpoint ;
+  rdfs:comment "Lists known instances of a given vocabulary (class) term."@en;
+  api:uriTemplate "/def/{scheme}/{term}/instance" ;
+  api:exampleRequestPath  "/def/ppi/TransactionRecord/instance";
+  api:variable [
+    api:name "class" ;
+    api:value "{base}/def/{scheme}/{term}" ;
+    api:type rdfs:Resource ;
+  ] ;
+  api:selector spec:instances-selector;
+  api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
+  api:viewer      spec:noneViewer ;
+  api:defaultViewer api:describeViewer ;
+  .
+
+spec:properties-selector
+    api:where "{ select ?thing where { ?thing a ?class } limit 1000} ?thing ?item []." ;
+    api:orderBy "STR(?item)";
+    .
+
+spec:api    api:endpoint spec:properties .    
+spec:properties
+  a api:ListEndpoint ;
+  rdfs:comment "Lists properties used in the dataset to describe instances of a given vocabulary (class) term."@en;
+  api:exampleRequestPath  "/def/ppi/TransactionRecord/property";
+  api:uriTemplate "/def/{scheme}/{term}/property" ;
+  api:variable [
+    api:name "class" ;
+    api:value "{base}/def/{scheme}/{term}" ;
+    api:type rdfs:Resource ;
+  ] ;
+  api:selector spec:properties-selector;
+  api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
+  api:viewer      spec:noneViewer ;
+  api:defaultViewer api:describeViewer ;
+  .
+  
+###############################################################################
+#
+# Describe a generic 'thing' as an example of an itemEndpoint.
+#
+###############################################################################
+spec:api  api:endpoint         spec:thing .
+spec:thing
+        a                   api:ItemEndpoint;
+        api:uriTemplate     "/thing?resource={uri}";
+        api:exampleRequestPath
+                            "/thing?resource=http://landregistry.data.gov.uk/def/ppi/TransactionRecord";
+        rdfs:comment        "A generic item endpoint API for asking about a specific thing by 'uri'.";
+        api:itemTemplate    "{uri}";
+        api:viewer          api:basicViewer, api:describeViewer, api:labelledDescribeViewer;
+        api:defaultViewer   api:describeViewer;
+        .
+
+###############################################################################
+#
+# List 'anything' endpoint
+#
+###############################################################################
+spec:api  api:endpoint         spec:anything .
+spec:anything
+    a                   api:ListEndpoint;
+    api:name            "anything" ; 
+    elda:enableCounting "no";
+    rdfs:comment        "A generic listing endpoint for listing things based solely on URI based filter parameters"@en;
+    api:exampleRequestPath  "/anything";
+    api:uriTemplate     "/anything";
+    api:selector [
+        api:where   "FILTER (!isBlank(?item)) ?item a [] ."
+    ] ;
+    api:viewer          api:describeViewer, 
+                        api:basicViewer,
+                        api:labelledDescribeViewer;
+    api:viewer      spec:noneViewer ;
+    api:defaultViewer   api:describeViewer;
+    .
+                          
+########################################################################
+#
+# VOCABULARY
+#
+########################################################################
+########################################################################
+# owl
+########################################################################
+owl:imports
+    rdfs:range      rdfs:Resource;
+    api:label       "imports";
+    .
+
+owl:cardinality
+    rdfs:range  xsd:integer;
+    api:label   "cardinality";
+    .
+
+owl:maxCardinality
+    rdfs:range  xsd:integer;
+    api:label   "maxCardinality";
+    .
+
+owl:minCardinality
+    rdfs:range  xsd:integer;
+    api:label   "minCardinality";
+    .
+
+owl:versionInfo
+    api:label   "versionInfo";
+    .
+
+owl:Class  a       rdfs:Class ;
+        api:label  "owl_Class" .
+
+########################################################################
+# rdf(s)
+########################################################################
+rdfs:comment
+        api:label  "comment" ;
+        api:structured  true .
+
+rdfs:range  rdfs:range  rdfs:Resource ;
+        api:label   "range" .
+
+rdf:type
+  rdfs:range     rdfs:Class;
+  api:label      "type" .
+  
+rdf:first
+  rdfs:range     rdf:List;
+# avoid conflicting use of "first" short name.
+  api:label     "rdf_first" .
+
+rdf:rest
+  rdfs:range     rdf:List;
+  api:label     "rest" .
+
+rdf:value
+  api:structured        true;
+  api:label "value" .
+
+rdf:type  rdfs:range     rdfs:Resource ;
+        api:label        "type" ;
+        api:multiValued  true ;
+        .
+
+rdfs:label  api:label    "label" ;
+        a   rdf:Property ;
+        api:multiValued  true ;
+        api:structured   true .
+
+owl:sameAs  rdfs:range   rdfs:Resource ;
+        api:label        "sameAs" ;
+        api:multiValued  true ;
+        .
+
+
+rdfs:domain
+      rdfs:range rdfs:Class ;
+      api:label "domain" .
+
+rdfs:range  rdfs:range  rdfs:Resource ;
+        api:label   "range" .
+
+rdfs:seeAlso
+      rdfs:range rdfs:Resource ;
+      api:label "seeAlso" .
+
+rdfs:isDefinedBy
+      rdfs:range rdfs:Resource ;
+      api:label "isDefinedBy" .
+
+rdfs:subPropertyOf
+      rdfs:range rdfs:Resource ;
+      api:label "subPropertyOf" .
+
+rdfs:subClassOf  
+        rdfs:range  rdfs:Resource ;
+        api:label   "subClassOf" .
+
+rdfs:Class  a      rdfs:Class ;
+        api:label  "rdfs_Class" .
+
+##################################################
+# XSD datatypes
+##################################################
+xsd:gYear
+    api:label   "gYear" ;
+    a           rdfs:Datatype .
+
+xsd:gYearMonth
+    api:label   "gYearMonth" ;
+    a           rdfs:Datatype .
+    
+xsd:dateTime
+    api:label   "dateTime" ;
+    a           rdfs:Datatype .
+
+xsd:date
+    api:label   "date" ;
+    a           rdfs:Datatype .
+
+xsd:integer
+    a           rdfs:Datatype ;
+    api:label  "integer" .
+    
+xsd:float  a       rdfs:Datatype ;
+        api:label  "float" .
+
+xsd:decimal  a     rdfs:Datatype ;
+        api:label  "decimal" .
+    
+########################################################################
+# dc
+########################################################################
+
+dc:creator
+      a owl:DatatypeProperty ;
+      #rdfs:range xsd:string ;
+      api:label "creator" .
+
+dc:date
+      a owl:DatatypeProperty ;
+      rdfs:range xsd:date ;
+      api:label "dc_date" .
+
+dc:description
+      a owl:DatatypeProperty ;
+      #rdfs:range xsd:string ;
+      api:label "description" .
+
+dc:identifier
+      a owl:DatatypeProperty ;
+      #rdfs:range xsd:string ;
+      api:label "identifier" .
+
+dc:publisher
+      a owl:DatatypeProperty ;
+      #rdfs:range xsd:string ;
+      api:label "publisher" .
+
+dc:subject
+      a owl:DatatypeProperty ;
+      #rdfs:range xsd:string ;
+      api:label "subject" .
+
+dc:title
+      a owl:DatatypeProperty ;
+      #rdfs:range xsd:string ;
+      api:label "title" .
