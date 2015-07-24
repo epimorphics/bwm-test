@@ -422,12 +422,12 @@ spec:returnsScheduleViewer
 
 ch-terms:accountRefDayOfMonth
     a owl:DatatypeProperty
-  ; apiLlabel "accountRefDayOfMonth"
+  ; api:label "accountRefDayOfMonth"
   .
 
 ch-terms:accountRefMonth
     a owl:DatatypeProperty
-  ; apiLlabel "accountRefMonth"
+  ; api:label "accountRefMonth"
   .
   
 ch-terms:accountsSchedule
@@ -481,7 +481,7 @@ ch-terms:registeredCompany
 
 adms:schemaAgency
     a owl:DatatypeProperty
-  ; api:label schemaAgency
+  ; api:label "schemaAgency"
   .
   
 #
