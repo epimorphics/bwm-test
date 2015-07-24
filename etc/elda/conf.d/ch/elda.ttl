@@ -286,7 +286,8 @@ spec:anything
     api:defaultViewer   api:describeViewer;
     .
  
-spec:api api:endpoint spec:company
+spec:api api:endpoint spec:company .
+spec:company
     a                   api:ItemEndpoint;
     api:uriTemplate     "/doc/company/{id}";
     api:exampleRequestPath
@@ -303,12 +304,8 @@ spec:api api:endpoint spec:company
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "*, registeredAddress.*, accountsSchedule, returnsSchedule", orgStatus.label, orgType.label, registration.label"
-    .
-    
-    
- 
-        .               
+    api:properties    "*, registeredAddress.*, accountsSchedule, returnsSchedule, orgStatus.label, orgType.label, registration.label"
+    .            
 
 #
 # VOCABULARY
@@ -330,7 +327,7 @@ ch-terms:countryOfOrigin
   
 ch-terms:incorporationDate
     a owl:DatatypeProperty
-  ; api:label "incorporationDate
+  ; api:label "incorporationDate"
   .
   
 ch-terms:registeredAddress
