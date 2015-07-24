@@ -96,7 +96,7 @@ spec:CsvFormatter
 # elda special
 # 
             elda:metadataOptions  "bindings,versions,execution,formats";
-           api:stylesheet          "file:/var/lib/www/ch/html/lda-assets/xslt/csv.xsl"
+           api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
            .
 
 ##############################################################################################
