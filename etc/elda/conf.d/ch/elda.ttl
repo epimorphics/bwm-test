@@ -329,7 +329,7 @@ spec:companies
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "*, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied,"
+    api:properties    "*, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied,"
     .
     
 spec:api api:endpoint spec:address .
@@ -409,7 +409,7 @@ spec:returnsSchedule
 spec:returnsScheduleViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type, lastMadeUpdate, nextDueDate, registeredCompany.prefLabel" ;
+    api:properties         "type, lastMadeUpDate, nextDueDate, registeredCompany.prefLabel" ;
     .
 
 spec:api api:endpoint spec:mortgages .
@@ -466,9 +466,9 @@ ch-terms:incorporationDate
   ; api:label "incorporationDate"
   .
   
-ch-terms:lastMadeUpdate
+ch-terms:lastMadeUpDate
     a owl:DatatypeProperty
-  ; api:label "lastMadeUpdate"
+  ; api:label "lastMadeUpDate"
   .
   
 ch-terms:mortgages
