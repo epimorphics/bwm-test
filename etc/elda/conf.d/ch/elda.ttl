@@ -4,10 +4,11 @@
 
 @prefix spec:    <http://localhost/api/> .
 
+@prefix adms:     <http://www.w3.org/ns/adms#> .
 @prefix api:      <http://purl.org/linked-data/api/vocab#> .
 @prefix ch-terms: <http://business.data.gov.uk/company-profile/def/company-terms/> .
 @prefix dc:       <http://purl.org/dc/elements/1.1/> .
-@prefix dc11:     <http://purl.org/dc/elements/1.1/> .
+@prefix dct:      <http://purl.org/dc/terms/> .
 @prefix dcterms:  <http://purl.org/dc/terms/> .
 @prefix elda:     <http://www.epimorphics.com/vocabularies/lda#> .
 @prefix foaf:     <http://xmlns.com/foaf/0.1/> .
@@ -294,17 +295,17 @@ spec:anything
  
 spec:api api:endpoint spec:company .
 spec:company
-    a                   api:ItemEndpoint;
-    api:uriTemplate     "/doc/company/{id}";
+    a                   api:ItemEndpoint ;
+    api:uriTemplate     "/doc/company/{id}" ;
     api:exampleRequestPath
-                        "/doc/company/08847552";
-    rdfs:comment        "An item endpoint for companies.";
-    api:itemTemplate    "http://business.data.gov.uk/id/company/{id}";
-    api:viewer          api:basicViewer,
-                        api:describeViewer,
-                        api:labelledDescribeViewer,
-                        spec:companyViewer;
-    api:defaultViewer   api:Viewer;
+                        "/doc/company/08847552" ;
+    rdfs:comment        "An item endpoint for companies." ;
+    api:itemTemplate    "http://business.data.gov.uk/id/company/{id}" ;
+    api:viewer          api:basicViewer ,
+                        api:describeViewer ,
+                        api:labelledDescribeViewer ,
+                        spec:companyViewer ;
+    api:defaultViewer   spec:companyViewer ;
     .
     
 spec:api api:endpoint spec:companies .
@@ -328,7 +329,7 @@ spec:companies
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "*, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule, returnsSchedule, orgStatus.label, orgType.label, registration.label"
+    api:properties    "*, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule, orgStatus.label, orgType.label, registration.label"
     .
     
 spec:api api:endpoint spec:address .
@@ -345,30 +346,72 @@ spec:address
     api:defaultViewer      spec:addressViewer ;
     .
     
-spec:api api:endpoint spec:addresses .
-spec:addresses
-    a                      api:ListEndpoint ;
-    api:uriTemplate        "company-profile/company/*/registered-address" ;
-    api:exampleRequestPath "/company-profile/company/*/registered-address" ;
-    rdfs:comment           "A list endpoint for addresses." ;
-    api:selector [
-        api:where   """
-          ?item a vcard:Address
-        """
-    ] ;
-    api:viewer             api:basicViewer ,
-                           api:describeViewer ,
-                           api:labelledDescribeViewer ,
-                           spec:addressViewer ;
-    api:defaultViewer      spec:addressViewer ;
-    .
-    
 spec:addressViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type, country, extended-address, locality, street-address, postcode, registeredCompany" ;
+    api:properties         "type, country, extended-address, locality, street-address, postcode, registeredCompany.prefLabel" ;
     .
- 
+    
+spec:api api:endpoint spec:accountsSchedule .
+spec:accountsSchedule
+    a                      api:ItemEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/accounts-schedule" ;
+    api:exampleRequestPath "/company-profile/company/08847552/accounts-schedule" ;
+    rdfs:comment           "An item endpoint for accounts schedules." ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/accounts-schedule" ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:accountsScheduleViewer ;
+    api:defaultViewer      spec:accountsScheduleViewer ;
+    .
+    
+spec:accountsScheduleViewer
+    a                      api:Viewer ;
+    api:name               "normal" ;
+    api:properties         "type, accountRefDayOfMonth, accountRefMonth, nextDueDate, registeredCompany.prefLabel" ;
+    .
+    
+spec:api api:endpoint spec:registration .
+spec:registration
+    a                      api:ItemEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/registration" ;
+    api:exampleRequestPath "/company-profile/company/08847552/registration" ;
+    rdfs:comment           "An item endpoint for registrations." ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/registration" ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:registrationViewer ;
+    api:defaultViewer      spec:registrationViewer ;
+    .
+    
+spec:registrationViewer
+    a                      api:Viewer ;
+    api:name               "normal" ;
+    api:properties         "type, issued, notation, schemaAgency" ;
+    .    
+    
+spec:api api:endpoint spec:returnsSchedule .
+spec:returnsSchedule
+    a                      api:ItemEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/returns-schedule" ;
+    api:exampleRequestPath "/company-profile/company/08847552/returns-schedule" ;
+    rdfs:comment           "An item endpoint for returns schedules." ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/returns-schedule" ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:returnsScheduleViewer ;
+    api:defaultViewer      spec:returnsScheduleViewer ;
+    .
+    
+spec:returnsScheduleViewer
+    a                      api:Viewer ;
+    api:name               "normal" ;
+    api:properties         "type, lastMadeUpdate, nextDueDate, schemaAgency" ;
+    .
+    
 #
 # VOCABULARY
 #
@@ -377,6 +420,16 @@ spec:addressViewer
 # ch-terms
 #
 
+ch-terms:accountRefDayOfMonth
+    a owl:DatatypeProperty
+  ; apiLlabel "accountRefDayOfMonth
+  .
+
+ch-terms:accountRefMonth
+    a owl:DatatypeProperty
+  ; apiLlabel "accountRefMonth
+  .
+  
 ch-terms:accountsSchedule
     a owl:ObjectProperty
   ; api:label "accountsSchedule"
@@ -392,9 +445,19 @@ ch-terms:incorporationDate
   ; api:label "incorporationDate"
   .
   
+ch-terms:lastMadeUpdate
+    a owl:DatatypeProperty
+  ; api:label "lastMadeUpdate"
+  .
+  
 ch-terms:mortgages
     a owl:DatatypeProperty
   ; api:label "mortgages"
+  .
+  
+ch-terms:nextDueDate
+    a owl:DatatypeProperty
+  ; api:label "nextDueDate"
   .
   
 ch-terms:returnsSchedule
@@ -410,6 +473,15 @@ ch-terms:registeredAddress
 ch-terms:registeredCompany
     a owl:ObjectProperty
   ;  api:label "registredCompany"
+  .
+  
+#
+# adms
+#
+
+adms:schemaAgency
+    a owl:DatatypeProperty
+  ; api:label schemaAgency
   .
   
 #
@@ -482,6 +554,29 @@ vcard:organization-name
 vcard:street-address
     a owl:DatatypeProperty
   ; api:label "street-address"
+  .
+
+#
+# skos
+# 
+
+skos:notation
+    a rdfs:Property
+  ; api:label "notation"
+  .
+  
+skos:prefLabel
+    a rdfs:Property
+  ; api:label "prefLabel"
+  .
+  
+#
+# dcterms
+#
+
+dct:issued
+    a owl:DatatypeProperty
+  ; api:label "issued"
   .
     
 #
