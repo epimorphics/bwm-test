@@ -342,7 +342,7 @@ ch-terms:mortgages
   
 ch-terms:returnsSchedule
     a owl:ObjectProperty
-  ; api:label "returnsSchedule
+  ; api:label "returnsSchedule"
   .
   
 #
