@@ -329,7 +329,7 @@ spec:companies
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "orgIdentifier, notation, prefLabel, legalName, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin"
+    api:properties    "orgIdentifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode.label, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin"
     .
     
 spec:api api:endpoint spec:address .
@@ -435,10 +435,10 @@ spec:mortgagesViewer
 spec:api api:endpoint spec:previousName .
 spec:previousName
     a                      api:ItemEndpoint ;
-    api:uriTemplate        "/company-profile/company/{id}/previousName/{nameId}" ;
+    api:uriTemplate        "/company-profile/company/{id}/previous-name/{nameId}" ;
     api:exampleRequestPath "/company-profile/company/SC200886/previous-name/2002-01-07" ;
     rdfs:comment           "An item endpoint for previous name data." ;
-    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/previousName/{nameId}" ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/previous-name/{nameId}" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -449,10 +449,10 @@ spec:previousName
 spec:api api:endpoint spec:previousNames .
 spec:previousNames
     a                      api:ListEndpoint ;
-    api:uriTemplate        "/company-profile/company/{id}/previousName" ;
+    api:uriTemplate        "/company-profile/company/{id}/previous-name" ;
     api:exampleRequestPath "/company-profile/company/SC200886/previous-name" ;
     rdfs:comment           "An list endpoint for the previous names of company." ; 
-    api:variable           [ api:name "?company" ; api:value "http://business.data.gov.uk/company/{id}" ] ; 
+    api:variable           [ api:name "company" ; api:value <http://business.data.gov.uk/id/company/{id}> ] ; 
     api:selector [
         api:where   """
           ?item ch-terms:registeredCompany ?company ;
