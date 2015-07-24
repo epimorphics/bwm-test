@@ -329,7 +329,7 @@ spec:companies
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "*, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule, orgStatus.label, orgType.label, registration.label"
+    api:properties    "*, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied,"
     .
     
 spec:api api:endpoint spec:address .
@@ -349,7 +349,7 @@ spec:address
 spec:addressViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type, country, extended-address, locality, street-address, postcode, registeredCompany.prefLabel" ;
+    api:properties         "type, country, extended-address, locality, street-address, postcode.label, registeredCompany.prefLabel" ;
     .
     
 spec:api api:endpoint spec:accountsSchedule .
@@ -409,8 +409,29 @@ spec:returnsSchedule
 spec:returnsScheduleViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type, lastMadeUpdate, nextDueDate, schemaAgency" ;
+    api:properties         "type, lastMadeUpdate, nextDueDate, registeredCompany.prefLabel" ;
     .
+
+spec:api api:endpoint spec:mortgages .
+spec:mortgages
+    a                      api:ItemEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/mortgages" ;
+    api:exampleRequestPath "/company-profile/company/08847552/mortgages" ;
+    rdfs:comment           "An item endpoint for mortgages information." ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/mortgages" ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:mortgagesViewer ;
+    api:defaultViewer      spec:mortgagesViewer ;
+    .
+    
+spec:mortgagesViewer
+    a                      api:Viewer ;
+    api:name               "normal" ;
+    api:properties         "type, numMortgageCharges, numMortgagesOutstanding, numMortgagesPartSatisfied, numMortgagesSatisfied, registeredCompany.prefLabel" ;
+    .
+    
     
 #
 # VOCABULARY
@@ -458,6 +479,26 @@ ch-terms:mortgages
 ch-terms:nextDueDate
     a owl:DatatypeProperty
   ; api:label "nextDueDate"
+  .
+  
+ch-terms:numMortgageCharges
+    a owl:DatatypeProperty
+  ; api:label "numMortgageCharges"
+  .
+  
+ch-terms:numMortgagesPartSatisfied
+    a owl:DatatypeProperty
+  ; api:label "numMortgagesPartSatisfied"
+  .
+  
+ch-terms:numMortgagesOutstanding
+    a owl:DatatypeProperty
+  ; api:label "numMortgagesOutstanding"
+  .
+  
+ch-terms:numMortgagesSatisfied
+    a owl:DatatypeProperty
+  ; api:label "numMortgagesSatisfied"
   .
   
 ch-terms:returnsSchedule
