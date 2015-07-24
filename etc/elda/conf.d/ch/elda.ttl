@@ -312,7 +312,7 @@ spec:companies
     a                      api:ListEndpoint ;
     api:uriTemplate        "/doc/company" ;
     api:exampleRequestPath "/doc/company" ;
-    rdfs:comment           "A list endpoint for companies."
+    rdfs:comment           "A list endpoint for companies." ;
     api:selector [
         api:where   """
           ?item a rov:RegisteredOrganization
@@ -337,7 +337,7 @@ spec:address
     api:uriTemplate        "/company-profile/company/{id}/registered-address" ;
     api:exampleRequestPath "/company-profile/company/08847552/registered-address" ;
     rdfs:comment           "An item endpoint for addresses." ;
-    api:itemTemplate       "http://business.data.gov.uk"/company-profile/company/{id}/registered-address" ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/registered-address" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -348,8 +348,8 @@ spec:address
 spec:api api:endpoint spec:addresses .
 spec:addresses
     a                      api:ListEndpoint ;
-    api:uriTemplate        "company-profile/company/*/registered-address ;
-    api:exampleRequestPath "/company-profile/company/*/registered-address ;
+    api:uriTemplate        "company-profile/company/*/registered-address" ;
+    api:exampleRequestPath "/company-profile/company/*/registered-address" ;
     rdfs:comment           "A list endpoint for addresses." ;
     api:selector [
         api:where   """
