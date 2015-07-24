@@ -13,13 +13,15 @@
 @prefix foaf:     <http://xmlns.com/foaf/0.1/> .
 @prefix org:      <http://www.w3.org/ns/org#> .
 @prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix postcode: <http://data.ordnancesurvey.co.uk/ontology/postcode/> .
 @prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rov:      <http://www.w3.org/ns/regorg#> .
 @prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
 @prefix sic:      <http://business.data.gov.uk/company-profile/def/sic-2007/> .
-@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix vcard:    <http://www.w3.org/2006/vcard/ns#> .
 @prefix void:     <http://rdfs.org/ns/void#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 
 #
 # API DESCRIPTION
@@ -285,6 +287,10 @@ spec:anything
     api:viewer      spec:noneViewer ;
     api:defaultViewer   api:describeViewer;
     .
+    
+#
+# Company Endpoints
+#
  
 spec:api api:endpoint spec:company .
 spec:company
@@ -301,12 +307,68 @@ spec:company
     api:defaultViewer   api:Viewer;
     .
     
+spec:api api:endpoint spec:companies .
+spec:companies
+    a                      api:ListEndpoint ;
+    api:uriTemplate        "/doc/company" ;
+    api:exampleRequestPath "/doc/company" ;
+    rdfs:comment           "A list endpoint for companies."
+    api:selector [
+        api:where   """
+          ?item a rov:RegisteredOrganization
+        """
+    ] ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer ,
+                           spec:companyViewer ;
+    api:defaultViewer      spec:companyViewer ;
+    .
+    
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "*, registeredAddress.*, accountsSchedule, returnsSchedule, orgStatus.label, orgType.label, registration.label"
-    .            
-
+    api:properties    "*, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule, returnsSchedule, orgStatus.label, orgType.label, registration.label"
+    .
+    
+spec:api api:endpoint spec:address .
+spec:address
+    a                      api:ItemEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/registered-address" ;
+    api:exampleRequestPath "/company-profile/company/08847552/registered-address" ;
+    rdfs:comment           "An item endpoint for addresses." ;
+    api:itemTemplate       "http://business.data.gov.uk"/company-profile/company/{id}/registered-address" ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:addressViewer ;
+    api:defaultViewer      spec:addressViewer ;
+    .
+    
+spec:api api:endpoint spec:addresses .
+spec:addresses
+    a                      api:ListEndpoint ;
+    api:uriTemplate        "company-profile/company/*/registered-address ;
+    api:exampleRequestPath "/company-profile/company/*/registered-address ;
+    rdfs:comment           "A list endpoint for addresses." ;
+    api:selector [
+        api:where   """
+          ?item a vcard:Address
+        """
+    ] ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer ,
+                           spec:addressViewer ;
+    api:defaultViewer      spec:addressViewer ;
+    .
+    
+spec:addressViewer
+    a                      api:Viewer ;
+    api:name               "normal" ;
+    api:properties         "type, country, extended-address, locality, street-address, postcode, registeredCompany" ;
+    .
+ 
 #
 # VOCABULARY
 #
@@ -330,11 +392,6 @@ ch-terms:incorporationDate
   ; api:label "incorporationDate"
   .
   
-ch-terms:registeredAddress
-    a owl:ObjectProperty
-  ;  api:label "registredAddress"
-  .
-  
 ch-terms:mortgages
     a owl:DatatypeProperty
   ; api:label "mortgages"
@@ -343,6 +400,16 @@ ch-terms:mortgages
 ch-terms:returnsSchedule
     a owl:ObjectProperty
   ; api:label "returnsSchedule"
+  . 
+
+ch-terms:registeredAddress
+    a owl:ObjectProperty
+  ;  api:label "registredAddress"
+  .
+  
+ch-terms:registeredCompany
+    a owl:ObjectProperty
+  ;  api:label "registredCompany"
   .
   
 #
@@ -376,6 +443,45 @@ rov:orgType
 rov:registration
     a owl:ObjectProperty
   ; api:label "registration"
+  .
+  
+#
+# Ordnance Survey postcode
+#
+
+postcode:postcode
+    a owl:ObjectProperty
+  ; api:label "postcode"
+  .
+  
+#
+# vcard
+#
+
+
+vcard:country
+    a owl:DatatypeProperty
+  ; api:label "country"
+  .
+  
+vcard:extended-address
+    a owl:DatatypeProperty
+  ; api:label "extended-address"
+  .
+  
+vcard:locality
+    a owl:DatatypeProperty
+  ; api:label "locality"
+  .
+  
+vcard:organization-name
+    a owl:DatatypeProperty
+  ; api:label "organization-name"
+  .
+  
+vcard:street-address
+    a owl:DatatypeProperty
+  ; api:label "street-address"
   .
     
 #
