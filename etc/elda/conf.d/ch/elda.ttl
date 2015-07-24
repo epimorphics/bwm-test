@@ -316,7 +316,7 @@ spec:companies
     rdfs:comment           "A list endpoint for companies." ;
     api:selector [
         api:where   """
-          ?item a rov:RegisteredOrganization
+          ?item a rov:RegisteredOrganization ;
         """
     ] ;
     api:viewer             api:basicViewer ,
@@ -329,7 +329,7 @@ spec:companies
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "*, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied,"
+    api:properties    "orgIdentifier, notation, prefLabel, legalName, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin"
     .
     
 spec:api api:endpoint spec:address .
@@ -431,6 +431,46 @@ spec:mortgagesViewer
     api:name               "normal" ;
     api:properties         "type, numMortgageCharges, numMortgagesOutstanding, numMortgagesPartSatisfied, numMortgagesSatisfied, registeredCompany.prefLabel" ;
     .
+
+spec:api api:endpoint spec:previousName .
+spec:previousName
+    a                      api:ItemEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/previousName/{nameId}" ;
+    api:exampleRequestPath "/company-profile/company/SC200886/previous-name/2002-01-07" ;
+    rdfs:comment           "An item endpoint for previous name data." ;
+    api:itemTemplate       "http://business.data.gov.uk/company-profile/company/{id}/previousName/{nameId}" ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:previousNameViewer ;
+    api:defaultViewer      spec:previousNameViewer ;
+    .
+
+spec:api api:endpoint spec:previousNames .
+spec:previousNames
+    a                      api:ListEndpoint ;
+    api:uriTemplate        "/company-profile/company/{id}/previousName" ;
+    api:exampleRequestPath "/company-profile/company/SC200886/previous-name" ;
+    rdfs:comment           "An list endpoint for the previous names of company." ; 
+    api:variable           [ api:name "?company" ; api:value "http://business.data.gov.uk/company/{id}" ] ; 
+    api:selector [
+        api:where   """
+          ?item ch-terms:registeredCompany ?company ;
+                a                          ch-terms:PreviousName ;
+        """
+    ] ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer,
+                           spec:previousNameViewer ;
+    api:defaultViewer      spec:previousNameViewer ;
+    .
+    
+spec:previousNameViewer
+    a                      api:Viewer ;
+    api:name               "normal" ;
+    api:properties         "type, companyName, conDate, registeredCompany.prefLabel" ;
+    .
     
     
 #
@@ -449,6 +489,16 @@ ch-terms:accountRefDayOfMonth
 ch-terms:accountRefMonth
     a owl:DatatypeProperty
   ; api:label "accountRefMonth"
+  .
+  
+ch-terms:companyName
+    a owl:DatatypeProperty
+  ; api:label "companyName"
+  .
+  
+ch-terms:conDate
+    a owl:DatatypeProperty
+  ; api:label "conDate"
   .
   
 ch-terms:accountsSchedule
@@ -501,6 +551,11 @@ ch-terms:numMortgagesSatisfied
   ; api:label "numMortgagesSatisfied"
   .
   
+ch-terms:previousName
+    a owl:ObjectProperty
+  ; api:label "previousName"
+  .
+  
 ch-terms:returnsSchedule
     a owl:ObjectProperty
   ; api:label "returnsSchedule"
@@ -531,7 +586,7 @@ adms:schemaAgency
 
 org:identifier
     a owl:DatatypeProperty
-  ; api:label "identifier"
+  ; api:label "orgIdentifier"
   .
  
 #
@@ -541,6 +596,11 @@ org:identifier
 rov:legalName
     a rdf:Property
   ; api:label "legalName"
+  .
+  
+rov:orgActivity
+    a owl:ObjectProperty
+  ; api:label "orgActivity"
   .
   
 rov:orgStatus
