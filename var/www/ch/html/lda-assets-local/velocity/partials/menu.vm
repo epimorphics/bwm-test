@@ -1,0 +1,8 @@
+<div class="js-toggle-nav" id="global-nav">
+  <a id="user-signin-mobile" href="/signin" class="sign-in">Sign in / Register</a>
+  <nav role="navigation" class="content mobile-hidden">
+    <ul id="navigation" class="mobile-hidden">
+      <li class="unauthenticated"><a id="forum" href="http://forum.aws.chdev.org/">Forum</a></li>
+    </ul>
+  </nav>
+</div>

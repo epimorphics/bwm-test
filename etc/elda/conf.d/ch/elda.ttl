@@ -50,7 +50,7 @@ spec:api
         api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
         api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/ch/query" ] ;
-        api:variable    [ api:name  "_velocityPath"         ; api:value "file://var/www/ch/html/lda-assets/velocity"] ;    
+        api:variable    [ api:name  "_velocityPath"         ; api:value "file:///var/www/ch/html/lda-assets-local/velocity, file:///var/www/ch/html/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .

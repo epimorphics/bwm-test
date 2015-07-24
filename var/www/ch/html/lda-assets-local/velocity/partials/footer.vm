@@ -1,0 +1,11 @@
+<footer class="group js-footer" id="footer" role="contentinfo">
+  <nav>
+    <div>
+      <ul>
+       <li><a href="http://resources.companieshouse.gov.uk/legal/termsAndConditions.shtml">Policies</a></li>
+       <li><a href="/help/cookies">Cookies</a></li>
+       <li><a href="/help/contact-us">Contact us</a></li>
+     </ul>
+   </div>
+ </nav>
+</footer>
