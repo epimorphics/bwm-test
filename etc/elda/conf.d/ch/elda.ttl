@@ -28,7 +28,7 @@
 
 spec:api
 	a api:API ;
-   api:lang "en,none" ;
+    api:lang "en,none" ;
 	rdfs:label "Linked Data API"@en ;
     rdfs:comment "Linked Data API"@en ;
     api:base   "/";
@@ -37,15 +37,13 @@ spec:api
     elda:enableETags true;
     api:maxPageSize "200" ;
     api:defaultPageSize "10" ;
-    api:formatter   spec:HtmlFormatter, spec:CsvFormatter ;
-    api:defaultFormatter spec:HtmlFormatter
+    api:formatter   spec:CsvFormatter, spec:VHtmlFormatter ;
+    api:defaultFormatter spec:VHtmlFormatter
     .  
-##deploy-begin ################################################################
-#spec:api
-#    api:sparqlEndpoint <<%= @service_description.data_server_query_endpoint %>>
-#    .
-#    <<%= @service_description.data_server_query_endpoint %>> elda:supportsNestedSelect true .
-##deploy-end
+
+spec:api
+    api:sparqlEndpoint <<%= @service_description.data_server_query_endpoint %>>
+    .
 
 ###############################################################################
 #
@@ -54,11 +52,9 @@ spec:api
 ###############################################################################
 spec:api
         api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
-##deploy-begin ################################################################################################################
-#		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
-#       api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/ch/query" ] ;
-##deploy-end    
-        api:variable    [api:name  "_velocityPath"          ; api:value "/lda-assets/velocity"] ;    
+		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
+        api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/ch/query" ] ;
+        api:variable    [api:name  "_velocityPath"          ; api:value "file://var/www/ch/html/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
@@ -80,7 +76,7 @@ spec:noneViewer
 
 spec:VHtmlFormatter
     a elda:VelocityFormatter
-    ; api:name "vhtml"
+    ; api:name "html"
     ; elda:className "com.epimorphics.lda.renderers.VelocityRendererFactory"
     ; api:mimeType "text/html"
     .
@@ -90,23 +86,18 @@ spec:HtmlFormatter
             api:name                "html" ;
             api:mimeType            "text/html;charset=UTF-8";
             elda:metadataOptions    "bindings,versions,execution,formats";
-##deploy-begin ################################################################################################################            
-#           api:stylesheet          "http://<%= @service_description.service_dns_name %>/lda-assets/xslt/staging.xsl";
-##deploy-end 
             .
 
 spec:CsvFormatter
             a                       api:XsltFormatter ;
             api:name                "csv" ;
             api:mimeType            "text/csv;charset=UTF-8" ;
-##
-## elda special
-## 
+#
+# elda special
+# 
             elda:metadataOptions  "bindings,versions,execution,formats";
-##deploy-begin ################################################################################################################            
-#           api:stylesheet          "http://<%= @service_description.service_dns_name %>/lda-assets/xslt/csv.xsl"
-##deploy-end 
-            .
+           api:stylesheet          "file:/var/lib/www/ch/html/lda-assets/xslt/csv.xsl"
+           .
 
 ##############################################################################################
 ## Definition API Endpoints
@@ -295,7 +286,10 @@ spec:anything
     api:exampleRequestPath  "/anything";
     api:uriTemplate     "/anything";
     api:selector [
-        api:where   "FILTER (!isBlank(?item)) ?item a [] ."
+        api:where   """
+          ?item ?p ?o .
+          FILTER (!isBlank(?item)) ?item a [] .
+        """
     ] ;
     api:viewer          api:describeViewer, 
                         api:basicViewer,
