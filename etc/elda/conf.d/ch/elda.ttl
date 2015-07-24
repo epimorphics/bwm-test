@@ -60,7 +60,8 @@ spec:api
 #
 
 spec:api
-        api:variable    [ api:name "_collection"          ; api:value "company-profile" ] ;
+        api:variable    [ api:name "_collection"          ; api:value "company-profile" ]
+        .
 
 
 #
@@ -102,7 +103,7 @@ spec:api    api:endpoint spec:scheme .
 spec:scheme
   a api:ListEndpoint ;
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
-  api:uriTemplate "/{_collection}/def/{scheme}" ;
+  api:uriTemplate "/{collection}/def/{scheme}" ;
   api:exampleRequestPath  "/company-profile/def/sic-2007/71";
   api:variable [ api:name "schemeRegx"; api:value "^{base}/def/{scheme}/" ];
   api:selector spec:scheme-selector;
@@ -134,9 +135,9 @@ spec:api    api:endpoint spec:scheme-ns .
 spec:scheme-ns
   a api:ItemEndpoint ;
   rdfs:comment "Returns information about a particular vocabulary."@en;
-  api:uriTemplate "/{_collection}/def/{scheme}/" ;
+  api:uriTemplate "/{collection}/def/{scheme}/" ;
   api:exampleRequestPath  "/company-profile/def/sic-2007/";
-  api:itemTemplate "{base}/{_collection}/def/{scheme}/" ;
+  api:itemTemplate "{base}/{collection}/def/{scheme}/" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
   .
@@ -167,8 +168,8 @@ spec:definition
   a api:ItemEndpoint ;
   rdfs:comment "Returns individual term definitions from a vocabulary"@en;
   api:exampleRequestPath  "/company-profile/def/company-terms/registeredAddress";
-  api:uriTemplate "/{_collection}/def/{scheme}/{term}" ;
-  api:itemTemplate "{base}/{_collection}/def/{scheme}/{term}" ;
+  api:uriTemplate "/{collection}/def/{scheme}/{term}" ;
+  api:itemTemplate "{base}/{collection}/def/{scheme}/{term}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer api:describeViewer ;
   .
@@ -188,10 +189,10 @@ spec:api    api:endpoint spec:subclasses .
 spec:subclasses
   a api:ListEndpoint ;
   rdfs:comment "Lists defined subclasses of a given vocabulary (class) term."@en;
-  api:uriTemplate "/{_collection}/def/{scheme}/{term}/subclass" ;
+  api:uriTemplate "/{collection}/def/{scheme}/{term}/subclass" ;
   api:variable [
     api:name "superclass" ;
-    api:value "{base}/{_collection}/def/{scheme}/{term}" ;
+    api:value "{base}/{collection}/def/{scheme}/{term}" ;
     api:type rdfs:Resource ;
   ] ;
   api:selector spec:subclass-selector ;
@@ -209,7 +210,7 @@ spec:api    api:endpoint spec:instances .
 spec:instances
   a api:ListEndpoint ;
   rdfs:comment "Lists known instances of a given vocabulary (class) term."@en;
-  api:uriTemplate "/{_collection}/def/{scheme}/{term}/instance" ;
+  api:uriTemplate "/{collection}/def/{scheme}/{term}/instance" ;
   api:exampleRequestPath  "/company-profile/def/company-terms/CompanyStatus/instance";
   api:variable [
     api:name "class" ;
@@ -232,10 +233,10 @@ spec:properties
   a api:ListEndpoint ;
   rdfs:comment "Lists properties used in the dataset to describe instances of a given vocabulary (class) term."@en;
   api:exampleRequestPath  "/company-profile/def/company-terms/registeredAddress/property";
-  api:uriTemplate "{_collection}/def/{scheme}/{term}/property" ;
+  api:uriTemplate "{collection}/def/{scheme}/{term}/property" ;
   api:variable [
     api:name "class" ;
-    api:value "{base}/{_collection}/def/{scheme}/{term}" ;
+    api:value "{base}/{collection}/def/{scheme}/{term}" ;
     api:type rdfs:Resource ;
   ] ;
   api:selector spec:properties-selector;
