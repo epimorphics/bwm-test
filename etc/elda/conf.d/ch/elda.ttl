@@ -1,30 +1,27 @@
+#
+# Linked Data API Configuration
+#
+
 @prefix spec:    <http://localhost/api/> .
 
-@prefix api:     <http://purl.org/linked-data/api/vocab#> .
-@prefix lda:     <http://purl.org/linked-data/api/vocab#> .
+@prefix api:      <http://purl.org/linked-data/api/vocab#> .
+@prefix ch-terms: <http://business.data.gov.uk/company-profile/def/company-terms/> .
+@prefix dc:       <http://purl.org/dc/elements/1.1/> .
+@prefix dc11:     <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix elda:     <http://www.epimorphics.com/vocabularies/lda#> .
+@prefix foaf:     <http://xmlns.com/foaf/0.1/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix sic:      <http://business.data.gov.uk/company-profile/def/sic-2007/> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix void:     <http://rdfs.org/ns/void#> .
 
-@prefix dc:      <http://purl.org/dc/elements/1.1/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
-@prefix owl:     <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
-@prefix void:    <http://rdfs.org/ns/void#> .
-@prefix dc11:    <http://purl.org/dc/elements/1.1/> .
-@prefix elda: <http://www.epimorphics.com/vocabularies/lda#> .
-
-########################################################################
-#
-# COMPONENTS
-#
-########################################################################
-########################################################################
 #
 # API DESCRIPTION
 #
-########################################################################
 
 spec:api
 	a api:API ;
@@ -45,11 +42,10 @@ spec:api
     api:sparqlEndpoint <<%= @service_description.data_server_query_endpoint %>>
     .
 
-###############################################################################
 #
 # Elda required variable settings for html formatter operation.
 #
-###############################################################################
+
 spec:api
         api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
@@ -59,20 +55,25 @@ spec:api
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
         
-###############################################################################
 #
-## VIEWERS
-##
-###############################################################################
+# API Global Variables
+#
+
+spec:api
+        api:variable    [ api:name "_collection"          ; api:value "company-profile" ] ;
+
+
+#
+# VIEWERS
+#
+
 spec:noneViewer
         a           api:Viewer  ;
         api:name    "none";
         .   
-###############################################################################
 #         
-## FORMATTERS
+# FORMATTERS
 #
-###############################################################################
 
 spec:VHtmlFormatter
     a elda:VelocityFormatter
@@ -81,49 +82,37 @@ spec:VHtmlFormatter
     ; api:mimeType "text/html"
     .
     
-spec:HtmlFormatter
-            a                       api:XsltFormatter ;
-            api:name                "html" ;
-            api:mimeType            "text/html;charset=UTF-8";
-            elda:metadataOptions    "bindings,versions,execution,formats";
-            .
-
 spec:CsvFormatter
             a                       api:XsltFormatter ;
             api:name                "csv" ;
             api:mimeType            "text/csv;charset=UTF-8" ;
-#
-# elda special
-# 
-            elda:metadataOptions  "bindings,versions,execution,formats";
-           api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
-           .
+            elda:metadataOptions    "bindings,versions,execution,formats"; # elda special
+            api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
+            .
 
-##############################################################################################
-## Definition API Endpoints
-##############################################################################################
+#
+# API ENDPOINTS
+#
+
+#
+# Vocabulary Endpoints
+#
+
 spec:api    api:endpoint spec:scheme .    
 spec:scheme
   a api:ListEndpoint ;
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
-  api:uriTemplate "/def/{scheme}" ;
-  api:exampleRequestPath  "/def/ppi";
+  api:uriTemplate "/{_collection}/def/{scheme}" ;
+  api:exampleRequestPath  "/company-profile/def/sic-2007/71";
   api:variable [ api:name "schemeRegx"; api:value "^{base}/def/{scheme}/" ];
   api:selector spec:scheme-selector;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:definitionViewer;
-  api:defaultFormatter spec:VHtmlFormatter ;
   .
+  
 spec:scheme-selector
     api:where 
- """   {?item a owl:Ontology} 
-    UNION {?item a qb:ComponentSpecification} 
-    UNION {?item a qb:SliceKey} 
-    UNION {?item a qb:DataStructureDefinition} 
-    UNION {?item a qb:CodedProperty} 
-    UNION {?item a qb:DimensionProperty} 
-    UNION {?item a qb:MeasureProperty} 
-    UNION {?item a qb:AttributeProperty} 
+ """      {?item a owl:Ontology} 
     UNION {?item a rdf:Property} 
     UNION {?item a owl:ObjectProperty} 
     UNION {?item a owl:DatatypeProperty} 
@@ -145,9 +134,9 @@ spec:api    api:endpoint spec:scheme-ns .
 spec:scheme-ns
   a api:ItemEndpoint ;
   rdfs:comment "Returns information about a particular vocabulary."@en;
-  api:uriTemplate "/def/{scheme}/" ;
-  api:exampleRequestPath  "/def/ppi/";
-  api:itemTemplate "{base}/def/{scheme}/" ;
+  api:uriTemplate "/{_collection}/def/{scheme}/" ;
+  api:exampleRequestPath  "/company-profile/def/sic-2007/";
+  api:itemTemplate "{base}/{_collection}/def/{scheme}/" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
   .
@@ -155,10 +144,10 @@ spec:scheme-ns
 spec:api    api:endpoint spec:scheme-def .    
 spec:scheme-def
   a api:ListEndpoint;
-  rdfs:comment "Returns a list of vocabularies organised under http://landregistry.data.gov.uk/def/"@en;
-  api:exampleRequestPath  "/def";
+  rdfs:comment "Returns a list of vocabularies organised under http://business.data.gov.uk/company-profile/def/"@en;
+  api:exampleRequestPath  "/company-profile/def";
   api:viewer    api:describeViewer, spec:schemeViewer, api:basicViewer;
-  api:variable  [api:name "regex" ; api:value "^{base}/def/" ] ;
+  api:variable  [api:name "regex" ; api:value "^{base}/{_collection}/def/" ] ;
   api:uriTemplate   "/def";
   api:selector [
     api:where   "{ ?item a owl:Ontology } FILTER (regex(STR(?item),?regex))";
@@ -177,9 +166,9 @@ spec:api    api:endpoint spec:definition .
 spec:definition
   a api:ItemEndpoint ;
   rdfs:comment "Returns individual term definitions from a vocabulary"@en;
-  api:exampleRequestPath  "/def/ppi/Transaction";
-  api:uriTemplate "/def/{scheme}/{term}" ;
-  api:itemTemplate "{base}/def/{scheme}/{term}" ;
+  api:exampleRequestPath  "/company-profile/def/company-terms/registeredAddress";
+  api:uriTemplate "/{_collection}/def/{scheme}/{term}" ;
+  api:itemTemplate "{base}/{_collection}/def/{scheme}/{term}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer api:describeViewer ;
   .
@@ -199,10 +188,10 @@ spec:api    api:endpoint spec:subclasses .
 spec:subclasses
   a api:ListEndpoint ;
   rdfs:comment "Lists defined subclasses of a given vocabulary (class) term."@en;
-  api:uriTemplate "/def/{scheme}/{term}/subclass" ;
+  api:uriTemplate "/{_collection}/def/{scheme}/{term}/subclass" ;
   api:variable [
     api:name "superclass" ;
-    api:value "{base}/def/{scheme}/{term}" ;
+    api:value "{base}/{_collection}/def/{scheme}/{term}" ;
     api:type rdfs:Resource ;
   ] ;
   api:selector spec:subclass-selector ;
@@ -220,8 +209,8 @@ spec:api    api:endpoint spec:instances .
 spec:instances
   a api:ListEndpoint ;
   rdfs:comment "Lists known instances of a given vocabulary (class) term."@en;
-  api:uriTemplate "/def/{scheme}/{term}/instance" ;
-  api:exampleRequestPath  "/def/ppi/TransactionRecord/instance";
+  api:uriTemplate "/{_collection}/def/{scheme}/{term}/instance" ;
+  api:exampleRequestPath  "/company-profile/def/company-terms/CompanyStatus/instance";
   api:variable [
     api:name "class" ;
     api:value "{base}/def/{scheme}/{term}" ;
@@ -242,11 +231,11 @@ spec:api    api:endpoint spec:properties .
 spec:properties
   a api:ListEndpoint ;
   rdfs:comment "Lists properties used in the dataset to describe instances of a given vocabulary (class) term."@en;
-  api:exampleRequestPath  "/def/ppi/TransactionRecord/property";
-  api:uriTemplate "/def/{scheme}/{term}/property" ;
+  api:exampleRequestPath  "/company-profile/def/company-terms/registeredAddress/property";
+  api:uriTemplate "{_collection}/def/{scheme}/{term}/property" ;
   api:variable [
     api:name "class" ;
-    api:value "{base}/def/{scheme}/{term}" ;
+    api:value "{base}/{_collection}/def/{scheme}/{term}" ;
     api:type rdfs:Resource ;
   ] ;
   api:selector spec:properties-selector;
@@ -255,28 +244,23 @@ spec:properties
   api:defaultViewer api:describeViewer ;
   .
   
-###############################################################################
+
 #
-# Describe a generic 'thing' as an example of an itemEndpoint.
+# Generic Endpoints
 #
-###############################################################################
+
 spec:api  api:endpoint         spec:thing .
 spec:thing
         a                   api:ItemEndpoint;
         api:uriTemplate     "/thing?resource={uri}";
         api:exampleRequestPath
-                            "/thing?resource=http://landregistry.data.gov.uk/def/ppi/TransactionRecord";
-        rdfs:comment        "A generic item endpoint API for asking about a specific thing by 'uri'.";
+                            "/thing?resource=http://business.data.gov.uk/id/company/08847552";
+        rdfs:comment        "A generic endpoint for asking about a specific thing by 'uri'.";
         api:itemTemplate    "{uri}";
         api:viewer          api:basicViewer, api:describeViewer, api:labelledDescribeViewer;
         api:defaultViewer   api:describeViewer;
         .
 
-###############################################################################
-#
-# List 'anything' endpoint
-#
-###############################################################################
 spec:api  api:endpoint         spec:anything .
 spec:anything
     a                   api:ListEndpoint;
@@ -298,14 +282,15 @@ spec:anything
     api:defaultViewer   api:describeViewer;
     .
                           
-########################################################################
+
 #
 # VOCABULARY
 #
-########################################################################
-########################################################################
+
+#
 # owl
-########################################################################
+#
+
 owl:imports
     rdfs:range      rdfs:Resource;
     api:label       "imports";
