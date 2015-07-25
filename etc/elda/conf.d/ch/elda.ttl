@@ -316,7 +316,7 @@ spec:companies
     rdfs:comment           "A list endpoint for companies." ;
     api:selector [
         api:where   """
-          ?item a rov:RegisteredOrganization ;
+          ?item a rov:RegisteredOrganization .
         """
     ] ;
     api:viewer             api:basicViewer ,
@@ -456,7 +456,7 @@ spec:previousNames
     api:selector [
         api:where   """
           ?item ch-terms:registeredCompany ?company ;
-                a                          ch-terms:PreviousName ;
+                a                          ch-terms:PreviousName .
         """
     ] ;
     api:viewer             api:basicViewer ,
