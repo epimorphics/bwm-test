@@ -1,0 +1,34 @@
+#parse( "macros/navigation.vm" )
+
+<div class="js-toggle-nav" id="global-nav">
+  <a id="user-signin-mobile" href="/signin" class="sign-in">Sign in / Register</a>
+  <nav role="navigation" class="content mobile-hidden">
+    <ul id="navigation" class="mobile-hidden">
+      <li class="unauthenticated"><a id="forum" href="http://forum.aws.chdev.org/">Forum</a></li>
+    </ul>
+  </nav>
+</div>
+
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <div class="sr-only">Toggle navigation</div>
+        <div class="icon-bar"></div>
+        <div class="icon-bar"></div>
+        <div class="icon-bar"></div>
+      </button>
+      #parse( "partials/title-brand.vm" )
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        #parse( "partials/resource-links.vm" )
+        #parse( "partials/page-size-links.vm" )
+        #parse( "partials/format-links.vm" )
+        #parse( "partials/view-links.vm" )
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+

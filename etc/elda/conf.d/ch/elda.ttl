@@ -44,7 +44,7 @@ spec:api
     .  
 
 spec:api
-    api:sparqlEndpoint <<%= @service_description.data_server_query_endpoint %>>
+    api:sparqlEndpoint <http://localhost:3030/ds/query>
     .
 
 #
@@ -55,7 +55,7 @@ spec:api
         api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
         api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/ch/query" ] ;
-        api:variable    [ api:name  "_velocityPath"         ; api:value "file://var/www/ch/html/lda-assets/velocity"] ;    
+        api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/ch/html/lda-assets/velocity-local, /var/www/ch/html/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
