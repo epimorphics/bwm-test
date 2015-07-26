@@ -23,3 +23,17 @@ h3.resource-label {
 .nested {
   border-color: #DEE0E22;
 }
+
+.navbar-default .navbar-nav > li > a:hover {
+  background-color: #8c9eff;
+  background-color: transparent;
+  color: #FFFFFF;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: #8c9eff;
+  background-color: transparent;
+  color: #FFFFFF;
+}

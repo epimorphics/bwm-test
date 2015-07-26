@@ -65,6 +65,7 @@ spec:api
 #
 
 spec:api
+        api:variable    [ api:name "full_base"            ; api:value "http://business.data.gov.uk" ] ;
         api:variable    [ api:name "_collection"          ; api:value "company-profile" ] ;
         api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/" ] ;
         api:variable    [ api:name "rewriteURLTo"         ; api:value "/" ] ;
@@ -111,11 +112,11 @@ spec:scheme
   a api:ListEndpoint ;
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
   api:uriTemplate "/{collection}/def/{scheme}" ;
-  api:exampleRequestPath  "/company-profile/def/sic-2007/71";
-  api:variable [ api:name "schemeRegx"; api:value "^{base}/def/{scheme}/" ];
+  api:exampleRequestPath  "/company-profile/def/sic-2007";
+  api:variable [ api:name "schemeRegx"; api:value "^{full_base}/{_collection}/def/{scheme}/" ];
   api:selector spec:scheme-selector;
-  api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
-  api:defaultViewer spec:definitionViewer;
+  api:viewer spec:vocabularyViewer, spec:definitionViewer, api:describeViewer, api:basicViewer;
+  api:defaultViewer spec:vocabularyViewer;
   .
   
 spec:scheme-selector
@@ -147,6 +148,17 @@ spec:scheme-ns
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
   .
+  
+spec:api    api:endpoint spec:scheme-scheme .    
+spec:scheme-scheme
+  a api:ItemEndpoint ;
+  rdfs:comment "Returns information about a particular vocabulary."@en;
+  api:uriTemplate "/{collection}/def/{scheme}/scheme" ;
+  api:exampleRequestPath  "/company-profile/def/sic-2007/scheme";
+  api:itemTemplate "{base}/{collection}/def/{scheme}/scheme" ;
+  api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
+  api:defaultViewer spec:schemeViewer;
+  .
 
 spec:api    api:endpoint spec:scheme-def .    
 spec:scheme-def
@@ -166,7 +178,7 @@ spec:scheme-def
 spec:schemeViewer
   a api:Viewer ;
   api:name "scheme" ;
-  api:properties "*,*.*";
+  api:properties "*, hasTopConcept.prefLabel";
   .
 
 spec:api    api:endpoint spec:definition .    
@@ -177,13 +189,19 @@ spec:definition
   api:uriTemplate "/{collection}/def/{scheme}/{term}" ;
   api:itemTemplate "{base}/{collection}/def/{scheme}/{term}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
-  api:defaultViewer api:describeViewer ;
+  api:defaultViewer spec:definitionViewer ;
   .
 
 spec:definitionViewer
   a api:Viewer ;
   api:name "definition" ;
-  api:properties "*,*.*";
+  api:properties "*, broader.prefLabel, narrower.prefLabel, inScheme.label, inScheme.prefLabel, subClassOf.label";
+  .
+  
+spec:vocabularyViewer
+    a api:Viewer
+  ; api:name "vocabulary"
+  ; api:properties "label,prefLabel,comment"
   .
 
 spec:subclass-selector
@@ -661,6 +679,26 @@ vcard:street-address
 # skos
 # 
 
+skos:broader
+    a rdfs:Property
+  ; api:label "broader"
+  . 
+  
+skos:hasTopConcept
+    a rdfs:Property
+  ; api:label "hasTopConcept"
+  .
+  
+skos:inScheme
+    a rdfs:Property
+  ; api:label "inScheme"
+  .
+  
+skos:narrower
+    a rdfs:Property
+  ; api:label "narrower"
+  .
+
 skos:notation
     a rdfs:Property
   ; api:label "notation"
@@ -670,7 +708,7 @@ skos:prefLabel
     a rdfs:Property
   ; api:label "prefLabel"
   .
-  
+    
 #
 # dcterms
 #
