@@ -1,0 +1,25 @@
+
+.navbar-default {
+  background: #0b0c0c ; 
+}
+
+.navbar-default .navbar-brand {
+  color:      #FFFFFF ;   
+}
+
+h1.resource-label {
+  background-color: #F8F8F8;
+  color: #0B0C0C;
+}
+
+section {
+  border-color: #DEE0E2;
+}
+
+h3.resource-label {
+  background-color: #F8F8F8;
+  color: #0B0C0C;
+}
+.nested {
+  border-color: #DEE0E22;
+}
