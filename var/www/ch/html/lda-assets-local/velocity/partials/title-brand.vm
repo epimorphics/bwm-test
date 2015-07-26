@@ -1,6 +1,9 @@
-<h1>
+
+<div class=header-logo>
   <a href="http://www.companieshouse.gov.uk" title="Go to the Companies House homepage">
-   <img src="http://dfs953ne00y1n.cloudfront.net/images/royal-coat-of-arms-white.png" alt="Companies House logo image" class="pull-left" />
    <span class="navbar-brand">Companies House</span>
-  </a>
-</h1>
+  </a> 
+</div>
+<div class="header-proposition">
+    <a href="">Linked Data Browser</a>
+</div>
