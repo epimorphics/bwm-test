@@ -1,6 +1,7 @@
 
 .navbar-default {
   background: #0b0c0c ; 
+  margin-bottom: 0px ;
 }
 
 .navbar-default .navbar-brand {
@@ -36,4 +37,13 @@ h3.resource-label {
   background-color: #8c9eff;
   background-color: transparent;
   color: #FFFFFF;
+}
+
+.phase-banner {
+  padding: 10px 0 10px 0 ;
+  border-bottom: 1px solid #bfc1c3  ;
+  border-top-style: solid ;
+  border-top-color: #005ea5 ;
+  border-top-width: 10px ;
+  margin-bottom: 10px ;
 }
