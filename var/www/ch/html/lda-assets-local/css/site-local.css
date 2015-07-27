@@ -1,0 +1,88 @@
+
+.navbar-default {
+  background: #0b0c0c ; 
+  margin-bottom: 0px ;
+}
+
+.navbar-default .navbar-brand {
+  color:      #FFFFFF ;    
+  font-size: 27px;
+  line-height: 1.11111;
+  font-weight: 400;
+  text-transform: none;
+  width: 300px;
+  color: #FFF;
+  text-decoration: none;
+  border-left: 2px solid #0b0c0c;
+  background-image: url(http://dfs953ne00y1n.cloudfront.net/images/royal-coat-of-arms-white.png);
+  background-repeat: no-repeat;
+  background-position: 12px 3px;
+  background-size: 42px 35px;
+  margin: 0px 15px 0 0;
+  padding: 8px 0px 2px 62px; 
+}
+
+.header-logo {
+  width: 50% ;
+  float: left ;
+}
+.navbar-default:hover .navbar-brand:hover, .header-proposition:hover {
+  color: white ;
+  text-decoration: underline ;
+}
+
+.header-proposition {
+  float: left ;
+}
+
+.header-proposition a {
+  font-family: "proxima_nova", Arial, sans-serif;
+  font-size: 24px;
+  line-height: 50px;
+  text-transform: none;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  color: white ;
+  padding: 8px 0px 2px 55px ;
+}
+
+h1.resource-label {
+  background-color: #F8F8F8;
+  color: #0B0C0C;
+}
+
+section {
+  border-color: #DEE0E2;
+}
+
+h3.resource-label {
+  background-color: #F8F8F8;
+  color: #0B0C0C;
+}
+.nested {
+  border-color: #DEE0E22;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  background-color: #8c9eff;
+  background-color: transparent;
+  color: #FFFFFF;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: #8c9eff;
+  background-color: transparent;
+  color: #FFFFFF;
+}
+
+.phase-banner {
+  padding: 10px 0 10px 0 ;
+  border-bottom: 1px solid #bfc1c3  ;
+  border-top-style: solid ;
+  border-top-color: #005ea5 ;
+  border-top-width: 10px ;
+  margin-bottom: 10px ;
+}
