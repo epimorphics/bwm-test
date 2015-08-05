@@ -349,6 +349,41 @@ spec:companyViewer
     api:name          "normal" ;
     api:properties    "orgIdentifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.postcode.label, accountsSchedule.accountRefDayOfMonth, accountsSchedule.accountRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin"
     .
+##################################################################
+# Company Profile Endpoints
+##################################################################
+spec:api api:endpoint spec:companyProfile .
+spec:companyProfile
+    a                   api:ItemEndpoint ;
+    api:uriTemplate     "/company-profile/company/{id}" ;
+    api:exampleRequestPath
+                        "/company-profile/company/08847552" ;
+    rdfs:comment        "An item endpoint for company profiles." ;
+    api:itemTemplate    "http://business.data.gov.uk/id/company/{id}" ;
+    api:viewer          api:basicViewer ,
+                        api:describeViewer ,
+                        api:labelledDescribeViewer ,
+                        spec:companyViewer ;
+    api:defaultViewer   spec:companyViewer ;
+    .
+    
+spec:api api:endpoint spec:companyProfiles .
+spec:companyProfiles
+    a                      api:ListEndpoint ;
+    api:uriTemplate        "/company-profile/company" ;
+    api:exampleRequestPath "/company-profile/company" ;
+    rdfs:comment           "A list endpoint for company profiles." ;
+    api:selector [
+        api:where   """
+          ?item a rov:RegisteredOrganization .
+        """
+    ] ;
+    api:viewer             api:basicViewer ,
+                           api:describeViewer ,
+                           api:labelledDescribeViewer ,
+                           spec:companyViewer ;
+    api:defaultViewer      spec:companyViewer ;
+    .
     
 spec:api api:endpoint spec:address .
 spec:address
