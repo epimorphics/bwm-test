@@ -442,7 +442,7 @@ spec:registration
 spec:registrationViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type, issued, notation, schemaAgency" ;
+    api:properties         "type, issued, notation, schemaAgency, registeredCompany.prefLabel" ;
     .    
     
 spec:api api:endpoint spec:returnsSchedule .
