@@ -1,0 +1,12 @@
+## Display the single item from an item endpoint
+#groupVisualExtensions( $hierarchy )
+
+<p class="lead">
+
+This page is a view of data about a specific resource.  Use the menu
+items above to manipulate the view or download the data. For more information 
+about how to use this viewer, see ... @@ TODO
+
+</p>
+
+#eldaItem( $hierarchy.roots().get( 0 ) )
