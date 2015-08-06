@@ -17,5 +17,5 @@ Feature: list of company profiles
         And that outer resource should have a type named 'Class'  
         And that outer resource should have a property named 'label' with literal value 'Registered company'
         And that outer resource should have a property named 'pref label' with literal value 'Registered company'
-        And that outer resource should have a property named "sub class of' with a resource value named 'Registered Organization'
+        And that outer resource should have a property named 'sub class of' with a resource value named 'Registered Organization'
 	
