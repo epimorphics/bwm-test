@@ -195,7 +195,7 @@ spec:definition
 spec:definitionViewer
   a api:Viewer ;
   api:name "definition" ;
-  api:properties "*, broader.prefLabel, narrower.prefLabel, inScheme.label, inScheme.prefLabel, subClassOf.label";
+  api:properties "*, broader.prefLabel, narrower.prefLabel, inScheme.label, inScheme.prefLabel, subClassOf.*, subPropertyOf.*";
   .
   
 spec:vocabularyViewer
