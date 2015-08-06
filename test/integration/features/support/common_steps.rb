@@ -1,5 +1,5 @@
 Given(/^a visitor$/) do
-  @@world = Hash.new
+  @world = Hash.new
 end
 
 When(/^she waits (\d+) seconds$/) do |delay|
