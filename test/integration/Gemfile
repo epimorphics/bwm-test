@@ -1,0 +1,10 @@
+source "http://rubygems.org"
+gem 'cucumber'
+gem "capybara", '2.1.0'
+gem "capybara-mechanize"
+gem 'rspec'
+gem 'debugger'
+gem 'selenium-webdriver'
+gem 'capybara-webkit'
+gem 'poltergeist'
+gem 'headless', '2.1.0'

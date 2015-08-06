@@ -1,0 +1,9 @@
+{
+  "name": "ch-contnet",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-compress": "~0.13.0",
+    "grunt-shell": "~1.1.2"
+  }
+}
