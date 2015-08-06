@@ -3,3 +3,5 @@ target
 .classpath
 .settings
 velocity.log
+/ch-lda-test.tgz
+/node_modules/
