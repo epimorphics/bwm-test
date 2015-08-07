@@ -15,6 +15,6 @@ pushd cucumber >/dev/null
 
 export TEST_HOST=$2
 
-bundle exec cucumber --tags $1
+bundle exec cucumber --tags "$1"
 
 popd >/dev/null
