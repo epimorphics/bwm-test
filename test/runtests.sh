@@ -11,7 +11,7 @@ set -e
 # get the directory this script is in
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-pushd cucumber >/dev/null
+pushd $DIR/cucumber >/dev/null
 
 export TEST_HOST=$2
 
