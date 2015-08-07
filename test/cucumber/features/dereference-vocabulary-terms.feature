@@ -1,3 +1,4 @@
+@LEVEL-1
 Feature: list of company profiles
 
 	As a data user
@@ -5,7 +6,7 @@ Feature: list of company profiles
 	I want to see the description of a vocabulary term when I dereference its URI
 	
     .
-
+    
 	Scenario:
 		Given a visitor
 		When she retrieves the page "/company-profile/def/company-terms/RegisteredCompany"

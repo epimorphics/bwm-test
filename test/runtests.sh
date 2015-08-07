@@ -11,10 +11,10 @@ set -e
 # get the directory this script is in
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-pushd $DIR/$1 >/dev/null
+pushd cucumber >/dev/null
 
 export TEST_HOST=$2
 
-bundle exec cucumber
+bundle exec cucumber --tags $1
 
 popd >/dev/null

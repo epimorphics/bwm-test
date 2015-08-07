@@ -1,3 +1,4 @@
+@LEVEL-1
 Feature: list of company profiles
 
 	As visitor
