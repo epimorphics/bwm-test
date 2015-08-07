@@ -14,6 +14,11 @@ When(/^she clicks on the "(.*)" link$/) do |link|
   click_link(link)
 end
 
+When(/^she clicks on the first "([^"]*)" link$/) do | link_text |
+  link = all(:xpath, "//a[normalize-space(.) = '#{link_text}']") 
+  link[0].click
+end
+
 When(/^she clicks on the "(.+)" button$/) do |button|
   click_on(button)
 end

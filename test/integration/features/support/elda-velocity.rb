@@ -1,6 +1,9 @@
 #
 # definitions for the output of the elda default velocity renderer
 #
+# NOTE: these are not fully developed, e.g. they don't handle
+#  multiple resource values for a property
+#
 # the xpath expressions are too specific to the particular html
 # hierarchy in use.  There is definitely room for improvement
 # but may require extra classes or attributes on the html to help
@@ -22,40 +25,54 @@ Then(/^it should have one outer resource$/) do
   @world[:outer_resource] = outer_resources[0]
 end
 
-Then(/^each outer resource should have a property named '(.*)'$/) do | prop_name |
+Then(/^each outer resource should have a property named "([^"]*)"$/) do | prop_name |
   @world[:outer_resources].each do | resource |
     prop_elements = resource.all(:xpath, "div//div[@class='rdf predicate']/a[text() = '#{prop_name}' ]")
     expect(prop_elements.size).not_to be(0)
   end
 end 
 
-Then(/^that outer resource should have a type named '(.*)'$/) do | class_name |
+Then(/^that outer resource should have a type named "([^"]*)"$/) do | class_name |
   resource = @world[:outer_resource]
   resource_labels = resource.all(:xpath, "div/div[@class='resource-types']//text()[normalize-space(.)='#{class_name}']")
 end
 
-Then(/^that outer resource should have a label '(.*)'$/) do | label |
+Then(/^that outer resource should have a label "([^"]*)"$/) do | label |
   resource = @world[:outer_resource]
   label_elements = resource.all(:xpath, "div/div/h1[@class='resource-label']")
   expect(label_elements.size).to eq(1)
-  expect(label_elements[0].text().include?('Registered company')).to be(true)
+  expect(label_elements[0].text().include?(label)).to be(true)
   
 end
 
-Then(/^that outer resource should have a property named '(.*)' with literal value '(.*)'$/) do | property_name, value |
+Then(/^that outer resource should have a property named "([^"]*)" with literal value "([^"]*)"$/) do | property_name, value |
   resource = @world[:outer_resource]
   property_elements = get_property_elements(resource, property_name);
-  expect(property_elements.size).to be(1) 
-  value_elements = get_literal_object_elements(property_elements[0], value)
-  expect(value_elements.size).to be(1)
+  expect(property_elements.size).not_to be(0)
+  found = false
+  
+  property_elements.each do | property_element | 
+    value_elements = get_literal_object_elements(property_element, value)
+    if value_elements.size > 0 
+      found = true 
+    end
+  end
+  expect(found).to be(true)
 end
 
-Then(/^that outer resource should have a property named '(.*)' with a resource value named '(.*)'$/) do | property_name, value_name |
+Then(/^that outer resource should have a property named "([^"]*)" with a resource value named "([^"]*)"$/) do | property_name, value_name |
   resource = @world[:outer_resource]
   property_elements = get_property_elements(resource, property_name);
-  expect(property_elements.size).to be(1)
-  value_elements = get_resource_object_elements(property_elements[0], value_name)
-  expect(value_elements.size).to be(1)
+  expect(property_elements.size).not_to be(0)
+  
+  found = false
+  property_elements.each do | property_element |
+    value_elements = get_resource_object_elements(property_element, value_name)
+    if value_elements.size > 0 
+      found = true
+    end
+  end
+  expect(found).to be(true)
 end
 
 # return an array of the base property elements for a property of the resource element
@@ -65,14 +82,30 @@ end
 
 # return an array of the literal object elements with a given value
 def get_literal_object_elements(property_element, value)
-  property_element.all(:xpath, "div/div[contains(@class, 'rdf') and contains(@class, 'object') and contains(@class, 'literal')][normalize-space(.)='#{value}']");
+  # see if there is a simple value
+  value_elements = property_element.all(:xpath, "div/div[contains(@class, 'rdf') and contains(@class, 'object') and contains(@class, 'literal')][normalize-space(.)='#{value}']")
+  
+  if value_elements.size() == 0
+    # try for multiple values    
+    value_elements = property_element.all(:xpath, "div/ul/li/div[contains(@class, 'rdf') and contains(@class, 'object') and contains(@class, 'literal')][normalize-space(.)='#{value}']")
+  end
+  return value_elements
 end
 
 # return an array of the resource object elements with a given label
 def get_resource_object_elements(property_element, value_name)
-  # limit the depth we search to include only the shallowest child resource
-  # this is so crude - there must be a better way to do it.
-  depth = property_element.native.ancestors.size
-  property_element.all(:xpath, "div//div[count(ancestor::*)<#{depth.to_s}+5][contains(@class, 'rdf') and contains(@class, 'resource') and contains(@class, 'nested')]/div/*[@class='resource-label'][normalize-space(.)='#{value_name}']")
+  # see if there is a simple value
+  value_elements = property_element.all(:xpath, "div/a[contains(@class, 'rdf') and contains(@class, 'resource') and contains(@class, 'simple')][normalize-space(.)='#{value_name}']")
+  
+  if (value_elements.size() == 0)
+    # try for a nested resource
+ 
+    # limit the depth we search to include only the shallowest child resource
+    # this is so crude - there must be a better way to do it.
+    depth = property_element.native.ancestors.size
+    value_elements = property_element.all(:xpath, "div//div[count(ancestor::*)<#{depth.to_s}+5][contains(@class, 'rdf') and contains(@class, 'resource') and contains(@class, 'nested')]/div/*[@class='resource-label'][normalize-space(.)='#{value_name}']")
+  end
+  
+  return value_elements
 end
 
