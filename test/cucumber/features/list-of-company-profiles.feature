@@ -9,9 +9,9 @@ Feature: list of company profiles
 
 	Scenario:
 		Given a visitor
-		When she retrieves the page "/company-profile/company"
+		When she retrieves the page "/companies/profile"
 		Then she should retrieve a web page
-		And  it should have the title "/company-profile/company.html – page 0"
+		And  it should have the title "/companies/profile.html – page 0"
         And  it should have the Companies House Linked Data Viewer banner
         And it should have outer resources
         And each outer resource should have a property named "country of origin"   

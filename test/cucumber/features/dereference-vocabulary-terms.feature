@@ -9,9 +9,9 @@ Feature: list of company profiles
     
 	Scenario:
 		Given a visitor
-		When she retrieves the page "/company-profile/def/company-terms/RegisteredCompany"
+		When she retrieves the page "/companies/def/terms/RegisteredCompany"
 		Then she should retrieve a web page
-		And  it should have the title "LDA resource at /company-profile/def/company-terms/RegisteredCompany.html"
+		And  it should have the title "LDA resource at /companies/def/terms/RegisteredCompany.html"
         And  it should have the Companies House Linked Data Viewer banner
         And it should have one outer resource
         And that outer resource should have a label "Registered company"
@@ -22,10 +22,10 @@ Feature: list of company profiles
         
     Scenario:
         Given a visitor
-        When she retrieves the page "/company-profile/company"
+        When she retrieves the page "/companies/profile"
         And she clicks on the first "accounts schedule" link
         Then she should retrieve a web page
-        And it should have the title "LDA resource at /company-profile/def/company-terms/accountsSchedule.html"
+        And it should have the title "LDA resource at /companies/def/terms/accountsSchedule.html"
         And it should have the Companies House Linked Data Viewer banner
         And it should have one outer resource
         And that outer resource should have a label "accounts schedule"
@@ -36,9 +36,9 @@ Feature: list of company profiles
         
     Scenario:
         Given a visitor
-        When she retrieves the page "/company-profile/def/sic-2007/74202"
+        When she retrieves the page "/companies/def/sic-2007/74202"
         Then she should retrieve a web page
-        And it should have the title "LDA resource at /company-profile/def/sic-2007/74202.html"
+        And it should have the title "LDA resource at /companies/def/sic-2007/74202.html"
         And it should have the Companies House Linked Data Viewer banner
         And it should have one outer resource
         And that outer resource should have a label "Other specialist photography (not including portrait photography)"
