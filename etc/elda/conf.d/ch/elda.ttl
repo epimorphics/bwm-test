@@ -111,7 +111,7 @@ spec:scheme
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
   api:uriTemplate "/def/{scheme}" ;
   api:exampleRequestPath  "/companies/def/sic-2007";
-  api:variable [ api:name "schemeRegx"; api:value "^{full_base}/{_collection}/def/{scheme}/" ];
+  api:variable [ api:name "schemeRegx"; api:value "^{base}/companies/def/{scheme}/" ];
   api:selector spec:scheme-selector;
   api:viewer spec:vocabularyViewer, spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:vocabularyViewer;
@@ -142,7 +142,7 @@ spec:scheme-ns
   rdfs:comment "Returns information about a particular vocab"@en ;
   api:uriTemplate "/def/{scheme}/" ;
   api:exampleRequestPath  "/companies/def/sic-2007/";
-  api:itemTemplate "{full_base}/companies/def/{scheme}/" ;
+  api:itemTemplate "{base}/companies/def/{scheme}/" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
   .
@@ -185,7 +185,7 @@ spec:definition
   rdfs:comment "Returns individual term definitions from a vocabulary"@en;
   api:exampleRequestPath  "/companies/def/company-terms/registeredAddress";
   api:uriTemplate "/def/{scheme}/{term}" ;
-  api:itemTemplate "{full_base}/companies/def/{scheme}/{term}" ;
+  api:itemTemplate "{base}/companies/def/{scheme}/{term}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:definitionViewer ;
   .
