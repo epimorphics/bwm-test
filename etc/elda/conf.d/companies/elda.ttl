@@ -33,7 +33,7 @@ spec:api
     api:lang "en,none" ;
 	rdfs:label "Linked Data API"@en ;
     rdfs:comment "Linked Data API"@en ;
-    api:base   "/";
+    api:base   "/companies/";
 	api:variable   [ api:name "base" ; api:value "http://business.data.gov.uk" ];
     elda:enableCounting  "optional" ;
     elda:enableETags true;
@@ -52,10 +52,10 @@ spec:api
 #
 
 spec:api
-        api:variable    [ api:name "_resourceRoot"          ; api:value "/lda-assets/" ] ;
+        api:variable    [ api:name "_resourceRoot"          ; api:value "/companies/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
-        api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/ch/query" ] ;
-        api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/ch/html/lda-assets-local/velocity, /var/www/ch/html/lda-assets/velocity"] ;    
+        api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/companies/query" ] ;
+        api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/companies/html/companies/lda-assets-local/velocity, /var/www/companies/html/companies/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
@@ -66,9 +66,9 @@ spec:api
 
 spec:api
         api:variable    [ api:name "full_base"            ; api:value "http://business.data.gov.uk" ] ;
-        api:variable    [ api:name "_collection"          ; api:value "company-profile" ] ;
-        api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/" ] ;
-        api:variable    [ api:name "rewriteURLTo"         ; api:value "/" ] ;
+        api:variable    [ api:name "_collection"          ; api:value "companies" ] ;
+        api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
+        api:variable    [ api:name "rewriteURLTo"         ; api:value "/companies/" ] ;
         .
 
 
@@ -96,7 +96,7 @@ spec:CsvFormatter
             api:name                "csv" ;
             api:mimeType            "text/csv;charset=UTF-8" ;
             elda:metadataOptions    "bindings,versions,execution,formats"; # elda special
-            api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
+            api:stylesheet          "file:///var/www/companies/html/companies/lda-assets/xslt/csv.xsl"
             .
 
 #
@@ -111,7 +111,7 @@ spec:api    api:endpoint spec:scheme .
 spec:scheme
   a api:ListEndpoint ;
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
-  api:uriTemplate "/{collection}/def/{scheme}" ;
+  api:uriTemplate "/def/{scheme}" ;
   api:exampleRequestPath  "/company-profile/def/sic-2007";
   api:variable [ api:name "schemeRegx"; api:value "^{full_base}/{_collection}/def/{scheme}/" ];
   api:selector spec:scheme-selector;
@@ -144,7 +144,7 @@ spec:scheme-ns
   rdfs:comment "Returns information about a particular vocabulary."@en;
   api:uriTemplate "/{collection}/def/{scheme}/" ;
   api:exampleRequestPath  "/company-profile/def/sic-2007/";
-  api:itemTemplate "{base}/{collection}/def/{scheme}/" ;
+  api:itemTemplate "{base}def/{scheme}/" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
   .
@@ -235,10 +235,10 @@ spec:instances
   a api:ListEndpoint ;
   rdfs:comment "Lists known instances of a given vocabulary (class) term."@en;
   api:uriTemplate "/{collection}/def/{scheme}/{term}/instance" ;
-  api:exampleRequestPath  "/company-profile/def/company-terms/CompanyStatus/instance";
+  api:exampleRequestPath  "/companies/def/company-terms/CompanyStatus/instance";
   api:variable [
     api:name "class" ;
-    api:value "{base}/def/{scheme}/{term}" ;
+    api:value "{base}def/{scheme}/{term}" ;
     api:type rdfs:Resource ;
   ] ;
   api:selector spec:instances-selector;
@@ -277,9 +277,9 @@ spec:properties
 spec:api  api:endpoint         spec:thing .
 spec:thing
         a                   api:ItemEndpoint;
-        api:uriTemplate     "/thing?resource={uri}";
+        api:uriTemplate     "{base}thing?resource={uri}";
         api:exampleRequestPath
-                            "/thing?resource=http://business.data.gov.uk/id/company/08847552";
+                            "/companies/thing?resource=http://business.data.gov.uk/id/company/08847552";
         rdfs:comment        "A generic endpoint for asking about a specific thing by 'uri'.";
         api:itemTemplate    "{uri}";
         api:viewer          api:basicViewer, api:describeViewer, api:labelledDescribeViewer;
@@ -292,8 +292,8 @@ spec:anything
     api:name            "anything" ; 
     elda:enableCounting "no";
     rdfs:comment        "A generic listing endpoint for listing things based solely on URI based filter parameters"@en;
-    api:exampleRequestPath  "/anything";
-    api:uriTemplate     "/anything";
+    api:exampleRequestPath  "{base}anything";
+    api:uriTemplate     "/{base}anything";
     api:selector [
         api:where   """
           ?item ?p ?o .
@@ -310,39 +310,6 @@ spec:anything
 #
 # Company Endpoints
 #
- 
-spec:api api:endpoint spec:company .
-spec:company
-    a                   api:ItemEndpoint ;
-    api:uriTemplate     "/doc/company/{id}" ;
-    api:exampleRequestPath
-                        "/doc/company/08847552" ;
-    rdfs:comment        "An item endpoint for companies." ;
-    api:itemTemplate    "http://business.data.gov.uk/id/company/{id}" ;
-    api:viewer          api:basicViewer ,
-                        api:describeViewer ,
-                        api:labelledDescribeViewer ,
-                        spec:companyViewer ;
-    api:defaultViewer   spec:companyViewer ;
-    .
-    
-spec:api api:endpoint spec:companies .
-spec:companies
-    a                      api:ListEndpoint ;
-    api:uriTemplate        "/doc/company" ;
-    api:exampleRequestPath "/doc/company" ;
-    rdfs:comment           "A list endpoint for companies." ;
-    api:selector [
-        api:where   """
-          ?item a rov:RegisteredOrganization .
-        """
-    ] ;
-    api:viewer             api:basicViewer ,
-                           api:describeViewer ,
-                           api:labelledDescribeViewer ,
-                           spec:companyViewer ;
-    api:defaultViewer      spec:companyViewer ;
-    .
     
 spec:companyViewer
     a                 api:Viewer ;
@@ -355,11 +322,11 @@ spec:companyViewer
 spec:api api:endpoint spec:companyProfile .
 spec:companyProfile
     a                   api:ItemEndpoint ;
-    api:uriTemplate     "/company-profile/company/{id}" ;
+    api:uriTemplate     "{base}profile/{id}" ;
     api:exampleRequestPath
-                        "/company-profile/company/08847552" ;
+                        "{base}profile/08847552" ;
     rdfs:comment        "An item endpoint for company profiles." ;
-    api:itemTemplate    "http://business.data.gov.uk/id/company/{id}" ;
+    api:itemTemplate    "http://business.data.gov.uk/companies/profile/{id}" ;
     api:viewer          api:basicViewer ,
                         api:describeViewer ,
                         api:labelledDescribeViewer ,
@@ -370,8 +337,8 @@ spec:companyProfile
 spec:api api:endpoint spec:companyProfiles .
 spec:companyProfiles
     a                      api:ListEndpoint ;
-    api:uriTemplate        "/company-profile/company" ;
-    api:exampleRequestPath "/company-profile/company" ;
+    api:uriTemplate        "{base}profile" ;
+    api:exampleRequestPath "{base}profile" ;
     rdfs:comment           "A list endpoint for company profiles." ;
     api:selector [
         api:where   """
