@@ -65,6 +65,7 @@ spec:api
 #
 
 spec:api
+        api:variable    [ api:name "base" ]               ; api:value "/companies" ] ;
         api:variable    [ api:name "full_base"            ; api:value "http://business.data.gov.uk" ] ;
         api:variable    [ api:name "_collection"          ; api:value "companies" ] ;
         api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
@@ -322,9 +323,9 @@ spec:companyViewer
 spec:api api:endpoint spec:companyProfile .
 spec:companyProfile
     a                   api:ItemEndpoint ;
-    api:uriTemplate     "{base}profile/{id}" ;
+    api:uriTemplate     "{base}/profile/{id}" ;
     api:exampleRequestPath
-                        "{base}profile/08847552" ;
+                        "{base}/profile/08847552" ;
     rdfs:comment        "An item endpoint for company profiles." ;
     api:itemTemplate    "http://business.data.gov.uk/companies/profile/{id}" ;
     api:viewer          api:basicViewer ,
@@ -337,8 +338,8 @@ spec:companyProfile
 spec:api api:endpoint spec:companyProfiles .
 spec:companyProfiles
     a                      api:ListEndpoint ;
-    api:uriTemplate        "{base}profile" ;
-    api:exampleRequestPath "{base}profile" ;
+    api:uriTemplate        "{base}/profile" ;
+    api:exampleRequestPath "{base}/profile" ;
     rdfs:comment           "A list endpoint for company profiles." ;
     api:selector [
         api:where   """
