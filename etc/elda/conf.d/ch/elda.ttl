@@ -55,7 +55,7 @@ spec:api
         api:variable    [ api:name "_resourceRoot"          ; api:value "/companies/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
         api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/companies/query" ] ;
-        api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/companies/html/companies/lda-assets-local/velocity, /var/www/companies/html/companies/lda-assets/velocity"] ;    
+        api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/ch/html/lda-assets-local/velocity, /var/www/ch/html/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
@@ -65,7 +65,6 @@ spec:api
 #
 
 spec:api
-        api:variable    [ api:name "base" ]               ; api:value "/companies" ] ;
         api:variable    [ api:name "full_base"            ; api:value "http://business.data.gov.uk" ] ;
         api:variable    [ api:name "_collection"          ; api:value "companies" ] ;
         api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
@@ -323,11 +322,11 @@ spec:companyViewer
 spec:api api:endpoint spec:companyProfile .
 spec:companyProfile
     a                   api:ItemEndpoint ;
-    api:uriTemplate     "{base}/profile/{id}" ;
+    api:uriTemplate     "/profile/{id}" ;
     api:exampleRequestPath
-                        "{base}/profile/08847552" ;
+                        "/companies/profile/08847552" ;
     rdfs:comment        "An item endpoint for company profiles." ;
-    api:itemTemplate    "http://business.data.gov.uk/companies/profile/{id}" ;
+    api:itemTemplate    "http://business.data.gov.uk/id/company/{id}" ;
     api:viewer          api:basicViewer ,
                         api:describeViewer ,
                         api:labelledDescribeViewer ,
@@ -338,8 +337,8 @@ spec:companyProfile
 spec:api api:endpoint spec:companyProfiles .
 spec:companyProfiles
     a                      api:ListEndpoint ;
-    api:uriTemplate        "{base}/profile" ;
-    api:exampleRequestPath "{base}/profile" ;
+    api:uriTemplate        "/profile" ;
+    api:exampleRequestPath "/companies/profile" ;
     rdfs:comment           "A list endpoint for company profiles." ;
     api:selector [
         api:where   """
