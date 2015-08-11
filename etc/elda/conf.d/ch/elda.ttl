@@ -44,7 +44,7 @@ spec:api
     .  
 
 spec:api
-    api:sparqlEndpoint <http://ch-pub-dev.epimorphics.net/companies/query>
+    api:sparqlEndpoint <http://localhost:3030/ds/query>
     .
 
 #
@@ -96,7 +96,7 @@ spec:CsvFormatter
             api:name                "csv" ;
             api:mimeType            "text/csv;charset=UTF-8" ;
             elda:metadataOptions    "bindings,versions,execution,formats"; # elda special
-            api:stylesheet          "file:///var/www/companies/html/companies/lda-assets/xslt/csv.xsl"
+            api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
             .
 
 #
