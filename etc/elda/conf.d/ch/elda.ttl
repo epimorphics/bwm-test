@@ -6,7 +6,7 @@
 
 @prefix adms:     <http://www.w3.org/ns/adms#> .
 @prefix api:      <http://purl.org/linked-data/api/vocab#> .
-@prefix ch-terms: <http://business.data.gov.uk/companies/def/terms/> .
+@prefix terms:    <http://business.data.gov.uk/companies/def/terms/> .
 @prefix dc:       <http://purl.org/dc/elements/1.1/> .
 @prefix dct:      <http://purl.org/dc/terms/> .
 @prefix dcterms:  <http://purl.org/dc/terms/> .
@@ -19,7 +19,7 @@
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rov:      <http://www.w3.org/ns/regorg#> .
 @prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
-@prefix sic:      <http://business.data.gov.uk/company-profile/def/sic-2007/> .
+@prefix sic:      <http://business.data.gov.uk/companies/def/sic-2007/> .
 @prefix vcard:    <http://www.w3.org/2006/vcard/ns#> .
 @prefix void:     <http://rdfs.org/ns/void#> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
@@ -44,7 +44,7 @@ spec:api
     .  
 
 spec:api
-    api:sparqlEndpoint <http://localhost:3030/ds/query>
+    api:sparqlEndpoint <http://ch-pub-dev.epimorphics.net/companies/query>
     .
 
 #
@@ -112,7 +112,7 @@ spec:scheme
   a api:ListEndpoint ;
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
   api:uriTemplate "/def/{scheme}" ;
-  api:exampleRequestPath  "/company-profile/def/sic-2007";
+  api:exampleRequestPath  "/companies/def/sic-2007";
   api:variable [ api:name "schemeRegx"; api:value "^{full_base}/{_collection}/def/{scheme}/" ];
   api:selector spec:scheme-selector;
   api:viewer spec:vocabularyViewer, spec:definitionViewer, api:describeViewer, api:basicViewer;
@@ -141,10 +141,10 @@ spec:scheme-selector
 spec:api    api:endpoint spec:scheme-ns .    
 spec:scheme-ns
   a api:ItemEndpoint ;
-  rdfs:comment "Returns information about a particular vocabulary."@en;
-  api:uriTemplate "/{collection}/def/{scheme}/" ;
-  api:exampleRequestPath  "/company-profile/def/sic-2007/";
-  api:itemTemplate "{base}def/{scheme}/" ;
+  rdfs:comment "Returns information about a particular vocab"@en ;
+  api:uriTemplate "/def/{scheme}/" ;
+  api:exampleRequestPath  "/companies/def/sic-2007/";
+  api:itemTemplate "{full_base}/companies/def/{scheme}/" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
   .
@@ -185,9 +185,9 @@ spec:api    api:endpoint spec:definition .
 spec:definition
   a api:ItemEndpoint ;
   rdfs:comment "Returns individual term definitions from a vocabulary"@en;
-  api:exampleRequestPath  "/company-profile/def/company-terms/registeredAddress";
-  api:uriTemplate "/{collection}/def/{scheme}/{term}" ;
-  api:itemTemplate "{base}/{collection}/def/{scheme}/{term}" ;
+  api:exampleRequestPath  "/companies/def/company-terms/registeredAddress";
+  api:uriTemplate "/def/{scheme}/{term}" ;
+  api:itemTemplate "{full_base}/companies/def/{scheme}/{term}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:definitionViewer ;
   .
@@ -475,8 +475,8 @@ spec:previousNames
     api:variable           [ api:name "company" ; api:value <http://business.data.gov.uk/id/company/{id}> ] ; 
     api:selector [
         api:where   """
-          ?item ch-terms:registeredCompany ?company ;
-                a                          ch-terms:PreviousName .
+          ?item terms:registeredCompany ?company ;
+                a                          terms:PreviousName .
         """
     ] ;
     api:viewer             api:basicViewer ,
@@ -498,95 +498,95 @@ spec:previousNameViewer
 #
 
 #
-# ch-terms
+# terms:
 #
 
-ch-terms:accountRefDayOfMonth
+terms:accountRefDayOfMonth
     a owl:DatatypeProperty
   ; api:label "accountRefDayOfMonth"
   .
 
-ch-terms:accountRefMonth
+terms:accountRefMonth
     a owl:DatatypeProperty
   ; api:label "accountRefMonth"
   .
   
-ch-terms:companyName
+terms:companyName
     a owl:DatatypeProperty
   ; api:label "companyName"
   .
   
-ch-terms:conDate
+terms:conDate
     a owl:DatatypeProperty
   ; api:label "conDate"
   .
   
-ch-terms:accountsSchedule
+terms:accountsSchedule
     a owl:ObjectProperty
   ; api:label "accountsSchedule"
   .
   
-ch-terms:countryOfOrigin
+terms:countryOfOrigin
     a owl:ObjectProperty
   ; api:label "countryOfOrigin"
   .
   
-ch-terms:incorporationDate
+terms:incorporationDate
     a owl:DatatypeProperty
   ; api:label "incorporationDate"
   .
   
-ch-terms:lastMadeUpDate
+terms:lastMadeUpDate
     a owl:DatatypeProperty
   ; api:label "lastMadeUpDate"
   .
   
-ch-terms:mortgages
+terms:mortgages
     a owl:DatatypeProperty
   ; api:label "mortgages"
   .
   
-ch-terms:nextDueDate
+terms:nextDueDate
     a owl:DatatypeProperty
   ; api:label "nextDueDate"
   .
   
-ch-terms:numMortgageCharges
+terms:numMortgageCharges
     a owl:DatatypeProperty
   ; api:label "numMortgageCharges"
   .
   
-ch-terms:numMortgagesPartSatisfied
+terms:numMortgagesPartSatisfied
     a owl:DatatypeProperty
   ; api:label "numMortgagesPartSatisfied"
   .
   
-ch-terms:numMortgagesOutstanding
+terms:numMortgagesOutstanding
     a owl:DatatypeProperty
   ; api:label "numMortgagesOutstanding"
   .
   
-ch-terms:numMortgagesSatisfied
+terms:numMortgagesSatisfied
     a owl:DatatypeProperty
   ; api:label "numMortgagesSatisfied"
   .
   
-ch-terms:previousName
+terms:previousName
     a owl:ObjectProperty
   ; api:label "previousName"
   .
   
-ch-terms:returnsSchedule
+terms:returnsSchedule
     a owl:ObjectProperty
   ; api:label "returnsSchedule"
   . 
 
-ch-terms:registeredAddress
+terms:registeredAddress
     a owl:ObjectProperty
   ;  api:label "registredAddress"
   .
   
-ch-terms:registeredCompany
+terms:registeredCompany
     a owl:ObjectProperty
   ;  api:label "registredCompany"
   .
