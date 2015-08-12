@@ -28,12 +28,37 @@
 # API DESCRIPTION
 #
 
+## Deploy/Not-Deploy (ie. standalone) differences
+
+##deploy-begin
+#spec:api
+#    api:base   "/companies/";   
+#    api:variable    [ api:name "_resourceRoot"          ; api:value "/companies/lda-assets/" ] ;
+##
+## API Global Variables
+##
+#    api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
+#    api:variable    [ api:name "rewriteURLTo"         ; api:value "/companies/" ] ;
+#    .
+##deploy-end
+
+##not-deploy-begin
+spec:api
+    api:base   "/ch/";   
+    api:variable    [ api:name "_resourceRoot"          ; api:value "/ch/lda-assets/" ] ;
+#
+# API Global Variables
+#
+    api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
+    api:variable    [ api:name "rewriteURLTo"         ; api:value "/ch/" ] ;
+    .
+##not-deploy-end
+
 spec:api
 	a api:API ;
     api:lang "en,none" ;
 	rdfs:label "Linked Data API"@en ;
     rdfs:comment "Linked Data API"@en ;
-    api:base   "/companies/";
 	api:variable   [ api:name "base" ; api:value "http://business.data.gov.uk" ];
     elda:enableCounting  "optional" ;
     elda:enableETags true;
@@ -52,24 +77,13 @@ spec:api
 #
 
 spec:api
-        api:variable    [ api:name "_resourceRoot"          ; api:value "/companies/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
         api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/companies/query" ] ;
         api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/ch/html/lda-assets-local/velocity, /var/www/ch/html/lda-assets/velocity"] ;    
         api:variable    [ api:name "_suppress_ipto"         ; api:value "yes" ];
         api:variable    [ api:name "_exceptionIfEmpty"      ; api:value "no" ];
         .
-        
-#
-# API Global Variables
-#
-
-spec:api
-        api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
-        api:variable    [ api:name "rewriteURLTo"         ; api:value "/companies/" ] ;
-        .
-
-
+                      
 #
 # VIEWERS
 #
