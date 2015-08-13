@@ -19,11 +19,9 @@ Feature: list of company profiles
         And each outer resource should have a property named "incorporation date"   
         And each outer resource should have a property named "legal name"   
         And each outer resource should have a property named "notation"   
-        And each outer resource should have a property named "pref label"   
-        And each outer resource should have a property named "accounts schedule"
+        And each outer resource should have a property named "pref label" 
         And each outer resource should have a property named "org status"   
         And each outer resource should have a property named "org type"   
         And each outer resource should have a property named "registered address"   
-        And each outer resource should have a property named "registration"   
-        And each outer resource should have a property named "returns schedule"       
+        And each outer resource should have a property named "registration"     
 	
