@@ -10,7 +10,8 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<environment>ch</environment>
+		<service>ch</service>
+        <collection>companies</collection>
 	</properties>
 
 	<build>
@@ -108,10 +109,10 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>/var/www/${environment}/html/lda-assets</outputDirectory>
+							<outputDirectory>/var/www/${service}/html/${collection}/lda-assets</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${project.build.directory}/${project.build.finalName}/lda-assets</directory>
+									<directory>${project.build.directory}/${project.build.finalName}/${collection}/lda-assets</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -123,10 +124,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>/var/www/${environment}/html/lda-assets-local</outputDirectory>
+                            <outputDirectory>/var/www/${service}/html/${collection}/lda-assets-local</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.build.directory}/${project.build.finalName}/lda-assets-local</directory>
+                                    <directory>${project.build.directory}/${project.build.finalName}/${collection}/lda-assets-local</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -142,13 +143,13 @@
 					<webResources>
 						<resource>
 							<!-- this is relative to the pom.xml directory -->
-							<directory>var/www/${environment}/html/lda-assets</directory>
-							<targetPath>lda-assets/</targetPath>
+							<directory>var/www/${service}/html/${collection}/lda-assets</directory>
+							<targetPath>${collection}/lda-assets/</targetPath>
 						</resource>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
-                            <directory>var/www/${environment}/html/lda-assets-local</directory>
-                            <targetPath>lda-assets-local/</targetPath>
+                            <directory>var/www/${service}/html/${collection}/lda-assets-local</directory>
+                            <targetPath>${collection}/lda-assets-local/</targetPath>
                         </resource>
 					</webResources>
 					<overlays>
@@ -168,7 +169,7 @@
 						<overlay>
 							<groupId>com.epimorphics.lda</groupId>
 							<artifactId>elda-assets</artifactId>
-							<targetPath>lda-assets</targetPath>
+							<targetPath>${collection}/lda-assets</targetPath>
 							<excludes>
 								<exclude>index.html</exclude>
 								<exclude>WEB-INF/*</exclude>

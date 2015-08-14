@@ -46,7 +46,7 @@
 ##not-deploy-begin
 spec:api
     api:base   "/ch/";   
-    api:variable    [ api:name "_resourceRoot"          ; api:value "/ch/lda-assets/" ] ;
+    api:variable    [ api:name "_resourceRoot"          ; api:value "/ch/companies/lda-assets/" ] ;
 #
 # API Global Variables
 #
@@ -347,7 +347,7 @@ spec:anything
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "orgIdentifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country-name, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.region, registeredAddress.postal-code, registeredAddress.postcode.label, accountsSchedule.accountingRefDayOfMonth, accountsSchedule.accountingRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, accountsSchedule.accountsCategory.prefLabel, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin, companyProfile.prefLabel"
+    api:properties    "identifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country-name, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.region, registeredAddress.postal-code, registeredAddress.postcode.label, accountsSchedule.accountingRefDayOfMonth, accountsSchedule.accountingRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, accountsSchedule.accountsCategory.prefLabel, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin, companyProfile.prefLabel"
     .
 ####################################################################################
 # Company Profile Endpoints
@@ -599,449 +599,1073 @@ spec:limitedPartnershipViewer
 #
 # VOCABULARY
 #
+####################################################################################
 
-#
-# terms:
-#
+@prefix dgu:   <http://reference.data.gov.uk/def/reference/> .
+@prefix terms: <http://business.data.gov.uk/companies/def/terms/> .
+@prefix spatialrelations: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/> .
+@prefix org:   <http://www.w3.org/ns/org#> .
+@prefix qudt:  <http://qudt.org/schema/qudt#> .
+@prefix adms:  <http://www.w3.org/ns/adms#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix schema-org: <http://schema.org/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix api:   <http://purl.org/linked-data/api/vocab#> .
+@prefix onsadmingeo: <http://statistics.data.gov.uk/def/administrative-geography/> .
+@prefix admingeo: <http://data.ordnancesurvey.co.uk/ontology/admingeo/> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+@prefix sic:   <http://business.data.gov.uk/companies/def/sic-2007/> .
+@prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix status: <http://business.data.gov.uk/companies/def/company-status/> .
+@prefix acc-cat: <http://business.data.gov.uk/companies/def/accounts-category/> .
+@prefix void:  <http://rdfs.org/ns/void#> .
+@prefix postcode: <http://data.ordnancesurvey.co.uk/ontology/postcode/> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix rov:   <http://www.w3.org/ns/regorg#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix geometry: <http://data.ordnancesurvey.co.uk/ontology/geometry/> .
+@prefix category: <http://business.data.gov.uk/companies/def/company-category/> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 
-terms:accountingRefDayOfMonth
-    a owl:DatatypeProperty
-  ; api:label "accountingRefDayOfMonth"
-  .
+owl:AllDisjointClasses
+        a          rdfs:Class ;
+        api:label  "AllDisjointClasses" .
 
-terms:accountingRefMonth
-    a owl:DatatypeProperty
-  ; api:label "accountingRefMonth"
-  .
-  
-terms:companyName
-    a owl:DatatypeProperty
-  ; api:label "companyName"
-  .
-  
-terms:conDate
-    a owl:DatatypeProperty
-  ; api:label "conDate"
-  .
-  
-terms:accountsSchedule
-    a owl:ObjectProperty
-  ; api:label "accountsSchedule"
-  .
-  
-acc-cat:accountsCategory
-    a owl:ObjectProperty
-  ; api:label "accountsCategory"
-  .
+rov:legalName  a        rdf:Property ;
+        api:label       "legalName" ;
+        api:structured  true .
 
-terms:countryOfOrigin
-    a owl:ObjectProperty
-  ; api:label "countryOfOrigin"
-  .
-  
-terms:incorporationDate
-    a owl:DatatypeProperty
-  ; api:label "incorporationDate"
-  .
-  
-terms:dissolutionDate
-    a owl:DatatypeProperty
-  ; api:label "dissolutionDate"
-  .
+foaf:maker  a       rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "maker" .
 
-terms:lastMadeUpDate
-    a owl:DatatypeProperty
-  ; api:label "lastMadeUpDate"
-  .
-  
-terms:limitedPartnerships
-    a owl:ObjectProperty
-  ;  api:label "limitedPartnerships"
-  .
-  
-terms:numGeneralPartners
-    a owl:ObjectProperty
-  ;  api:label "numGeneralPartners"
-  .
+owl:Restriction  a  rdfs:Class ;
+        api:label  "Restriction" .
 
-terms:numLimitedPartners
-    a owl:ObjectProperty
-  ;  api:label "numLimitedPartners"
-  .
+admingeo:hasAreaCode  a  rdf:Property ;
+        api:label       "hasAreaCode" ;
+        api:structured  true .
 
-terms:mortgages
-    a owl:DatatypeProperty
-  ; api:label "mortgages"
-  .
-  
-terms:nextDueDate
-    a owl:DatatypeProperty
-  ; api:label "nextDueDate"
-  .
-  
-terms:numMortgageCharges
-    a owl:DatatypeProperty
-  ; api:label "numMortgageCharges"
-  .
-  
-terms:numMortgagesPartSatisfied
-    a owl:DatatypeProperty
-  ; api:label "numMortgagesPartSatisfied"
-  .
-  
-terms:numMortgagesOutstanding
-    a owl:DatatypeProperty
-  ; api:label "numMortgagesOutstanding"
-  .
-  
-terms:numMortgagesSatisfied
-    a owl:DatatypeProperty
-  ; api:label "numMortgagesSatisfied"
-  .
-  
-terms:previousName
-    a owl:ObjectProperty
-  ; api:label "previousName"
-  .
-  
+skos:note  a            rdf:Property ;
+        api:label       "note" ;
+        api:structured  true .
+
+category:companyCategoryNotation
+        a               rdf:Property ;
+        rdfs:range      category:company-category ;
+        api:label       "companyCategoryNotation" ;
+        api:structured  true .
+
+sic:code  a        rdfs:Datatype ;
+        api:label  "code" .
+
+admingeo:inDistrict  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "inDistrict" .
+
+owl:disjointWith  a      rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "disjointWith" ;
+        api:multiValued  true .
+
+skos:hasTopConcept  a    rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "hasTopConcept" ;
+        api:multiValued  true .
+
+admingeo:Community  a  rdfs:Class ;
+        api:label  "Community" .
+
+admingeo:ScottishParliamentConstituency
+        a          rdfs:Class ;
+        api:label  "ScottishParliamentConstituency" .
+
+status:company-status
+        a          rdfs:Datatype ;
+        api:label  "company-status" .
+
+skos:example  a         rdf:Property ;
+        api:label       "example" ;
+        api:structured  true .
+
 terms:returnsSchedule
-    a owl:ObjectProperty
-  ; api:label "returnsSchedule"
-  . 
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "returnsSchedule" .
 
-terms:registeredAddress
-    a owl:ObjectProperty
-  ;  api:label "registredAddress"
-  .
-  
-terms:registeredCompany
-    a owl:ObjectProperty
-  ;  api:label "registeredCompany"
-  .
-  
-terms:companyProfile
-    a owl:ObjectProperty
-  ;  api:label "companyProfile"
-  .
+rov:orgActivity  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "orgActivity" .
+
+geometry:hectares  a  rdf:Property ;
+        rdfs:range  xsd:decimal ;
+        api:label   "hectares" .
+
+category:company-category
+        a          rdfs:Datatype ;
+        api:label  "company-category" .
+
+owl:unionOf  a      rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "unionOf" .
+
+sic:sicNotation  a      rdf:Property ;
+        rdfs:range      sic:code ;
+        api:label       "sicNotation" ;
+        api:structured  true .
+
+terms:nextDueDate  a    rdf:Property ;
+        rdfs:range      xsd:date ;
+        api:label       "nextDueDate" ;
+        api:structured  true .
+
+dct:license  a      rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "license" .
+
+sic:Section  a     rdfs:Class ;
+        api:label  "Section" .
+
+owl:deprecated  a       rdf:Property ;
+        rdfs:range      xsd:boolean ;
+        api:label       "deprecated" ;
+        api:structured  true .
+
+owl:FunctionalProperty
+        a          rdfs:Class ;
+        api:label  "FunctionalProperty" .
+
+owl:AnnotationProperty
+        a          rdfs:Class ;
+        api:label  "AnnotationProperty" .
+
+acc-cat:AccountsCategory
+        a          rdfs:Class ;
+        api:label  "AccountsCategory" .
+
+dct:AgentClass  a  rdfs:Class ;
+        api:label  "AgentClass" .
+
+postcode:district  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "district" .
+
+dct:hasVersion  a   rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "hasVersion" .
+
+spatialrelations:contains
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "contains" ;
+        api:multiValued  true .
+
+vcard:post-office-box
+        a               rdf:Property ;
+        api:label       "post-office-box" ;
+        api:structured  true .
+
+rdfs:range  a       rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "range" .
+
+skos:narrower  a         rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "narrower" ;
+        api:multiValued  true .
+
+admingeo:LondonBorough
+        a          rdfs:Class ;
+        api:label  "LondonBorough" .
+
+owl:ReflexiveProperty
+        a          rdfs:Class ;
+        api:label  "ReflexiveProperty" .
+
+postcode:postcode  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "postcode" .
+
+adms:schemaAgency  a    rdf:Property ;
+        api:label       "schemaAgency" ;
+        api:structured  true .
 
 terms:AccountsSchedule
-    a   owl:Class ;
-    api:label "AccountsSchedule" ;
-    .
+        a          rdfs:Class ;
+        api:label  "AccountsSchedule" .
+
+admingeo:inRegion  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "inRegion" .
+
+terms:uk-company  a  rdfs:Datatype ;
+        api:label  "uk-company" .
+
+owl:sameAs  a       rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "sameAs" .
+
+admingeo:District  a  rdfs:Class ;
+        api:label  "District" .
+
+org:identifier  a       rdf:Property ;
+        rdfs:range      terms:uk-company ;
+        api:label       "identifier" ;
+        api:structured  true .
+
+postcode:PQ  a          rdf:Property ;
+        api:label       "PQ" ;
+        api:structured  true .
+
+rdf:XMLLiteral  a  rdfs:Datatype ;
+        api:label  "XMLLiteral" .
+
+skos:ConceptScheme  a  rdfs:Class ;
+        api:label  "ConceptScheme" .
+
+owl:DataRange  a   rdfs:Class ;
+        api:label  "DataRange" .
+
+admingeo:DistrictWard
+        a          rdfs:Class ;
+        api:label  "DistrictWard" .
+
+spatialrelations:touches
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "touches" ;
+        api:multiValued  true .
+
+postcode:nhsHA  a   rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "nhsHA" .
+
+skos:scopeNote  a       rdf:Property ;
+        api:label       "scopeNote" ;
+        api:structured  true .
+
+sic:code-condensed  a  rdfs:Datatype ;
+        api:label  "code-condensed" .
+
+status:companyStatusNotation
+        a               rdf:Property ;
+        rdfs:range      status:company-status ;
+        api:label       "companyStatusNotation" ;
+        api:structured  true .
+
+skos:prefLabel  a        rdf:Property ;
+        api:label        "prefLabel" ;
+        api:multiValued  true ;
+        api:structured   true .
+
+terms:registeredCompany
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "registeredCompany" .
+
+admingeo:countyElectoralDivision
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "countyElectoralDivision" ;
+        api:multiValued  true .
+
+dct:identifier  a       rdf:Property ;
+        api:label       "dct_identifier" ;
+        api:structured  true .
+
+org:FormalOrganization
+        a          rdfs:Class ;
+        api:label  "FormalOrganization" .
+
+admingeo:GreaterLondonAuthority
+        a          rdfs:Class ;
+        api:label  "GreaterLondonAuthority" .
+
+dct:created  a          rdf:Property ;
+        rdfs:range      xsd:date ;
+        api:label       "created" ;
+        api:structured  true .
+
+owl:InverseFunctionalProperty
+        a          rdfs:Class ;
+        api:label  "InverseFunctionalProperty" .
+
+owl:equivalentClass  a   rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "equivalentClass" ;
+        api:multiValued  true .
+
+owl:NamedIndividual  a  rdfs:Class ;
+        api:label  "NamedIndividual" .
+
+rdfs:subPropertyOf  a    rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "subPropertyOf" ;
+        api:multiValued  true .
+
+rdfs:domain  a      rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "domain" .
+
+rdfs:seeAlso  a          rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "seeAlso" ;
+        api:multiValued  true .
+
+<http://purl.org/vocab/vann/preferredNamespacePrefix>
+        a               rdf:Property ;
+        api:label       "preferredNamespacePrefix" ;
+        api:structured  true .
+
+owl:hasKey  a       rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "hasKey" .
+
+terms:companyProfile  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "companyProfile" .
+
+admingeo:hasUnitID  a   rdf:Property ;
+        api:label       "hasUnitID" ;
+        api:structured  true .
+
+rdfs:Datatype  a   rdfs:Class ;
+        api:label  "Datatype" .
+
+vcard:organization-name
+        a               rdf:Property ;
+        api:label       "organization-name" ;
+        api:structured  true .
+
+owl:maxCardinality  a  rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "maxCardinality" .
+
+spatialrelations:equals
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "equals" .
+
+terms:lastMadeUpDate  a  rdf:Property ;
+        rdfs:range      xsd:date ;
+        api:label       "lastMadeUpDate" ;
+        api:structured  true .
+
+owl:imports  a           rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "imports" ;
+        api:multiValued  true .
+
+owl:TransitiveProperty
+        a          rdfs:Class ;
+        api:label  "TransitiveProperty" .
+
+sic:Group  a       rdfs:Class ;
+        api:label  "Group" .
+
+admingeo:UnitaryAuthority
+        a          rdfs:Class ;
+        api:label  "UnitaryAuthority" .
+
+owl:equivalentProperty
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "equivalentProperty" .
+
+foaf:name  a            rdf:Property ;
+        api:label       "name" ;
+        api:structured  true .
+
+skos:Concept  a    rdfs:Class ;
+        api:label  "Concept" .
+
+dc:creator  a           rdf:Property ;
+        api:label       "dc_creator" ;
+        api:structured  true .
+
+status:CompanyStatus  a  rdfs:Class ;
+        api:label  "CompanyStatus" .
+
+<http://www.w3.org/2003/06/sw-vocab-status/ns#term_status>
+        a               rdf:Property ;
+        api:label       "term_status" ;
+        api:structured  true .
+
+postcode:RH  a          rdf:Property ;
+        api:label       "RH" ;
+        api:structured  true .
+
+owl:allValuesFrom  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "allValuesFrom" .
+
+owl:ObjectProperty  a  rdfs:Class ;
+        api:label  "ObjectProperty" .
+
+foaf:homepage  a    rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "homepage" .
+
+<http://purl.org/vocab/vann/preferredNamespaceUri>
+        a               rdf:Property ;
+        api:label       "preferredNamespaceUri" ;
+        api:structured  true .
+
+rov:orgStatus  a    rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "orgStatus" .
+
+rdf:Property  a    rdfs:Class ;
+        api:label  "Property" .
+
+rdf:first  a        rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "first" .
+
+admingeo:MetropolitanDistrict
+        a          rdfs:Class ;
+        api:label  "MetropolitanDistrict" .
+
+geometry:AbstractGeometry
+        a          rdfs:Class ;
+        api:label  "AbstractGeometry" .
+
+owl:oneOf  a        rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "oneOf" .
+
+terms:LimitedPartnerships
+        a          rdfs:Class ;
+        api:label  "LimitedPartnerships" .
+
+dct:abstract  a         rdf:Property ;
+        api:label       "abstract" ;
+        api:structured  true .
+
+terms:companyName  a    rdf:Property ;
+        api:label       "companyName" ;
+        api:structured  true .
+
+postcode:PostcodeUnit
+        a          rdfs:Class ;
+        api:label  "PostcodeUnit" .
+
+vcard:locality  a       rdf:Property ;
+        api:label       "locality" ;
+        api:structured  true .
+
+geometry:extent  a       rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "extent" ;
+        api:multiValued  true .
+
+admingeo:westminsterConstituency
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "westminsterConstituency" ;
+        api:multiValued  true .
+
+terms:numLimitedPartners
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "numLimitedPartners" .
+
+postcode:ward  a    rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "ward" .
+
+dc:description  a       rdf:Property ;
+        api:label       "dct_description" ;
+        api:structured  true .
+
+admingeo:parish  a       rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "parish" ;
+        api:multiValued  true .
+
+terms:numMortgagesPartSatisfied
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "numMortgagesPartSatisfied" .
+
+terms:numGeneralPartners
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "numGeneralPartners" .
+
+terms:mortgages  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "mortgages" .
+
+sic:condensedNotation
+        a               rdf:Property ;
+        rdfs:range      sic:code-condensed ;
+        api:label       "condensedNotation" ;
+        api:structured  true .
+
+owl:minCardinality  a  rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "minCardinality" .
+
+schema-org:affiliation
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "affiliation" .
+
+admingeo:county  a       rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "admingeo_county" ;
+        api:multiValued  true .
+
+owl:intersectionOf  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "intersectionOf" .
+
+org:roleProperty  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "roleProperty" .
+
+spatialrelations:easting
+        a           rdf:Property ;
+        rdfs:range  xsd:decimal ;
+        api:label   "easting" .
+
+terms:RegisteredCompany
+        a          rdfs:Class ;
+        api:label  "RegisteredCompany" .
+
+owl:DatatypeProperty  a  rdfs:Class ;
+        api:label  "DatatypeProperty" .
+
+admingeo:CivilParish  a  rdfs:Class ;
+        api:label  "CivilParish" .
+
+postcode:PostcodeDistrict
+        a          rdfs:Class ;
+        api:label  "PostcodeDistrict" .
+
+dct:title  a             rdf:Property ;
+        api:label        "dct_title" ;
+        api:multiValued  true ;
+        api:structured   true .
+
+sic:Class  a       rdfs:Class ;
+        api:label  "Class" .
+
+acc-cat:accounts-category
+        a          rdfs:Datatype ;
+        api:label  "accounts-category" .
+
+postcode:LH  a          rdf:Property ;
+        api:label       "LH" ;
+        api:structured  true .
+
+owl:Ontology  a    rdfs:Class ;
+        api:label  "Ontology" .
+
+rov:registration  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "registration" .
+
+geo:lat  a          rdf:Property ;
+        rdfs:range  xsd:decimal ;
+        api:label   "lat" .
+
+postcode:PostcodeArea
+        a          rdfs:Class ;
+        api:label  "PostcodeArea" .
+
+admingeo:constituency
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "constituency" ;
+        api:multiValued  true .
+
+rdf:type  a              rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "type" ;
+        api:multiValued  true .
+
+admingeo:inCounty  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "inCounty" .
+
+terms:numMortgageCharges
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "numMortgageCharges" .
+
+admingeo:LondonBoroughWard
+        a          rdfs:Class ;
+        api:label  "LondonBoroughWard" .
+
+foaf:mbox  a            rdf:Property ;
+        api:label       "mbox" ;
+        api:structured  true .
+
+skos:inScheme  a    rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "inScheme" .
+
+sic:CodePoint  a   rdfs:Class ;
+        api:label  "CodePoint" .
+
+vcard:region  a         rdf:Property ;
+        api:label       "region" ;
+        api:structured  true .
+
+dct:modified  a          rdf:Property ;
+        api:label        "modified" ;
+        api:multiValued  true ;
+        api:structured   true .
+
+rdfs:subClasOf  a   rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "subClasOf" .
+
+terms:CompanyProfile  a  rdfs:Class ;
+        api:label  "CompanyProfile" .
+
+admingeo:Borough  a  rdfs:Class ;
+        api:label  "Borough" .
+
+rdfs:subClassOf  a       rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "subClassOf" ;
+        api:multiValued  true .
+
+admingeo:ScottishParliamentElectoralRegion
+        a          rdfs:Class ;
+        api:label  "ScottishParliamentElectoralRegion" .
+
+owl:inverseOf  a    rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "inverseOf" .
+
+owl:Thing  a       rdfs:Class ;
+        api:label  "Thing" .
+
+postcode:nhsRegionalHA
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "nhsRegionalHA" .
+
+dct:creator  a           rdf:Property ;
+        api:label        "dct_creator" ;
+        api:multiValued  true ;
+        api:structured   true .
+
+xsd:decimal  a     rdfs:Datatype ;
+        api:label  "decimal" .
+
+rov:orgType  a      rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "orgType" .
+
+sic:SubClass  a    rdfs:Class ;
+        api:label  "SubClass" .
+
+sic:Division  a    rdfs:Class ;
+        api:label  "Division" .
+
+owl:SymmetricProperty
+        a          rdfs:Class ;
+        api:label  "SymmetricProperty" .
+
+postcode:PostcodeSector
+        a          rdfs:Class ;
+        api:label  "PostcodeSector" .
+
+<http://purl.org/vocommons/voaf#specializes>
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "specializes" .
+
+owl:cardinality  a  rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "cardinality" .
+
+acc-cat:accountsCategory
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "accountsCategory" .
+
+dc:date  a              rdf:Property ;
+        api:label       "date" ;
+        api:structured  true .
+
+admingeo:GreaterLondonAuthorityAssemblyConstituency
+        a          rdfs:Class ;
+        api:label  "GreaterLondonAuthorityAssemblyConstituency" .
+
+vcard:postal-code  a    rdf:Property ;
+        api:label       "postal-code" ;
+        api:structured  true .
+
+terms:numMortgagesSatisfied
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "numMortgagesSatisfied" .
+
+xsd:boolean  a     rdfs:Datatype ;
+        api:label  "boolean" .
+
+terms:Mortgages  a  rdfs:Class ;
+        api:label  "Mortgages" .
+
+admingeo:CountyElectoralDivision
+        a          rdfs:Class ;
+        api:label  "CountyElectoralDivision" .
+
+skos:definition  a      rdf:Property ;
+        api:label       "definition" ;
+        api:structured  true .
+
+terms:accountsSchedule
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "accountsSchedule" .
+
+<http://www.georss.org/georss/point>
+        a               rdf:Property ;
+        api:label       "point" ;
+        api:structured  true .
+
+admingeo:gssCode  a     rdf:Property ;
+        api:label       "gssCode" ;
+        api:structured  true .
+
+status:InsolvencyStatusDetail
+        a          rdfs:Class ;
+        api:label  "InsolvencyStatusDetail" .
+
+admingeo:County  a  rdfs:Class ;
+        api:label  "County" .
+
+terms:limitedPartnerships
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "limitedPartnerships" .
+
+admingeo:inEuropeanRegion
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "inEuropeanRegion" ;
+        api:multiValued  true .
+
+dct:description  a      rdf:Property ;
+        api:label       "dc_description" ;
+        api:structured  true .
+
+admingeo:ward  a         rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "admingeo_ward" ;
+        api:multiValued  true .
+
+skos:notation  a        rdf:Property ;
+        rdfs:range      xsd:string ;
+        api:label       "notation" ;
+        api:structured  true .
+
+owl:qualifiedCardinality
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "qualifiedCardinality" .
+
+rdfs:comment  a          rdf:Property ;
+        api:label        "comment" ;
+        api:multiValued  true ;
+        api:structured   true .
+
+vcard:street-address  a  rdf:Property ;
+        api:label       "street-address" ;
+        api:structured  true .
+
+terms:conDate  a        rdf:Property ;
+        rdfs:range      xsd:date ;
+        api:label       "conDate" ;
+        api:structured  true .
+
+acc-cat:accountsCategoryNotation
+        a               rdf:Property ;
+        rdfs:range      acc-cat:accounts-category ;
+        api:label       "accountsCategoryNotation" ;
+        api:structured  true .
+
+postcode:county  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "county" .
+
+admingeo:WelshAssemblyConstituency
+        a          rdfs:Class ;
+        api:label  "WelshAssemblyConstituency" .
+
+owl:maxQualifiedCardinality
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "maxQualifiedCardinality" .
+
+status:companyStatusDetail
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "companyStatusDetail" .
+
+admingeo:EuropeanRegion
+        a          rdfs:Class ;
+        api:label  "EuropeanRegion" .
+
+terms:previousName  a    rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "previousName" ;
+        api:multiValued  true .
+
+vcard:country-name  a   rdf:Property ;
+        api:label       "country-name" ;
+        api:structured  true .
+
+<http://purl.org/dc/dcam/VocabularyEncodingScheme>
+        a          rdfs:Class ;
+        api:label  "VocabularyEncodingScheme" .
+
+rov:RegisteredOrganization
+        a          rdfs:Class ;
+        api:label  "RegisteredOrganization" .
+
+dc:title  a             rdf:Property ;
+        api:label       "dc_title" ;
+        api:structured  true .
+
+postcode:country  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "country" .
+
+postcode:positionalQualityIndicator
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "positionalQualityIndicator" .
+
+vcard:extended-address
+        a               rdf:Property ;
+        api:label       "extended-address" ;
+        api:structured  true .
+
+owl:minQualifiedCardinality
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "minQualifiedCardinality" .
+
+org:Role  a        rdfs:Class ;
+        api:label  "Role" .
+
+<http://purl.org/vocommons/voaf#Vocabulary>
+        a          rdfs:Class ;
+        api:label  "Vocabulary" .
+
+owl:versionInfo  a      rdf:Property ;
+        api:label       "versionInfo" ;
+        api:structured  true .
+
+geo:long  a         rdf:Property ;
+        rdfs:range  xsd:decimal ;
+        api:label   "long" .
+
+adms:Identifier  a  rdfs:Class ;
+        api:label  "Identifier" .
+
+category:CompanyCategory
+        a          rdfs:Class ;
+        api:label  "CompanyCategory" .
+
+skos:topConceptOf  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "topConceptOf" .
+
+terms:accountingRefDayOfMonth
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "accountingRefDayOfMonth" .
+
+spatialrelations:within
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "within" ;
+        api:multiValued  true .
+
+owl:onClass  a      rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "onClass" .
 
 terms:ReturnsSchedule
-    a   owl:Class ;
-    api:label "ReturnsSchedule" ;
-    .
-  
-#
-# adms
-#
+        a          rdfs:Class ;
+        api:label  "ReturnsSchedule" .
 
-adms:schemaAgency
-    a owl:DatatypeProperty
-  ; api:label "schemaAgency"
-  .
-  
-#
-# org
-#
+admingeo:district  a     rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "admingeo_district" ;
+        api:multiValued  true .
 
-org:identifier
-    a owl:DatatypeProperty
-  ; api:label "orgIdentifier"
-  .
- 
-#
-# rov
-#
+status:insolvencyStatusDetail
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "insolvencyStatusDetail" .
 
-rov:legalName
-    a rdf:Property
-  ; api:label "legalName"
-  .
-  
-rov:orgActivity
-    a owl:ObjectProperty
-  ; api:label "orgActivity"
-  .
-  
-rov:orgStatus
-    a owl:ObjectProperty
-  ; api:label "orgStatus"
-  .
-  
-rov:orgType
-    a owl:ObjectProperty
-  ; api:label "orgType"
-  .
-  
-rov:registration
-    a owl:ObjectProperty
-  ; api:label "registration"
-  .
-  
-#
-# Ordnance Survey postcode
-#
+dct:publisher  a    rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "publisher" .
 
-postcode:postcode
-    a owl:ObjectProperty
-  ; api:label "postcode"
-  .
-  
-#
-# vcard
-#
+owl:propertyChainAxiom
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "propertyChainAxiom" ;
+        api:multiValued  true .
 
+rdfs:isDefinedBy  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "isDefinedBy" .
 
-vcard:country-name
-    a owl:DatatypeProperty
-  ; api:label "country-name"
-  .
-  
-vcard:extended-address
-    a owl:DatatypeProperty
-  ; api:label "extended-address"
-  .
-  
-vcard:locality
-    a owl:DatatypeProperty
-  ; api:label "locality"
-  .
-  
-vcard:organization-name
-    a owl:DatatypeProperty
-  ; api:label "organization-name"
-  .
-  
-vcard:street-address
-    a owl:DatatypeProperty
-  ; api:label "street-address"
-  .
+owl:members  a      rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "members" .
 
-vcard:region
-    a owl:DatatypeProperty
-  ; api:label "region"
-  .
-  
-vcard:country-name
-    a owl:DatatypeProperty
-  ; api:label "country-name"
-  .
+owl:onProperty  a   rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "onProperty" .
 
-vcard:postal-code
-    a owl:DatatypeProperty
-  ; api:label "postal-code"
-  .
-#
-# skos
-# 
+terms:countryOfOrigin
+        a               rdf:Property ;
+        api:label       "countryOfOrigin" ;
+        api:structured  true .
 
-skos:broader
-    a rdfs:Property
-  ; api:label "broader"
-  . 
-  
-skos:hasTopConcept
-    a rdfs:Property
-  ; api:label "hasTopConcept"
-  .
-  
-skos:inScheme
-    a rdfs:Property
-  ; api:label "inScheme"
-  .
-  
-skos:narrower
-    a rdfs:Property
-  ; api:label "narrower"
-  .
+terms:registeredAddress
+        a           rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "registeredAddress" .
 
-skos:notation
-    a rdfs:Property
-  ; api:label "notation"
-  .
-  
-skos:prefLabel
-    a rdfs:Property
-  ; api:label "prefLabel"
-  .
-    
-#
-# dcterms
-#
+admingeo:UnitaryAuthorityWard
+        a          rdfs:Class ;
+        api:label  "UnitaryAuthorityWard" .
 
-dct:issued
-    a owl:DatatypeProperty
-  ; api:label "issued"
-  .
-    
-#
-# dc
-#
+xsd:integer  a     rdfs:Datatype ;
+        api:label  "integer" .
 
-dc:creator
-      a owl:DatatypeProperty ;
-      #rdfs:range xsd:string ;
-      api:label "creator" .
+skos:broader  a     rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "broader" .
 
-dc:date
-      a owl:DatatypeProperty ;
-      rdfs:range xsd:date ;
-      api:label "dc_date" .
+geometry:asGML  a       rdf:Property ;
+        rdfs:range      rdf:XMLLiteral ;
+        api:label       "asGML" ;
+        api:structured  true .
 
-dc:description
-      a owl:DatatypeProperty ;
-      #rdfs:range xsd:string ;
-      api:label "description" .
-
-dc:identifier
-      a owl:DatatypeProperty ;
-      #rdfs:range xsd:string ;
-      api:label "identifier" .
-
-dc:publisher
-      a owl:DatatypeProperty ;
-      #rdfs:range xsd:string ;
-      api:label "publisher" .
-
-dc:subject
-      a owl:DatatypeProperty ;
-      #rdfs:range xsd:string ;
-      api:label "subject" .
-
-dc:title
-      a owl:DatatypeProperty ;
-      #rdfs:range xsd:string ;
-      api:label "title" .
-      
-#
-# owl
-#
-
-owl:imports
-    rdfs:range      rdfs:Resource;
-    api:label       "imports";
-    .
-
-owl:cardinality
-    rdfs:range  xsd:integer;
-    api:label   "cardinality";
-    .
-
-owl:maxCardinality
-    rdfs:range  xsd:integer;
-    api:label   "maxCardinality";
-    .
-
-owl:minCardinality
-    rdfs:range  xsd:integer;
-    api:label   "minCardinality";
-    .
-
-owl:versionInfo
-    api:label   "versionInfo";
-    .
+owl:onDataRange  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "onDataRange" .
 
 owl:Class  a       rdfs:Class ;
         api:label  "owl_Class" .
 
-      
-#
-# rdf(s)
-#
-
-rdfs:comment
-        api:label  "comment" ;
-        api:structured  true .
-
-rdfs:range  rdfs:range  rdfs:Resource ;
-        api:label   "range" .
-
-rdf:type
-  rdfs:range     rdfs:Class;
-  api:label      "type" .
-  
-rdf:first
-  rdfs:range     rdf:List;
-# avoid conflicting use of "first" short name.
-  api:label     "rdf_first" .
-
-rdf:rest
-  rdfs:range     rdf:List;
-  api:label     "rest" .
-
-rdf:value
-  api:structured        true;
-  api:label "value" .
-
-rdf:type  rdfs:range     rdfs:Resource ;
-        api:label        "type" ;
-        api:multiValued  true ;
-        .
-
-rdfs:label  api:label    "label" ;
-        a   rdf:Property ;
+dct:contributor  a       rdf:Property ;
+        api:label        "contributor" ;
         api:multiValued  true ;
         api:structured   true .
 
-owl:sameAs  rdfs:range   rdfs:Resource ;
-        api:label        "sameAs" ;
-        api:multiValued  true ;
-        .
-        
-rdfs:domain
-      rdfs:range rdfs:Class ;
-      api:label "domain" .
+xsd:date  a        rdfs:Datatype ;
+        api:label  "date" .
 
-rdfs:range  rdfs:range  rdfs:Resource ;
-        api:label   "range" .
+terms:PreviousName  a  rdfs:Class ;
+        api:label  "PreviousName" .
 
-rdfs:seeAlso
-      rdfs:range rdfs:Resource ;
-      api:label "seeAlso" .
+admingeo:WestminsterConstituency
+        a          rdfs:Class ;
+        api:label  "WestminsterConstituency" .
 
-rdfs:isDefinedBy
-      rdfs:range rdfs:Resource ;
-      api:label "isDefinedBy" .
+admingeo:WelshAssemblyElectoralRegion
+        a          rdfs:Class ;
+        api:label  "WelshAssemblyElectoralRegion" .
 
-rdfs:subPropertyOf
-      rdfs:range rdfs:Resource ;
-      api:label "subPropertyOf" .
+postcode:Postcode  a  rdfs:Datatype ;
+        api:label  "Postcode" .
 
-rdfs:subClassOf  
+<http://www.w3.org/2007/05/powder-s#describedby>
+        a           rdf:Property ;
         rdfs:range  rdfs:Resource ;
-        api:label   "subClassOf" .
+        api:label   "describedby" .
+
+dct:issued  a           rdf:Property ;
+        api:label       "issued" ;
+        api:structured  true .
+
+status:CompanyStatusDetail
+        a          rdfs:Class ;
+        api:label  "CompanyStatusDetail" .
+
+vcard:Address  a   rdfs:Class ;
+        api:label  "Address" .
+
+owl:someValuesFrom  a  rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "someValuesFrom" .
+
+terms:numMortgagesOutstanding
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "numMortgagesOutstanding" .
 
 rdfs:Class  a      rdfs:Class ;
         api:label  "rdfs_Class" .
 
-#
-# XSD datatypes
-#
-xsd:gYear
-    api:label   "gYear" ;
-    a           rdfs:Datatype .
+terms:accountingRefMonth
+        a           rdf:Property ;
+        rdfs:range  xsd:integer ;
+        api:label   "accountingRefMonth" .
 
-xsd:gYearMonth
-    api:label   "gYearMonth" ;
-    a           rdfs:Datatype .
-    
-xsd:dateTime
-    api:label   "dateTime" ;
-    a           rdfs:Datatype .
+admingeo:welshAssemblyElectoralRegion
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "welshAssemblyElectoralRegion" ;
+        api:multiValued  true .
 
-xsd:date
-    api:label   "date" ;
-    a           rdfs:Datatype .
+rdf:rest  a         rdf:Property ;
+        rdfs:range  rdfs:Resource ;
+        api:label   "rest" .
 
-xsd:integer
-    a           rdfs:Datatype ;
-    api:label  "integer" .
-    
-xsd:float  a       rdfs:Datatype ;
-        api:label  "float" .
+spatialrelations:northing
+        a           rdf:Property ;
+        rdfs:range  xsd:decimal ;
+        api:label   "northing" .
 
-xsd:decimal  a     rdfs:Datatype ;
-        api:label  "decimal" .
+rdfs:label  a            rdf:Property ;
+        api:label        "label" ;
+        api:multiValued  true ;
+        api:structured   true .
+
+admingeo:MetropolitanDistrictWard
+        a          rdfs:Class ;
+        api:label  "MetropolitanDistrictWard" .
+
+admingeo:UnitaryAuthorityElectoralDivision
+        a          rdfs:Class ;
+        api:label  "UnitaryAuthorityElectoralDivision" .
+
+admingeo:scottishParliamentElectoralRegion
+        a                rdf:Property ;
+        rdfs:range       rdfs:Resource ;
+        api:label        "scottishParliamentElectoralRegion" ;
+        api:multiValued  true .
+
+terms:incorporationDate
+        a               rdf:Property ;
+        rdfs:range      xsd:date ;
+        api:label       "incorporationDate" ;
+        api:structured  true .
+
+terms:dissolutionDate
+        a               rdf:Property ;
+        rdfs:range      xsd:date ;
+        api:label       "dissolutionDate" ;
+        api:structured  true .
