@@ -87,7 +87,7 @@
 ## Display the item URI
 #macro( itemURI $resource $h $css )
   #if( !$resource.isAnon() )
-    <div class="$css bwm-was-here-2">  
+    <div class="$css">  
       #setResourceHref( $resource.getURI() )
       <$h class="resource-uri"><a href="$href">$resource.getURI()</a></$h>
     </div>
