@@ -275,10 +275,10 @@ spec:instances
   a api:ListEndpoint ;
   rdfs:comment "Lists known instances of a given vocabulary (class) term."@en;
   api:uriTemplate "/def/{scheme}/{term}/instance" ;
-  api:exampleRequestPath  "/def/company-terms/CompanyStatus/instance";
+  api:exampleRequestPath  "/def/company-status/CompanyStatus/instance";
   api:variable [
     api:name "class" ;
-    api:value "{base}def/{scheme}/{term}" ;
+    api:value "{base}/def/{scheme}/{term}" ;
     api:type rdfs:Resource ;
   ] ;
   api:selector spec:instances-selector;
