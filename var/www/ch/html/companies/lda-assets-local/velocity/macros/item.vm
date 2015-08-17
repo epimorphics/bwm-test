@@ -246,7 +246,7 @@
   
   ## Customized adaption for company profile
   #if ( $href.contains( "http://business.data.gov.uk/id/company/" ) )
-    #set( $href = $href.replace( "//business.data.gov.uk/id/company/", "/companies/profile/" ) )
+    #set( $href = $href.replace( "//business.data.gov.uk/id/company/", "${rewriteCompanyIdToProfile.spelling()}profile/" ) )
   #end
 
   ##if( $retainSuffix )

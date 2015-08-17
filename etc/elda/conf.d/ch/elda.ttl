@@ -40,6 +40,9 @@
 ##
 #    api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
 #    api:variable    [ api:name "rewriteURLTo"         ; api:value "/companies/" ] ;
+#
+## Rewrite of company id link targets  to reference profile pages.
+#    api:variable    [ api:name "rewriteCompanyIdToProfile" ; api:value "/companies/" ];
 #    .
 ##deploy-end
 ####################################################################################
@@ -52,6 +55,9 @@ spec:api
 #
     api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
     api:variable    [ api:name "rewriteURLTo"         ; api:value "/ch/" ] ;
+    
+# Rewrite of company id link targets  to reference profile pages.
+    api:variable    [ api:name "rewriteCompanyIdToProfile" ; api:value "/ch/" ];
     .
 ##not-deploy-end
 ####################################################################################
@@ -123,7 +129,7 @@ spec:scheme
   a api:ListEndpoint ;
   rdfs:comment "Returns a paged list of vocabulary terms from a given vocabulary."@en;
   api:uriTemplate "/def/{scheme}" ;
-  api:exampleRequestPath  "/companies/def/sic-2007";
+  api:exampleRequestPath  "/def/sic-2007";
   api:variable [ api:name "schemeRegx"; api:value "^{base}/def/{scheme}/" ];
   api:selector spec:scheme-selector;
   api:viewer spec:vocabularyViewer, spec:definitionViewer, api:describeViewer, api:basicViewer;
@@ -154,7 +160,7 @@ spec:scheme-ns
   a api:ItemEndpoint ;
   rdfs:comment "Returns information about a particular vocab"@en ;
   api:uriTemplate "/def/{scheme}/" ;
-  api:exampleRequestPath  "/companies/def/sic-2007/";
+  api:exampleRequestPath  "/def/sic-2007/";
   api:itemTemplate "{base}/def/{scheme}/" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
@@ -166,7 +172,7 @@ spec:scheme-scheme
   a api:ItemEndpoint ;
   rdfs:comment "Returns information about a particular vocabulary."@en;
   api:uriTemplate "/def/{scheme}/scheme" ;
-  api:exampleRequestPath  "/companies/def/sic-2007/scheme";
+  api:exampleRequestPath  "/def/sic-2007/scheme";
   api:itemTemplate "{base}/def/{scheme}/scheme" ;
   api:viewer spec:schemeViewer, api:describeViewer, api:basicViewer;
   api:defaultViewer spec:schemeViewer;
@@ -204,7 +210,7 @@ spec:api    api:endpoint spec:definition .
 spec:definition
   a api:ItemEndpoint ;
   rdfs:comment "Returns individual term definitions from a vocabulary"@en;
-  api:exampleRequestPath  "/companies/def/company-terms/registeredAddress";
+  api:exampleRequestPath  "/def/company-terms/registeredAddress";
   api:uriTemplate "/def/{scheme}/{term}" ;
   api:itemTemplate "{base}/def/{scheme}/{term}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
@@ -215,7 +221,7 @@ spec:api    api:endpoint spec:subterm .
 spec:subterm
   a api:ItemEndpoint ;
   rdfs:comment "Returns individual term definitions from a vocabulary"@en;
-  api:exampleRequestPath  "/companies/def/company-status/detail/administrative-reveiver";
+  api:exampleRequestPath  "/def/company-status/detail/administrative-reveiver";
   api:uriTemplate "/def/{scheme}/{term}/{subterm}" ;
   api:itemTemplate "{base}/def/{scheme}/{term}/{subterm}" ;
   api:viewer spec:definitionViewer, api:describeViewer, api:basicViewer;
@@ -269,7 +275,7 @@ spec:instances
   a api:ListEndpoint ;
   rdfs:comment "Lists known instances of a given vocabulary (class) term."@en;
   api:uriTemplate "/def/{scheme}/{term}/instance" ;
-  api:exampleRequestPath  "/companies/def/company-terms/CompanyStatus/instance";
+  api:exampleRequestPath  "/def/company-terms/CompanyStatus/instance";
   api:variable [
     api:name "class" ;
     api:value "{base}def/{scheme}/{term}" ;
@@ -291,7 +297,7 @@ spec:api    api:endpoint spec:properties .
 spec:properties
   a api:ListEndpoint ;
   rdfs:comment "Lists properties used in the dataset to describe instances of a given vocabulary (class) term."@en;
-  api:exampleRequestPath  "/companies/def/company-terms/registeredAddress/property";
+  api:exampleRequestPath  "/def/company-terms/registeredAddress/property";
   api:uriTemplate "/def/{scheme}/{term}/property" ;
   api:variable [
     api:name "class" ;
@@ -307,12 +313,12 @@ spec:properties
 ####################################################################################
 # Generic Endpoints
 ####################################################################################
-spec:api  api:endpoint         spec:thing .
-spec:thing
+spec:api  api:endpoint         spec:about .
+spec:about
         a                   api:ItemEndpoint;
-        api:uriTemplate     "/thing?resource={uri}";
+        api:uriTemplate     "/about?resource={uri}";
         api:exampleRequestPath
-                            "/companies/thing?resource=http://business.data.gov.uk/id/company/08847552";
+                            "/about?resource=http://business.data.gov.uk/id/company/08847552";
         rdfs:comment        "A generic endpoint for asking about a specific thing by 'uri'.";
         api:itemTemplate    "{uri}";
         api:viewer          api:basicViewer, api:describeViewer, api:labelledDescribeViewer;
@@ -357,7 +363,7 @@ spec:companyProfile
     a                   api:ItemEndpoint ;
     api:uriTemplate     "/profile/{id}" ;
     api:exampleRequestPath
-                        "/companies/profile/08847552" ;
+                        "/profile/08847552" ;
     rdfs:comment        "An item endpoint for company profiles." ;
     api:itemTemplate    "http://business.data.gov.uk/id/company/{id}" ;
     api:viewer          api:basicViewer ,
@@ -371,7 +377,7 @@ spec:api api:endpoint spec:companyProfiles .
 spec:companyProfiles
     a                      api:ListEndpoint ;
     api:uriTemplate        "/profile" ;
-    api:exampleRequestPath "/companies/profile" ;
+    api:exampleRequestPath "/profile" ;
     rdfs:comment           "A list endpoint for company profiles." ;
     api:selector [
         api:where   """
@@ -397,7 +403,7 @@ spec:companyProfileAlt
     api:exampleRequestPath
                         "/profile2/08847552" ;
     rdfs:comment        "An item endpoint for company profiles." ;
-    api:itemTemplate    "http://business.data.gov.uk/companies/profile/{id}" ;
+    api:itemTemplate    "{base}/profile/{id}" ;
     api:viewer          api:basicViewer ,
                         api:describeViewer ,
                         api:labelledDescribeViewer ,
@@ -434,9 +440,9 @@ spec:api api:endpoint spec:address .
 spec:address
     a                      api:ItemEndpoint ;
     api:uriTemplate        "/profile/{id}/registered-address" ;
-    api:exampleRequestPath "/companies/profile/08847552/registered-address" ;
+    api:exampleRequestPath "/profile/08847552/registered-address" ;
     rdfs:comment           "An item endpoint for addresses." ;
-    api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/registered-address" ;
+    api:itemTemplate       "{base}/profile/{id}/registered-address" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -454,9 +460,9 @@ spec:api api:endpoint spec:accountsSchedule .
 spec:accountsSchedule
     a                      api:ItemEndpoint ;
     api:uriTemplate        "/profile/{id}/accounts-schedule" ;
-    api:exampleRequestPath "/companies/profile/08847552/accounts-schedule" ;
+    api:exampleRequestPath "/profile/08847552/accounts-schedule" ;
     rdfs:comment           "An item endpoint for accounts schedules." ;
-    api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/accounts-schedule" ;
+    api:itemTemplate       "{base}/profile/{id}/accounts-schedule" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -474,9 +480,9 @@ spec:api api:endpoint spec:registration .
 spec:registration
     a                      api:ItemEndpoint ;
     api:uriTemplate        "/profile/{id}/registration" ;
-    api:exampleRequestPath "/companies/profile/08847552/registration" ;
+    api:exampleRequestPath "/profile/08847552/registration" ;
     rdfs:comment           "An item endpoint for registrations." ;
-    api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/registration" ;
+    api:itemTemplate       "{base}/profile/{id}/registration" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -495,7 +501,7 @@ spec:api api:endpoint spec:returnsSchedule .
 spec:returnsSchedule
     a                      api:ItemEndpoint ;
     api:uriTemplate        "/profile/{id}/returns-schedule" ;
-    api:exampleRequestPath "/companies/profile/08847552/returns-schedule" ;
+    api:exampleRequestPath "/profile/08847552/returns-schedule" ;
     rdfs:comment           "An item endpoint for returns schedules." ;
     api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/returns-schedule" ;
     api:viewer             api:basicViewer ,
@@ -516,9 +522,9 @@ spec:api api:endpoint spec:mortgages .
 spec:mortgages
     a                      api:ItemEndpoint ;
     api:uriTemplate        "/profile/{id}/mortgages" ;
-    api:exampleRequestPath "/companies/profile/08847552/mortgages" ;
+    api:exampleRequestPath "/profile/08847552/mortgages" ;
     rdfs:comment           "An item endpoint for mortgages information." ;
-    api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/mortgages" ;
+    api:itemTemplate       "{base}/profile/{id}/mortgages" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -537,9 +543,9 @@ spec:api api:endpoint spec:previousName .
 spec:previousName
     a                      api:ItemEndpoint ;
     api:uriTemplate        "/profile/{id}/previous-name/{nameId}" ;
-    api:exampleRequestPath "/companies/profile/SC200886/previous-name/2002-01-07" ;
+    api:exampleRequestPath "/profile/SC200886/previous-name/2002-01-07" ;
     rdfs:comment           "An item endpoint for previous name data." ;
-    api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/previous-name/{nameId}" ;
+    api:itemTemplate       "{base}/profile/{id}/previous-name/{nameId}" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
@@ -551,7 +557,7 @@ spec:api api:endpoint spec:previousNames .
 spec:previousNames
     a                      api:ListEndpoint ;
     api:uriTemplate        "/profile/{id}/previous-name" ;
-    api:exampleRequestPath "/companies/profile/SC200886/previous-name" ;
+    api:exampleRequestPath "/profile/SC200886/previous-name" ;
     rdfs:comment           "An list endpoint for the previous names of company." ; 
     api:variable           [ api:name "company" ; api:value <http://business.data.gov.uk/id/company/{id}> ] ; 
     api:selector [
@@ -580,7 +586,7 @@ spec:limitedPartnership
     api:uriTemplate        "/profile/{id}/limited-partnerships" ;
     api:exampleRequestPath "/profile/SC200886/limited-partnerships" ;
     rdfs:comment           "An item endpoint for previous name data." ;
-    api:itemTemplate       "http://business.data.gov.uk/companies/profile/{id}/limited-partnerships" ;
+    api:itemTemplate       "{base}/profile/{id}/limited-partnerships" ;
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
