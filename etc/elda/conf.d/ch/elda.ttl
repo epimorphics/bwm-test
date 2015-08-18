@@ -71,6 +71,7 @@ spec:api
 	api:variable   [ api:name "base" ; api:value "http://business.data.gov.uk/companies" ];
     elda:enableCounting  "optional" ;
     elda:enableETags true;
+    elda:cacheExpiryTime "5m"
     api:maxPageSize "200" ;
     api:defaultPageSize "10" ;
     api:formatter   spec:CsvFormatter, spec:VHtmlFormatter ;
