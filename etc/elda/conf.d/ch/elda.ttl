@@ -298,7 +298,7 @@ spec:api    api:endpoint spec:properties .
 spec:properties
   a api:ListEndpoint ;
   rdfs:comment "Lists properties used in the dataset to describe instances of a given vocabulary (class) term."@en;
-  api:exampleRequestPath  "/def/company-terms/registeredAddress/property";
+  api:exampleRequestPath  "/def/terms/RegisteredCompany/property";
   api:uriTemplate "/def/{scheme}/{term}/property" ;
   api:variable [
     api:name "class" ;
@@ -354,7 +354,7 @@ spec:anything
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "identifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country-name, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.region, registeredAddress.postal-code, registeredAddress.postcode.label, accountsSchedule.accountingRefDayOfMonth, accountsSchedule.accountingRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, accountsSchedule.accountsCategory.prefLabel, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin, companyProfile.prefLabel"
+    api:properties    "identifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country_name, registeredAddress.extended_address, registeredAddress.locality, registeredAddress.street_address, registeredAddress.region, registeredAddress.postal_code, registeredAddress.postcode.label, accountsSchedule.accountingRefDayOfMonth, accountsSchedule.accountingRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, accountsSchedule.accountsCategory.prefLabel, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin, companyProfile.prefLabel"
     .
 ####################################################################################
 # Company Profile Endpoints
@@ -433,7 +433,7 @@ spec:companyProfilesAlt
 spec:companyProfileViewerAlt
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "prefLabel, type, registeredCompany.type, registeredCompany.companyProfile.prefLabel, registeredCompany.countryOfOrigin, registeredCompany.identifier, registeredCompany.incorporationDate, registeredCompany.dissolutionDate, registeredCompany.legalName, registeredCompany.previousName.companyName, registeredCompany.previousName.conDate, registeredCompany.skos_notation, registeredCompany.prefLabel, registeredCompany.accountsSchedule.lastMadeUpDate, registeredCompany.accountsSchedule.nextDueDate, registeredCompany.accountsSchedule.accountsCategory.prefLabel, registeredCompany.accountsSchedule.accountingRefDayOfMonth, registeredCompany.accountsSchedule.accountingRefMonth, registeredCompany.orgActivity.prefLabel, registeredCompany.orgStatus.prefLabel, registeredCompany.orgType.prefLabel, registeredCompany.registeredAddress.extended-address, registeredCompany.registeredAddress.street-address, registeredCompany.registeredAddress.locality, registeredCompany.registeredAddress.region, registeredCompany.registeredAddress.country-name, registeredCompany.registeredAddress.postal-code, registeredCompany.registeredAddress.postcode.label, registeredCompany.returnsSchedule.lastMadeUpDate, registeredCompany.returnsSchedule.nextDueDate, registeredCompany.registration.label, registeredCompany.registration.skos_notation, registeredCompany.registration.issued, registeredCompany.registration.schemaAgency, registeredCompany.mortgages.numMortgageCharges, registeredCompany.mortgages.numMortgagesOutstanding, registeredCompany.mortgages.numMortgagesPartSatisfied, registeredCompany.mortgages.numMortgagesSatisfied, registeredCompany.limitedPartnerships.numGeneralPartners, registeredCompany.limitedPartnerships.numLimitedPartners" ; 
+    api:properties    "prefLabel, type, registeredCompany.type, registeredCompany.companyProfile.prefLabel, registeredCompany.countryOfOrigin, registeredCompany.identifier, registeredCompany.incorporationDate, registeredCompany.dissolutionDate, registeredCompany.legalName, registeredCompany.previousName.companyName, registeredCompany.previousName.conDate, registeredCompany.skos_notation, registeredCompany.prefLabel, registeredCompany.accountsSchedule.lastMadeUpDate, registeredCompany.accountsSchedule.nextDueDate, registeredCompany.accountsSchedule.accountsCategory.prefLabel, registeredCompany.accountsSchedule.accountingRefDayOfMonth, registeredCompany.accountsSchedule.accountingRefMonth, registeredCompany.orgActivity.prefLabel, registeredCompany.orgStatus.prefLabel, registeredCompany.orgType.prefLabel, registeredCompany.registeredAddress.extended_address, registeredCompany.registeredAddress.street_address, registeredCompany.registeredAddress.locality, registeredCompany.registeredAddress.region, registeredCompany.registeredAddress.country_name, registeredCompany.registeredAddress.postal_code, registeredCompany.registeredAddress.postcode.label, registeredCompany.returnsSchedule.lastMadeUpDate, registeredCompany.returnsSchedule.nextDueDate, registeredCompany.registration.label, registeredCompany.registration.skos_notation, registeredCompany.registration.issued, registeredCompany.registration.schemaAgency, registeredCompany.mortgages.numMortgageCharges, registeredCompany.mortgages.numMortgagesOutstanding, registeredCompany.mortgages.numMortgagesPartSatisfied, registeredCompany.mortgages.numMortgagesSatisfied, registeredCompany.limitedPartnerships.numGeneralPartners, registeredCompany.limitedPartnerships.numLimitedPartners" ; 
    .
          
 ####################################################################################   
@@ -454,7 +454,7 @@ spec:address
 spec:addressViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type,  extended-address, street-address, locality, country-name, region, postal-code, postcode.label, registeredCompany.prefLabel, companyProfile.prefLabel" ;
+    api:properties         "type,  extended_address, street_address, locality, country_name, region, postal_code, postcode.label, registeredCompany.prefLabel, companyProfile.prefLabel" ;
     .
 ####################################################################################   
 spec:api api:endpoint spec:accountsSchedule .
