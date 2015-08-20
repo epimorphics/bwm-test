@@ -664,7 +664,8 @@ skos:note  a            rdf:Property ;
 
 category:companyCategoryNotation
         a               rdf:Property ;
-        rdfs:range      category:company-category ;
+#        rdfs:range      category:company-category ;
+        rdfs:range      xsd:string ;
         api:label       "companyCategoryNotation" ;
         api:structured  true .
 
@@ -722,7 +723,8 @@ owl:unionOf  a      rdf:Property ;
         api:label   "unionOf" .
 
 sic:sicNotation  a      rdf:Property ;
-        rdfs:range      sic:code ;
+#        rdfs:range      sic:code ;
+        rdfs:range      xsd:string ;
         api:label       "sicNotation" ;
         api:structured  true .
 
@@ -821,7 +823,8 @@ admingeo:District  a  rdfs:Class ;
         api:label  "District" .
 
 org:identifier  a       rdf:Property ;
-        rdfs:range      terms:uk-company ;
+#        rdfs:range      terms:uk-company ;
+        rdfs:range      xsd:string ;
         api:label       "identifier" ;
         api:structured  true .
 
@@ -861,7 +864,8 @@ sic:code-condensed  a  rdfs:Datatype ;
 
 status:companyStatusNotation
         a               rdf:Property ;
-        rdfs:range      status:company-status ;
+#        rdfs:range      status:company-status ;
+        rdfs:range      xsd:string ;
         api:label       "companyStatusNotation" ;
         api:structured  true .
 
@@ -1111,7 +1115,8 @@ terms:mortgages  a  rdf:Property ;
 
 sic:condensedNotation
         a               rdf:Property ;
-        rdfs:range      sic:code-condensed ;
+#        rdfs:range      sic:code-condensed ;
+        rdfs:range      xsd:string ;
         api:label       "condensedNotation" ;
         api:structured  true .
 
@@ -1400,7 +1405,8 @@ terms:conDate  a        rdf:Property ;
 
 acc-cat:accountsCategoryNotation
         a               rdf:Property ;
-        rdfs:range      acc-cat:accounts-category ;
+#        rdfs:range      acc-cat:accounts-category ;
+        rdfs:range      xsd:string ;
         api:label       "accountsCategoryNotation" ;
         api:structured  true .
 
