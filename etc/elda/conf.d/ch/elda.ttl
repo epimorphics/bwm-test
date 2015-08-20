@@ -695,7 +695,7 @@ admingeo:ScottishParliamentConstituency
 
 status:company-status
         a          rdfs:Datatype ;
-        api:label  "company-status" .
+        api:label  "company_status" .
 
 skos:example  a         rdf:Property ;
         api:label       "example" ;
@@ -716,7 +716,7 @@ geometry:hectares  a  rdf:Property ;
 
 category:company-category
         a          rdfs:Datatype ;
-        api:label  "company-category" .
+        api:label  "company_category" .
 
 owl:unionOf  a      rdf:Property ;
         rdfs:range  rdfs:Resource ;
@@ -776,7 +776,7 @@ spatialrelations:contains
 
 vcard:post-office-box
         a               rdf:Property ;
-        api:label       "post-office-box" ;
+        api:label       "post_office_box" ;
         api:structured  true .
 
 rdfs:range  a       rdf:Property ;
@@ -813,7 +813,7 @@ admingeo:inRegion  a  rdf:Property ;
         api:label   "inRegion" .
 
 terms:uk-company  a  rdfs:Datatype ;
-        api:label  "uk-company" .
+        api:label  "uk_company" .
 
 owl:sameAs  a       rdf:Property ;
         rdfs:range  rdfs:Resource ;
@@ -860,7 +860,7 @@ skos:scopeNote  a       rdf:Property ;
         api:structured  true .
 
 sic:code-condensed  a  rdfs:Datatype ;
-        api:label  "code-condensed" .
+        api:label  "code_condensed" .
 
 status:companyStatusNotation
         a               rdf:Property ;
@@ -950,7 +950,7 @@ rdfs:Datatype  a   rdfs:Class ;
 
 vcard:organization-name
         a               rdf:Property ;
-        api:label       "organization-name" ;
+        api:label       "organization_name" ;
         api:structured  true .
 
 owl:maxCardinality  a  rdf:Property ;
@@ -1171,7 +1171,7 @@ sic:Class  a       rdfs:Class ;
 
 acc-cat:accounts-category
         a          rdfs:Datatype ;
-        api:label  "accounts-category" .
+        api:label  "accounts_category" .
 
 postcode:LH  a          rdf:Property ;
         api:label       "LH" ;
@@ -1316,7 +1316,7 @@ admingeo:GreaterLondonAuthorityAssemblyConstituency
         api:label  "GreaterLondonAuthorityAssemblyConstituency" .
 
 vcard:postal-code  a    rdf:Property ;
-        api:label       "postal-code" ;
+        api:label       "postal_code" ;
         api:structured  true .
 
 terms:numMortgagesSatisfied
@@ -1395,7 +1395,7 @@ rdfs:comment  a          rdf:Property ;
         api:structured   true .
 
 vcard:street-address  a  rdf:Property ;
-        api:label       "street-address" ;
+        api:label       "street_address" ;
         api:structured  true .
 
 terms:conDate  a        rdf:Property ;
@@ -1438,7 +1438,7 @@ terms:previousName  a    rdf:Property ;
         api:multiValued  true .
 
 vcard:country-name  a   rdf:Property ;
-        api:label       "country-name" ;
+        api:label       "country_name" ;
         api:structured  true .
 
 <http://purl.org/dc/dcam/VocabularyEncodingScheme>
@@ -1464,7 +1464,7 @@ postcode:positionalQualityIndicator
 
 vcard:extended-address
         a               rdf:Property ;
-        api:label       "extended-address" ;
+        api:label       "extended_address" ;
         api:structured  true .
 
 owl:minQualifiedCardinality
