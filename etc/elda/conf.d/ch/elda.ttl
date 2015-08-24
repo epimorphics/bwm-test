@@ -72,7 +72,7 @@ spec:api
     elda:enableCounting  "optional" ;
     elda:enableETags true;
     elda:cacheExpiryTime "5m" ;
-    api:maxPageSize "200" ;
+    api:maxPageSize "2000" ;
     api:defaultPageSize "10" ;
     api:formatter   spec:CsvFormatter, spec:VHtmlFormatter ;
     api:defaultFormatter spec:VHtmlFormatter
