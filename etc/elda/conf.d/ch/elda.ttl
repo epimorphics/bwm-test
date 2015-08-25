@@ -298,7 +298,7 @@ spec:api    api:endpoint spec:properties .
 spec:properties
   a api:ListEndpoint ;
   rdfs:comment "Lists properties used in the dataset to describe instances of a given vocabulary (class) term."@en;
-  api:exampleRequestPath  "/def/company-terms/registeredAddress/property";
+  api:exampleRequestPath  "/def/terms/RegisteredCompany/property";
   api:uriTemplate "/def/{scheme}/{term}/property" ;
   api:variable [
     api:name "class" ;
@@ -354,7 +354,7 @@ spec:anything
 spec:companyViewer
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "identifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country-name, registeredAddress.extended-address, registeredAddress.locality, registeredAddress.street-address, registeredAddress.region, registeredAddress.postal-code, registeredAddress.postcode.label, accountsSchedule.accountingRefDayOfMonth, accountsSchedule.accountingRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, accountsSchedule.accountsCategory.prefLabel, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin, companyProfile.prefLabel"
+    api:properties    "identifier, notation, prefLabel, legalName, previousName.companyName, previousName.conDate, incorporationDate, orgActivity.prefLabel, orgStatus.prefLabel, orgType.prefLabel, registration.issued, registration.notation, registration.schemaAgency, registeredAddress.country_name, registeredAddress.extended_address, registeredAddress.locality, registeredAddress.street_address, registeredAddress.region, registeredAddress.postal_code, registeredAddress.postcode.label, accountsSchedule.accountingRefDayOfMonth, accountsSchedule.accountingRefMonth, accountsSchedule.nextDueDate, returnsSchedule.lastMadeUpDate, returnsSchedule.nextDueDate, accountsSchedule.accountsCategory.prefLabel, orgStatus.label, orgType.label, registration.label, mortgages.numMortgageCharges, mortgages.numMortgagesOutstanding, mortgages.numMortgagesPartSatisfied, mortgages.numMortgagesSatisfied, countryOfOrigin, companyProfile.prefLabel"
     .
 ####################################################################################
 # Company Profile Endpoints
@@ -433,7 +433,7 @@ spec:companyProfilesAlt
 spec:companyProfileViewerAlt
     a                 api:Viewer ;
     api:name          "normal" ;
-    api:properties    "prefLabel, type, registeredCompany.type, registeredCompany.companyProfile.prefLabel, registeredCompany.countryOfOrigin, registeredCompany.identifier, registeredCompany.incorporationDate, registeredCompany.dissolutionDate, registeredCompany.legalName, registeredCompany.previousName.companyName, registeredCompany.previousName.conDate, registeredCompany.skos_notation, registeredCompany.prefLabel, registeredCompany.accountsSchedule.lastMadeUpDate, registeredCompany.accountsSchedule.nextDueDate, registeredCompany.accountsSchedule.accountsCategory.prefLabel, registeredCompany.accountsSchedule.accountingRefDayOfMonth, registeredCompany.accountsSchedule.accountingRefMonth, registeredCompany.orgActivity.prefLabel, registeredCompany.orgStatus.prefLabel, registeredCompany.orgType.prefLabel, registeredCompany.registeredAddress.extended-address, registeredCompany.registeredAddress.street-address, registeredCompany.registeredAddress.locality, registeredCompany.registeredAddress.region, registeredCompany.registeredAddress.country-name, registeredCompany.registeredAddress.postal-code, registeredCompany.registeredAddress.postcode.label, registeredCompany.returnsSchedule.lastMadeUpDate, registeredCompany.returnsSchedule.nextDueDate, registeredCompany.registration.label, registeredCompany.registration.skos_notation, registeredCompany.registration.issued, registeredCompany.registration.schemaAgency, registeredCompany.mortgages.numMortgageCharges, registeredCompany.mortgages.numMortgagesOutstanding, registeredCompany.mortgages.numMortgagesPartSatisfied, registeredCompany.mortgages.numMortgagesSatisfied, registeredCompany.limitedPartnerships.numGeneralPartners, registeredCompany.limitedPartnerships.numLimitedPartners" ; 
+    api:properties    "prefLabel, type, registeredCompany.type, registeredCompany.companyProfile.prefLabel, registeredCompany.countryOfOrigin, registeredCompany.identifier, registeredCompany.incorporationDate, registeredCompany.dissolutionDate, registeredCompany.legalName, registeredCompany.previousName.companyName, registeredCompany.previousName.conDate, registeredCompany.skos_notation, registeredCompany.prefLabel, registeredCompany.accountsSchedule.lastMadeUpDate, registeredCompany.accountsSchedule.nextDueDate, registeredCompany.accountsSchedule.accountsCategory.prefLabel, registeredCompany.accountsSchedule.accountingRefDayOfMonth, registeredCompany.accountsSchedule.accountingRefMonth, registeredCompany.orgActivity.prefLabel, registeredCompany.orgStatus.prefLabel, registeredCompany.orgType.prefLabel, registeredCompany.registeredAddress.extended_address, registeredCompany.registeredAddress.street_address, registeredCompany.registeredAddress.locality, registeredCompany.registeredAddress.region, registeredCompany.registeredAddress.country_name, registeredCompany.registeredAddress.postal_code, registeredCompany.registeredAddress.postcode.label, registeredCompany.returnsSchedule.lastMadeUpDate, registeredCompany.returnsSchedule.nextDueDate, registeredCompany.registration.label, registeredCompany.registration.skos_notation, registeredCompany.registration.issued, registeredCompany.registration.schemaAgency, registeredCompany.mortgages.numMortgageCharges, registeredCompany.mortgages.numMortgagesOutstanding, registeredCompany.mortgages.numMortgagesPartSatisfied, registeredCompany.mortgages.numMortgagesSatisfied, registeredCompany.limitedPartnerships.numGeneralPartners, registeredCompany.limitedPartnerships.numLimitedPartners" ; 
    .
          
 ####################################################################################   
@@ -454,7 +454,7 @@ spec:address
 spec:addressViewer
     a                      api:Viewer ;
     api:name               "normal" ;
-    api:properties         "type,  extended-address, street-address, locality, country-name, region, postal-code, postcode.label, registeredCompany.prefLabel, companyProfile.prefLabel" ;
+    api:properties         "type,  extended_address, street_address, locality, country_name, region, postal_code, postcode.label, registeredCompany.prefLabel, companyProfile.prefLabel" ;
     .
 ####################################################################################   
 spec:api api:endpoint spec:accountsSchedule .
@@ -664,7 +664,8 @@ skos:note  a            rdf:Property ;
 
 category:companyCategoryNotation
         a               rdf:Property ;
-        rdfs:range      category:company-category ;
+#        rdfs:range      category:company-category ;
+        rdfs:range      xsd:string ;
         api:label       "companyCategoryNotation" ;
         api:structured  true .
 
@@ -694,7 +695,7 @@ admingeo:ScottishParliamentConstituency
 
 status:company-status
         a          rdfs:Datatype ;
-        api:label  "company-status" .
+        api:label  "company_status" .
 
 skos:example  a         rdf:Property ;
         api:label       "example" ;
@@ -715,14 +716,15 @@ geometry:hectares  a  rdf:Property ;
 
 category:company-category
         a          rdfs:Datatype ;
-        api:label  "company-category" .
+        api:label  "company_category" .
 
 owl:unionOf  a      rdf:Property ;
         rdfs:range  rdfs:Resource ;
         api:label   "unionOf" .
 
 sic:sicNotation  a      rdf:Property ;
-        rdfs:range      sic:code ;
+#        rdfs:range      sic:code ;
+        rdfs:range      xsd:string ;
         api:label       "sicNotation" ;
         api:structured  true .
 
@@ -774,7 +776,7 @@ spatialrelations:contains
 
 vcard:post-office-box
         a               rdf:Property ;
-        api:label       "post-office-box" ;
+        api:label       "post_office_box" ;
         api:structured  true .
 
 rdfs:range  a       rdf:Property ;
@@ -811,7 +813,7 @@ admingeo:inRegion  a  rdf:Property ;
         api:label   "inRegion" .
 
 terms:uk-company  a  rdfs:Datatype ;
-        api:label  "uk-company" .
+        api:label  "uk_company" .
 
 owl:sameAs  a       rdf:Property ;
         rdfs:range  rdfs:Resource ;
@@ -821,7 +823,8 @@ admingeo:District  a  rdfs:Class ;
         api:label  "District" .
 
 org:identifier  a       rdf:Property ;
-        rdfs:range      terms:uk-company ;
+#        rdfs:range      terms:uk-company ;
+        rdfs:range      xsd:string ;
         api:label       "identifier" ;
         api:structured  true .
 
@@ -857,11 +860,12 @@ skos:scopeNote  a       rdf:Property ;
         api:structured  true .
 
 sic:code-condensed  a  rdfs:Datatype ;
-        api:label  "code-condensed" .
+        api:label  "code_condensed" .
 
 status:companyStatusNotation
         a               rdf:Property ;
-        rdfs:range      status:company-status ;
+#        rdfs:range      status:company-status ;
+        rdfs:range      xsd:string ;
         api:label       "companyStatusNotation" ;
         api:structured  true .
 
@@ -946,7 +950,7 @@ rdfs:Datatype  a   rdfs:Class ;
 
 vcard:organization-name
         a               rdf:Property ;
-        api:label       "organization-name" ;
+        api:label       "organization_name" ;
         api:structured  true .
 
 owl:maxCardinality  a  rdf:Property ;
@@ -1111,7 +1115,8 @@ terms:mortgages  a  rdf:Property ;
 
 sic:condensedNotation
         a               rdf:Property ;
-        rdfs:range      sic:code-condensed ;
+#        rdfs:range      sic:code-condensed ;
+        rdfs:range      xsd:string ;
         api:label       "condensedNotation" ;
         api:structured  true .
 
@@ -1166,7 +1171,7 @@ sic:Class  a       rdfs:Class ;
 
 acc-cat:accounts-category
         a          rdfs:Datatype ;
-        api:label  "accounts-category" .
+        api:label  "accounts_category" .
 
 postcode:LH  a          rdf:Property ;
         api:label       "LH" ;
@@ -1311,7 +1316,7 @@ admingeo:GreaterLondonAuthorityAssemblyConstituency
         api:label  "GreaterLondonAuthorityAssemblyConstituency" .
 
 vcard:postal-code  a    rdf:Property ;
-        api:label       "postal-code" ;
+        api:label       "postal_code" ;
         api:structured  true .
 
 terms:numMortgagesSatisfied
@@ -1390,7 +1395,7 @@ rdfs:comment  a          rdf:Property ;
         api:structured   true .
 
 vcard:street-address  a  rdf:Property ;
-        api:label       "street-address" ;
+        api:label       "street_address" ;
         api:structured  true .
 
 terms:conDate  a        rdf:Property ;
@@ -1400,7 +1405,8 @@ terms:conDate  a        rdf:Property ;
 
 acc-cat:accountsCategoryNotation
         a               rdf:Property ;
-        rdfs:range      acc-cat:accounts-category ;
+#        rdfs:range      acc-cat:accounts-category ;
+        rdfs:range      xsd:string ;
         api:label       "accountsCategoryNotation" ;
         api:structured  true .
 
@@ -1432,7 +1438,7 @@ terms:previousName  a    rdf:Property ;
         api:multiValued  true .
 
 vcard:country-name  a   rdf:Property ;
-        api:label       "country-name" ;
+        api:label       "country_name" ;
         api:structured  true .
 
 <http://purl.org/dc/dcam/VocabularyEncodingScheme>
@@ -1458,7 +1464,7 @@ postcode:positionalQualityIndicator
 
 vcard:extended-address
         a               rdf:Property ;
-        api:label       "extended-address" ;
+        api:label       "extended_address" ;
         api:structured  true .
 
 owl:minQualifiedCardinality
