@@ -116,7 +116,7 @@ spec:CsvFormatter
             api:name                "csv" ;
             api:mimeType            "text/csv;charset=UTF-8" ;
             elda:metadataOptions    "bindings,versions,execution,formats"; # elda special
-            api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
+            api:stylesheet          "file:///var/www/ch/html/companies/lda-assets/xslt/csv.xsl"
             .
 
 ####################################################################################
