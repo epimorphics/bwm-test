@@ -72,7 +72,7 @@ spec:api
     elda:enableCounting  "optional" ;
     elda:enableETags true;
     elda:cacheExpiryTime "5m" ;
-    api:maxPageSize "200" ;
+    api:maxPageSize "2000" ;
     api:defaultPageSize "10" ;
     api:formatter   spec:CsvFormatter, spec:VHtmlFormatter ;
     api:defaultFormatter spec:VHtmlFormatter
@@ -116,7 +116,7 @@ spec:CsvFormatter
             api:name                "csv" ;
             api:mimeType            "text/csv;charset=UTF-8" ;
             elda:metadataOptions    "bindings,versions,execution,formats"; # elda special
-            api:stylesheet          "file:///var/www/ch/html/lda-assets/xslt/csv.xsl"
+            api:stylesheet          "file:///var/www/ch/html/companies/lda-assets/xslt/csv.xsl"
             .
 
 ####################################################################################
@@ -370,7 +370,8 @@ spec:companyProfile
     api:viewer          api:basicViewer ,
                         api:describeViewer ,
                         api:labelledDescribeViewer ,
-                        spec:companyViewer ;
+                        spec:companyViewer, 
+                        spec:noneViewer ;
     api:defaultViewer   spec:companyViewer ;
     .
 ####################################################################################   
@@ -388,7 +389,8 @@ spec:companyProfiles
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer ,
-                           spec:companyViewer ;
+                           spec:companyViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:companyViewer ;
     .
     
@@ -408,7 +410,9 @@ spec:companyProfileAlt
     api:viewer          api:basicViewer ,
                         api:describeViewer ,
                         api:labelledDescribeViewer ,
-                        spec:companyProfileViewer2 ;
+                        spec:companyProfileViewer2 ,
+                        spec:noneViewer ;
+                        ;
     api:defaultViewer   spec:companyProfileViewer2 ;
     .
     
@@ -426,7 +430,8 @@ spec:companyProfilesAlt
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer ,
-                           spec:companyProfileViewerAlt ;
+                           spec:companyProfileViewerAlt,
+                           spec:noneViewer ;
     api:defaultViewer      spec:companyProfileViewerAlt ;
     .
     
@@ -447,7 +452,8 @@ spec:address
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:addressViewer ;
+                           spec:addressViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:addressViewer ;
     .
 ##   
@@ -467,7 +473,8 @@ spec:accountsSchedule
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:accountsScheduleViewer ;
+                           spec:accountsScheduleViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:accountsScheduleViewer ;
     .
 ##  
@@ -487,7 +494,8 @@ spec:registration
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:registrationViewer ;
+                           spec:registrationViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:registrationViewer ;
     .
 ##    
@@ -508,7 +516,8 @@ spec:returnsSchedule
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:returnsScheduleViewer ;
+                           spec:returnsScheduleViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:returnsScheduleViewer ;
     .
 ##    
@@ -529,7 +538,8 @@ spec:mortgages
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:mortgagesViewer ;
+                           spec:mortgagesViewer,
+                           spec:noneViewer ;                        
     api:defaultViewer      spec:mortgagesViewer ;
     .
 ##    
@@ -550,7 +560,8 @@ spec:previousName
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:previousNameViewer ;
+                           spec:previousNameViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:previousNameViewer ;
     .
 ####################################################################################
@@ -570,7 +581,8 @@ spec:previousNames
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:previousNameViewer ;
+                           spec:previousNameViewer,
+                           spec:noneViewer ;
     api:defaultViewer      spec:previousNameViewer ;
     .
 ##    
@@ -591,7 +603,8 @@ spec:limitedPartnership
     api:viewer             api:basicViewer ,
                            api:describeViewer ,
                            api:labelledDescribeViewer,
-                           spec:limitedPartnershipViewer ;
+                           spec:limitedPartnershipViewer ,
+                           spec:noneViewer ;
     api:defaultViewer      spec:limitedPartnershipViewer ;
     .
     
