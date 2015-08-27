@@ -49,5 +49,5 @@ Feature: list of company profiles
         And that outer resource should have a property named "notation" with literal value "74.20/2"
         And that outer resource should have a property named "pref label" with literal value "Other specialist photography (not including portrait photography)"
         And that outer resource should have a property named "broader" with a resource value named "Photographic activities"
-        And that outer resource should have a property named "in scheme" with a resource value named "scheme"
+        And that outer resource should have a property named "in scheme" with a resource value named "SIC code Concept Scheme"
  
