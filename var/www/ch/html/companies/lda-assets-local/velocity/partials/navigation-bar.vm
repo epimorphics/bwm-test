@@ -1,0 +1,30 @@
+#parse( "macros/navigation.vm" )
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <div class="sr-only">Toggle navigation</div>
+        <div class="icon-bar"></div>
+        <div class="icon-bar"></div>
+        <div class="icon-bar"></div>
+      </button>
+      #parse( "partials/title-brand.vm" )
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/companies/" id="proposition-name">Linked Data Service</a>
+          <ul id="proposition-links">
+            <li><a href="/companies/app/explore/sparql.html">query</a></li>
+            <li><a href="/companies/profile">view</a></li>
+            <li><a href="/companies/app/explore">search</a></li>
+            <li><a href="/companies/docs/documentation.html">documentation</a></li>
+            <li><a href="/companies/docs/@@TODO">community</a></li>
+            <li><a href="/companies/docs/about-this-service.html">about</a></li>
+          </ul>
+        </li>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
