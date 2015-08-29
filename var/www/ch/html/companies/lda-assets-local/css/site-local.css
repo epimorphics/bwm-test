@@ -1,10 +1,7 @@
-body {
-  padding-top: 95px;
-}
 
 .navbar-default {
   background: #0b0c0c ;
-  margin-bottom: 5px ;
+  margin-bottom: 0px ;
 }
 
 .navbar-default .navbar-brand {
@@ -33,6 +30,18 @@ body {
 .header-proposition {
   float: left ;
 }
+
+.header-proposition a {
+/*  font-family: "proxima_nova", Arial, sans-serif;
+  font-size: 24px;
+  line-height: 50px;
+  text-transform: none;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  color: white ;
+  padding: 8px 0px 2px 55px ;
+*/}
 
 h1.resource-label {
   background-color: #F8F8F8;
@@ -72,15 +81,6 @@ h3.resource-label {
   border-top-color: #005ea5 ;
   border-top-width: 10px ;
   margin-bottom: 10px ;
-}
-
-.phase-tag {
-  text-transform: uppercase;
-  color: white;
-}
-
-.phase-tag.experimental {
-  background-color: #af1324;
 }
 
 #proposition-menu {
@@ -132,16 +132,4 @@ h3.resource-label {
 }
 
 .header-proposition {
-}
-
-.elda-menu {
-  padding-top: 0;
-  margin: 0;
-  background-color: #eee;
-  width: 100%;
-}
-
-.navbar-default .elda-menu li a {
-  padding: 0 10px 5px 10px;
-  color: black;
 }
