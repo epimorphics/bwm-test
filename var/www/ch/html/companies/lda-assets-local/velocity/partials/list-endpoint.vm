@@ -1,18 +1,7 @@
 ## Display the items in a list endpoint
 #groupVisualExtensions( $hierarchy )
 
-<div>
-
-<p class="lead">
-
-This page is a view of data about a selected list of resources.  Use the menu
-items above to manipulate the view or download the data. For more information 
-about how to use this viewer, see the data viewer
-<a href="/companies/docs/data-viewer-quickstartguide.html">quick start guide</a>
-
-</p>
-
-</div>
+#parse( "partials/page-lead.vm" )
 #foreach( $item in $hierarchy.roots() )
   #eldaItem( $item )
 #end
