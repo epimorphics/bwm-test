@@ -33,31 +33,13 @@
 ####################################################################################
 ##deploy-begin
 #spec:api
-#    api:base   "/companies/";   
-#    api:variable    [ api:name "_resourceRoot"          ; api:value "/companies/lda-assets/" ] ;
-##
-## API Global Variables
-##
-#    api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
-#    api:variable    [ api:name "rewriteURLTo"         ; api:value "/companies/" ] ;
-#
-## Rewrite of company id link targets  to reference profile pages.
-#    api:variable    [ api:name "rewriteCompanyIdToProfile" ; api:value "/companies/" ];
+#    api:sparqlEndpoint <http://localhost:3030/ds/query> ;
 #    .
 ##deploy-end
 ####################################################################################
 ##not-deploy-begin
 spec:api
-    api:base   "/ch/";   
-    api:variable    [ api:name "_resourceRoot"          ; api:value "/ch/companies/lda-assets/" ] ;
-#
-# API Global Variables
-#
-    api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
-    api:variable    [ api:name "rewriteURLTo"         ; api:value "/ch/" ] ;
-    
-# Rewrite of company id link targets  to reference profile pages.
-    api:variable    [ api:name "rewriteCompanyIdToProfile" ; api:value "/ch/" ];
+    api:sparqlEndpoint <http://ch-pub-dev.epimorphics.net/companies/query> ;
     .
 ##not-deploy-end
 ####################################################################################
@@ -65,6 +47,7 @@ spec:api
 ####################################################################################
 spec:api
 	a api:API ;
+    api:base   "/companies/";  
     api:lang "en,none" ;
 	rdfs:label "Linked Data API"@en ;
     rdfs:comment "Linked Data API"@en ;
@@ -78,14 +61,22 @@ spec:api
     api:defaultFormatter spec:VHtmlFormatter
     .  
 
+###################################################################################
+## API Global Variables
+###################################################################################
 spec:api
-    api:sparqlEndpoint <http://localhost:3030/ds/query>
+    api:variable    [ api:name "rewriteURLFrom"       ; api:value "http://business.data.gov.uk/companies/" ] ;
+    api:variable    [ api:name "rewriteURLTo"         ; api:value "/companies/" ] ;
+
+# Rewrite of company id link targets  to reference profile pages.
+    api:variable    [ api:name "rewriteCompanyIdToProfile" ; api:value "/companies/" ];
     .
 
 ####################################################################################
 # Elda required variable settings for html formatter operation.
 ####################################################################################
 spec:api
+        api:variable    [ api:name "_resourceRoot"          ; api:value "/companies/lda-assets/" ] ;
 		api:variable    [ api:name "visibleSparqlForm"      ; api:value "/app/explorer/sparql.html" ] ;
         api:variable    [ api:name "visibleSparqlEndpoint"  ; api:value "/companies/query" ] ;
         api:variable    [ api:name  "_velocityPath"         ; api:value "/var/www/ch/html/companies/lda-assets-local/velocity, /var/www/ch/html/companies/lda-assets/velocity"] ;    
