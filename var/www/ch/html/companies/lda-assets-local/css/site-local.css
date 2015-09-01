@@ -144,7 +144,18 @@ h3.resource-label {
   width: 100%;
 }
 
-.navbar-default .elda-menu li a {
+.navbar-default .elda-menu li a, .navbar-default .elda-menu li a:visited {
   padding: 0 10px 5px 10px;
   color: black;
+}
+
+.navbar-default .elda-menu li a:hover {
+  color: #505050;
+  text-decoration: underline;
+}
+
+.navbar-default .elda-menu li.open a,
+.navbar-default .elda-menu li.open a:focus,
+.navbar-default .elda-menu li.open a:hover {
+  color: #505050;
 }
