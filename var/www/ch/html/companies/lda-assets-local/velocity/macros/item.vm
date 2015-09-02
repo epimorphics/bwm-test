@@ -87,7 +87,7 @@
 ## Display the item URI
 #macro( itemURI $resource $h $css )
   #if( !$resource.isAnon() )
-    <div class="$css">  
+    <div class="$css">
       #setResourceHref( $resource.getURI() )
       <$h class="resource-uri"><a href="$href">$resource.getURI()</a></$h>
     </div>
@@ -243,7 +243,7 @@
   #elseif( $_suffix && $href.contains( $_HOST.spelling() ))
     #set( $retainSuffix = true )
   #end
-  
+
   ## Customized adaption for company profile
   #if ( $href.contains( "http://business.data.gov.uk/id/company/" ) )
     #set( $href = $href.replace( "//business.data.gov.uk/id/company/", "${rewriteCompanyIdToProfile.spelling()}profile/" ) )
@@ -277,5 +277,36 @@
         <i class="fa fa-bars"></i>
       </button>
     </span>
+  #end
+#end
+
+## TODO: remove this workaround once Elda has been updated. TS-41
+#macro( resourceMap $resource $rowClass )
+  #if( ! $mapCounter )
+    #set( $mapCounter = 1 )
+  #end
+  #set( $longLatTriples = $resource.extractByPredicate( $longLatProps ) )
+  #if( $longLatTriples.size() > 0 )
+    <div class="$rowClass">
+      <div class="col-md-8">
+        <ul class="resource-properties extensions">
+          #renderProperties( $longLatTriples, 6, 6 )
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <div class="item-extension map">
+          #set( $mapId = "map-" + $item.rdfNode().shortUniqueID() + "-" + $mapCounter )
+          #set( $mapCounter = $mapCounter + 1 )
+          #set( $long = $longLatTriples.get( 0 ).rdfNode().getLexicalForm() )
+          #set( $lat  = $longLatTriples.get( 1 ).rdfNode().getLexicalForm() )
+          <div id="$mapId"></div>
+          <script>
+            require( ['app/maps'], function( EldaMaps ) {
+              EldaMaps.addSmallMap( "$mapId", $long, $lat, {w:16, h:16, image: "$assets/images/target.png"} );
+            } );
+          </script>
+        </div>
+      </div>
+    </div>
   #end
 #end
