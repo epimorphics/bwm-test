@@ -15,7 +15,7 @@
 	</properties>
 
 	<build>
-		<finalName>ch</finalName>
+		<finalName>companies</finalName>
 
 		<plugins>
 			<plugin>
@@ -35,7 +35,7 @@
 				<configuration>
 					<!-- <port>8080</port> -->
 					<!-- <mode>both</mode> -->
-					<path>/elda</path>
+					<path>/companies</path>
 				</configuration>
 			</plugin>
 
@@ -46,7 +46,7 @@
 				<configuration>
 					<!-- <port>8080</port> -->
 					<!-- <mode>both</mode> -->
-					<path>/ch</path>
+					<path>/companies</path>
 				</configuration>
 			</plugin>
 
@@ -60,7 +60,7 @@
 					<!-- <port>8080</port> -->
 					<!-- </httpConnector> -->
 					<webApp>
-						<contextPath>/ch</contextPath>
+						<contextPath>/companies</contextPath>
 					</webApp>
 				</configuration>
 			</plugin>
@@ -112,7 +112,7 @@
 							<outputDirectory>/var/www/${service}/html/${collection}/lda-assets</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${project.build.directory}/${project.build.finalName}/${collection}/lda-assets</directory>
+									<directory>${project.build.directory}/${project.build.finalName}/lda-assets</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -127,7 +127,7 @@
                             <outputDirectory>/var/www/${service}/html/${collection}/lda-assets-local</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.build.directory}/${project.build.finalName}/${collection}/lda-assets-local</directory>
+                                    <directory>${project.build.directory}/${project.build.finalName}/lda-assets-local</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -144,12 +144,12 @@
 						<resource>
 							<!-- this is relative to the pom.xml directory -->
 							<directory>var/www/${service}/html/${collection}/lda-assets</directory>
-							<targetPath>${collection}/lda-assets/</targetPath>
+							<targetPath>lda-assets/</targetPath>
 						</resource>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
                             <directory>var/www/${service}/html/${collection}/lda-assets-local</directory>
-                            <targetPath>${collection}/lda-assets-local/</targetPath>
+                            <targetPath>lda-assets-local/</targetPath>
                         </resource>
 					</webResources>
 					<overlays>
@@ -169,7 +169,7 @@
 						<overlay>
 							<groupId>com.epimorphics.lda</groupId>
 							<artifactId>elda-assets</artifactId>
-							<targetPath>${collection}/lda-assets</targetPath>
+							<targetPath>lda-assets</targetPath>
 							<excludes>
 								<exclude>index.html</exclude>
 								<exclude>WEB-INF/*</exclude>

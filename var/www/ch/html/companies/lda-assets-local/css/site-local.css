@@ -1,11 +1,14 @@
+body {
+  padding-top: 95px;
+}
 
 .navbar-default {
-  background: #0b0c0c ; 
-  margin-bottom: 0px ;
+  background: #0b0c0c ;
+  margin-bottom: 5px ;
 }
 
 .navbar-default .navbar-brand {
-  color:      #FFFFFF ;    
+  color:      #FFFFFF ;
   font-size: 27px;
   line-height: 1.11111;
   font-weight: 400;
@@ -19,7 +22,7 @@
   background-position: 12px 3px;
   background-size: 42px 35px;
   margin: 0px 15px 0 0;
-  padding: 8px 0px 2px 62px; 
+  padding: 8px 0px 2px 62px;
 }
 
 .header-logo {
@@ -33,18 +36,6 @@
 
 .header-proposition {
   float: left ;
-}
-
-.header-proposition a {
-  font-family: "proxima_nova", Arial, sans-serif;
-  font-size: 24px;
-  line-height: 50px;
-  text-transform: none;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-  color: white ;
-  padding: 8px 0px 2px 55px ;
 }
 
 h1.resource-label {
@@ -85,4 +76,86 @@ h3.resource-label {
   border-top-color: #005ea5 ;
   border-top-width: 10px ;
   margin-bottom: 10px ;
+}
+.phase-tag {
+  text-transform: uppercase;
+  color: white;
+}
+
+.phase-tag.experimental {
+  background-color: #af1324;
+}
+
+#proposition-menu {
+  margin-top: 5px;
+}
+
+#proposition-name {
+  font-size: 24px;
+  line-height: 1.25;
+  text-transform: none;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  padding: 4px 0 0 0;
+}
+
+#proposition-links {
+  padding: 0;
+}
+
+#proposition-links ul {
+  clear: both;
+  margin: 2px 0 0 0;
+}
+
+#proposition-links li {
+  display: block;
+  width: auto;
+  padding: 0 10px 0 0;
+  border-bottom: 0;
+  float: left;
+}
+
+#proposition-links li a {
+  font-size: 16px;
+  line-height: 1.25;
+  text-transform: none;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#proposition-links li a:visited {
+  color: white;
+}
+
+#proposition-links a:hover {
+  text-decoration: underline;
+}
+
+.header-proposition {
+}
+
+.elda-menu {
+  padding-top: 0;
+  margin: 0;
+  background-color: #eee;
+  width: 100%;
+}
+
+.navbar-default .elda-menu li a, .navbar-default .elda-menu li a:visited {
+  padding: 0 10px 5px 10px;
+  color: black;
+}
+
+.navbar-default .elda-menu li a:hover {
+  color: #505050;
+  text-decoration: underline;
+}
+
+.navbar-default .elda-menu li.open a,
+.navbar-default .elda-menu li.open a:focus,
+.navbar-default .elda-menu li.open a:hover {
+  color: #505050;
 }
