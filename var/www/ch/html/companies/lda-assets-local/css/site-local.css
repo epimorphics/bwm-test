@@ -164,6 +164,7 @@ h3.resource-label {
 footer {
   background-color: #dee0e2;
   border-top: 10px solid #005ea5;
+  border-radius: 0;
 }
 
 footer ul {
@@ -172,8 +173,12 @@ footer ul {
 
 footer ul li {
   display: inline-block;
+  margin-right: 20px;
+  padding-top: 15px;
 }
 
 footer a {
   color: #454a4c;
+  font-size: 160%;
+  text-decoration: underline;
 }
