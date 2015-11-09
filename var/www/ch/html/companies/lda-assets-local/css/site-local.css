@@ -80,6 +80,7 @@ h3.resource-label {
 .phase-tag {
   text-transform: uppercase;
   color: white;
+  padding: 2px 5px;
 }
 
 .phase-tag.prealpha {
