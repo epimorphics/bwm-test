@@ -1,0 +1,17 @@
+<footer class="group js-footer" id="footer" role="contentinfo">
+  <nav>
+    <div>
+      <ul>
+       <li><a href="http://resources.companieshouse.gov.uk/legal/termsAndConditions.shtml">Policies</a></li>
+       <li><a href="https://beta.companieshouse.gov.uk/help/cookies">Cookies</a></li>
+       <li><a href="http://triplestoreforum.aws.chdev.org/">Forum</a></li>
+       <li><a href="https://beta.companieshouse.gov.uk/help/contact-us">Contact us</a></li>
+     </ul>
+   </div>
+  </nav>
+  <!--
+      #set( $proc = $page.metadata().processor() )
+      Produced by $proc.name() $proc.version(),
+      an implementation of the Linked Data API by Epimorphics Ltd
+  -->
+</footer>

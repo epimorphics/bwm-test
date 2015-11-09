@@ -160,3 +160,20 @@ h3.resource-label {
 .navbar-default .elda-menu li.open a:hover {
   color: #505050;
 }
+
+footer {
+  background-color: #dee0e2;
+  border-top: 10px solid #005ea5;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer ul li {
+  display: inline-block;
+}
+
+footer a {
+  color: #454a4c;
+}
