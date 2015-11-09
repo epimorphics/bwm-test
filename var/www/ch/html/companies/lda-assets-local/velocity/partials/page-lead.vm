@@ -1,3 +1,5 @@
+#parse( "partials/analytics.vm" )
+
 <p class="lead">
   This page shows details of the linked-data about company registrations.
   Use this view to explore the links between resources, or download data.
