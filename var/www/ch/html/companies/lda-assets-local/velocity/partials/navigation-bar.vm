@@ -17,12 +17,10 @@
         <li>
           <a href="/companies/" id="proposition-name">Linked Data Service</a>
           <ul id="proposition-links">
-            <li><a href="/companies/app/explore/sparql.html">query</a></li>
-            <li><a href="/companies/profile">view</a></li>
-            <li><a href="/companies/app/explore">search</a></li>
-            <li><a href="/companies/docs/documentation.html">documentation</a></li>
-            <li><a href="/companies/docs/@@TODO">community</a></li>
-            <li><a href="/companies/docs/about-this-service.html">about</a></li>
+            <li><a href="/companies/app/explore/sparql.html">SPARQL query</a></li>
+            <li><a href="/companies/app/explore">Example</a></li>
+            <li><a href="http://triplestoreforum.aws.chdev.org/">Forum</a></li>
+            <li><a href="/companies/docs/about-this-service.html">About</a></li>
           </ul>
         </li>
     </div><!-- /.navbar-collapse -->
