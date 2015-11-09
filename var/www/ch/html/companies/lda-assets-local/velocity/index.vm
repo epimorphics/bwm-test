@@ -33,7 +33,7 @@
 
   <body>
       #parse( "partials/navigation-bar.vm" )
-      
+
       #parse( "partials/phase-banner.html" )
 
     <div class="container">
@@ -43,8 +43,8 @@
 
       ##parse( "partials/debug-context.vm" )
 
-      #parse( "partials/footer.vm" )
     </div> <!-- /container -->
+    #parse( "partials/footer.vm" )
 
   </body>
 </html>
