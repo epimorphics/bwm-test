@@ -7,19 +7,6 @@ Feature: list of company profiles
 	
     .
     
-	Scenario:
-		Given a visitor
-		When she retrieves the page "/companies/def/terms/RegisteredCompany"
-		Then she should retrieve a web page
-		And  it should have the title "LDA resource at /companies/def/terms/RegisteredCompany.html"
-        And  it should have the Companies House Linked Data Viewer banner
-        And it should have one outer resource
-        And that outer resource should have a label "Registered company"
-        And that outer resource should have a type named "Class"  
-        And that outer resource should have a property named "label" with literal value "Registered company"
-        And that outer resource should have a property named "pref label" with literal value "Registered company"
-        And that outer resource should have a property named "sub class of" with a resource value named "Registered Organization"
-        
     Scenario:
         Given a visitor
         When she retrieves the page "/companies/profile"
